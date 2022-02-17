@@ -1,2 +1,5 @@
 # Project exclude paths
 /fbcmanager-backend/target/
+**node_modules
+.idea
+fbcmanager.iml
