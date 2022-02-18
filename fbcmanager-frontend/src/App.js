@@ -1,12 +1,10 @@
 
-import Main from "./components/Main";
 import Navbar from "./components/Navbar";
-
+import Forside from "./pages/forside"
 function App() {
   return (
     <div className="App">
-      <Navbar/>
-      <Main/>
+      <Forside/>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import React from "react";
-import "./events.css";
 import Navbar from "../components/Navbar";
+import "../style.css";
 const Events = () => {
   return (
     <div>
       <Navbar />
-      <div className="events">
+      <div className="body">
         <h1>Events</h1>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
 
-const GetAllUsers = () => {
+export const GetAllUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [name, setName] = useState("");
   const handleClick = (e) => {
@@ -46,4 +46,3 @@ const GetAllUsers = () => {
   );
 };
 
-export default GetAllUsers;

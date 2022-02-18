@@ -1,11 +1,11 @@
 import React from "react";
-import "./forside.css";
 import Navbar from "../components/Navbar";
+import "../style.css";
 const Forside = () => {
   return (
     <div>
       <Navbar />
-      <div className="forside">
+      <div className="body">
         <h1>Forside / nyheder ?</h1>
         <p>content</p>
       </div>

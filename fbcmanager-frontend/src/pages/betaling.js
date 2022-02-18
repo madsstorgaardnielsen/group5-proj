@@ -1,14 +1,22 @@
 import React from "react";
-import "./betaling.css";
+import "../style.css";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
+const t = () =>{
+  
+
+  console.log()
+}
 const Betaling = () => {
   return (
     <div>
       <Navbar />
-      <div className="betaling">
+      <div className="body">
         <h1>Betaling</h1>
+        <Link to="/" onClick={t}>Test</Link>
         <p>content</p>
+        
       </div>
     </div>
   );

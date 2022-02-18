@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "./traening.css";
+import "../style.css";
 const Traening = () => {
   return (
     <div>
       <Navbar />
-      <div className="traening">
+      <div className="body">
         <h1>Træning</h1>
       </div>
     </div>
