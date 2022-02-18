@@ -1,5 +1,3 @@
-import "./App.css";
-
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./navbar/Navigation";
 import Forside from "./pages/forside";
@@ -12,12 +10,12 @@ function App() {
     <div className="App">
       <Navigation />
       <Routes>
+        <Route path="/" element={<Forside />} />
         <Route path="/medlemmer" element={<Medlemmer />} />
         <Route path="/betaling" element={<Betaling />} />
         <Route path="/events" element={<Events />} />
-
         <Route path="/traeninger" element={<Traening />} />
-        <Route path="/" element={<Forside />} />
+
       </Routes>
     </div>
   );
