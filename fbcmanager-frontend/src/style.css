@@ -1,0 +1,26 @@
+.NavBar {
+  display: flex;
+  align-items: center;
+  background-color: #21222a;
+  padding: 15px 15px;
+
+}
+
+.navbartabforside{
+    float: left;
+    color: white;
+    margin-left: 15px;
+    font-weight: lighter;
+}
+
+.navbartab {
+    float: right;
+  color: white;
+  margin-left: 15px;
+  font-weight: lighter;
+}
+
+
+.body{
+    
+}
