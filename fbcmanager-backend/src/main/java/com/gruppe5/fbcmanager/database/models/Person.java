@@ -1,13 +1,14 @@
 package com.gruppe5.fbcmanager.database.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,4 +23,17 @@ public class Person {
     //@Column(name = "first_name", nullable = false)
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Person person = (Person) o;
+        return id != null && Objects.equals(id, person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
