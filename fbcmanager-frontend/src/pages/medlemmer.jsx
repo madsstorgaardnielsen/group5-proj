@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import "../style.css";
 import { MedlemmerList } from "../components/medlemmerlist";
-
+import Test from "../components/test";
 
 class Medlemmer extends React.Component {
   render() {
@@ -10,7 +10,8 @@ class Medlemmer extends React.Component {
       <div>
         <Navbar />
         <div className="body">
-          {<MedlemmerList/>}
+          {/* <MedlemmerList/>  */}
+          <Test/>
         </div>
       </div>
     );

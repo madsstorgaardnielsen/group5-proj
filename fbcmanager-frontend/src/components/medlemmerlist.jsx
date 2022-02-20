@@ -6,21 +6,45 @@ import { addRandom } from "../services/user_services";
 export class MedlemmerList extends React.Component {
   state = {
     medlemmer: [],
+    updated: false,
   };
 
+  prevList = [];
+
   async componentDidMount() {
-    getAll().then((response) => {
-      this.setState({ medlemmer: response.data });
-    });
+      getAll().then((response) => {
+        this.setState({ medlemmer: response.data });
+        this.prevList = this.state.medlemmer;
+      });
   }
 
-  addRnd = (e) => {
+  async componentDidUpdate() {
+    console.log(this.prevList)
+    console.log(this.state.medlemmer)
+    if (this.prevList.data !== this.state.medlemmer) {
+      console.log("hello");
+      //  getAll().then((response) => {
+      //     this.setState({ medlemmer: response.data });
+      //   });
+    }
+
+    // if (this.state.updated) {
+    //   this.setState({ updated: false });
+
+    // }
+  }
+
+  addRnd = () => {
     addRandom();
     getAll().then((response) => {
-      console.log(response.data);
       this.setState({ medlemmer: response.data });
+      
     });
-    window.location.reload(false);
+  };
+
+  delUsr = (id) => {
+    deleteUser(id);
+    this.setState({ updated: true });
   };
 
   render() {
@@ -46,7 +70,7 @@ export class MedlemmerList extends React.Component {
                   <button
                     className="button"
                     onClick={() => {
-                      deleteUser(medlem.id);
+                      this.delUsr(medlem.id);
                     }}
                   >
                     delete
