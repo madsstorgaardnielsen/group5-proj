@@ -15,12 +15,60 @@ function Medlemmerlist() {
   const [team, setTeam] = useState("");
   const [usertype, setUsertype] = useState("");
 
+  const [aktivCheck, setAktivCheck] = useState(false);
+  const [inaktivCheck, setinAktivCheck] = useState(false);
+
   const [loading, setLoading] = useState(true);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+
   const usrtype = ["Medlem", "Admin", "Super Admin"];
+
   async function fetchData() {
     const resp = await getAll();
-    setList(resp.data);
+
+    if (isSearching) {
+      if (searchQuery.length > 0) {
+        let filterByFirstname = list.filter((v) =>
+          v.first_name.toLowerCase().includes(searchQuery)
+        );
+
+        let filterByLastname = list.filter((v) =>
+          v.last_name.toLowerCase().includes(searchQuery)
+        );
+
+        let filterByTeam = list.filter((v) =>
+          v.team.toLowerCase().includes(searchQuery)
+        );
+
+        let searchResult = filterByFirstname.concat(
+          filterByLastname,
+          filterByTeam
+        );
+
+        setList(searchResult);
+      } else if (searchQuery.length === 0) {
+        setList(resp.data);
+      }
+    }
+
+    if (!isSearching) {
+      let filteredList = [];
+      if (aktivCheck && !inaktivCheck) {
+        filteredList = list.filter((t) => {
+          return t.is_active === "true";
+        });
+        setList(filteredList);
+      } else if (inaktivCheck && !aktivCheck) {
+        filteredList = list.filter((t) => {
+          return t.is_active !== "true";
+        });
+        setList(filteredList);
+      } else if (loading) {
+        setList(resp.data);
+      }
+    }
     setLoading(false);
   }
 
@@ -37,6 +85,22 @@ function Medlemmerlist() {
     deleteUser(id);
     setLoading(true);
     setEdit(false);
+  };
+
+  const handleAktivCheck = () => {
+    setAktivCheck(!aktivCheck);
+    setLoading(true);
+  };
+
+  const handleInaktivCheck = () => {
+    setinAktivCheck(!inaktivCheck);
+    setLoading(true);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setIsSearching(true);
+    setLoading(true);
   };
 
   const handleEdit = (medlem) => {
@@ -69,7 +133,32 @@ function Medlemmerlist() {
 
   return edit ? (
     <div>
-      <button onClick={addRnd}>Add Random</button>
+      <div>
+        <button className="headerContent" onClick={addRnd}>
+          Add Random
+        </button>
+
+        <input
+          className="headerContent2"
+          type="checkbox"
+          checked={aktivCheck}
+          onChange={handleAktivCheck}
+        />
+        <label className="headerContent" htmlFor="aktive">
+          vis aktive medlemmer
+        </label>
+
+        <input
+          className="headerContent2"
+          type="checkbox"
+          checked={inaktivCheck}
+          onChange={handleInaktivCheck}
+        />
+        <label className="headerContent" htmlFor="inaktive">
+          vis inaktive medlemmer
+        </label>
+      </div>
+
       <table className="medlemmerTable">
         <thead>
           <tr>
@@ -195,7 +284,45 @@ function Medlemmerlist() {
     </div>
   ) : (
     <div>
-      <button onClick={addRnd}>Add Random</button>
+      <div>
+        <button className="headerContent" onClick={addRnd}>
+          Add Random
+        </button>
+
+        <label className="headerContent" htmlFor="aktiv">
+          <input
+            className="headerContent2"
+            id="aktiv"
+            type="checkbox"
+            checked={aktivCheck}
+            onChange={() => {
+              handleAktivCheck();
+            }}
+          />
+          vis aktive medlemmer
+        </label>
+
+        <label className="headerContent" htmlFor="inaktiv">
+          <input
+            id="inaktiv"
+            className="headerContent2"
+            type="checkbox"
+            checked={inaktivCheck}
+            onChange={() => {
+              handleInaktivCheck();
+            }}
+          />
+          vis inaktive medlemmer
+        </label>
+
+        <input
+          value={searchQuery}
+          placeholder="søg"
+          onChange={(e) => {
+            handleSearch(e.target.value);
+          }}
+        />
+      </div>
       <table className="medlemmerTable">
         <thead>
           <tr>

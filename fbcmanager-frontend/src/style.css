@@ -55,8 +55,16 @@
   width: 100%;
 } */
 
+.headerContent{
+  margin-right: 50px;
+}
+
+.headerContent2{
+  margin-right: 5px;
+}
+
 .medlemmerTable {
-  /* table-layout: fixed; */
+  table-layout: fixed;
   /* columns: 8; */
   border-collapse: collapse;
   width: 100%;
@@ -67,9 +75,9 @@
   width: 50px;
 }
 
-.otherCols{
+/* .otherCols{
   width: 75;
-}
+} */
 
 .dropdownCols{
   width: 150px;
