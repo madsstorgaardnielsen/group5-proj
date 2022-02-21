@@ -1,7 +1,6 @@
 package com.gruppe5.fbcmanager.controllers;
 
-import com.gruppe5.fbcmanager.database.models.Person;
-import com.gruppe5.fbcmanager.database.repository.PersonRepository;
+import com.gruppe5.fbcmanager.database.repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

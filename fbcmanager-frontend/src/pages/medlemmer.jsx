@@ -1,8 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../style.css";
-import { MedlemmerList } from "../components/medlemmerlist";
-import Test from "../components/test";
+import Medlemmerlist from "../components/Medlemmerlist";
 
 class Medlemmer extends React.Component {
   render() {
@@ -10,8 +9,7 @@ class Medlemmer extends React.Component {
       <div>
         <Navbar />
         <div className="body">
-          {/* <MedlemmerList/>  */}
-          <Test/>
+          <Medlemmerlist/>
         </div>
       </div>
     );

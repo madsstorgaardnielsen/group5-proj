@@ -61,6 +61,7 @@
   width: 100%;
 }
 
+
 .alternate{
   background-color:#DDDDDD
 }
@@ -85,4 +86,8 @@
 
 .button:hover{
   transform: scale(1.1);
+}
+
+.tableTextField{
+  width:50%
 }

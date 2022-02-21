@@ -1,7 +1,8 @@
 package com.gruppe5.fbcmanager.controllers;
 
-import com.gruppe5.fbcmanager.database.models.Person;
-import com.gruppe5.fbcmanager.database.repository.PersonRepository;
+import com.gruppe5.fbcmanager.database.models.User;
+import com.gruppe5.fbcmanager.database.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -13,49 +14,56 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 @RequestMapping
 @CrossOrigin("*") //FOR TESTING DONT DO THIS IN PROD
-public class PersonController {
+public class UserController {
     @Autowired
-    public PersonRepository personRepository;
+    public UserRepository userRepository;
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    String addNewUser(@RequestBody Person p) {
-        System.out.println(p.getName());
-        Person n = new Person();
-        String name = p.getName();
-        n.setName(name);
-        personRepository.save(n);
+    String addNewUser(@RequestBody User p) {
+        var newUser = User.builder()
+        .first_name(p.getFirst_name())
+        .last_name(p.getLast_name())
+        .team(p.getTeam())
+        .user_type(p.getUser_type())
+        .is_active(p.getIs_active())
+        .build();
+        userRepository.save(newUser);
         return "Saved";
     }
 
     @GetMapping(path = "/person/{id}")
     public @ResponseBody
-    Person getUser(@PathVariable("id") Integer id) {
-        if (!personRepository.findById(id).isPresent()) {
+    User getUser(@PathVariable("id") Integer id) {
+        if (!userRepository.findById(id).isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "user not found"
             );
         }
-        return personRepository.findById(id).get();
+        return userRepository.findById(id).get();
     }
 
     @GetMapping(path = "/all")
     public @ResponseBody
-    Iterable<Person> getAllUsers() {
-        return personRepository.findAll();
+    Iterable<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @PutMapping(path = "/person")
     public @ResponseBody
-    String updateUser(@RequestBody Person p) {
+    String updateUser(@RequestBody User p) {
 
-        var person = personRepository.findById(p.getId());
+        var person = userRepository.findById(p.getUser_id());
         if (!person.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user not found");
         }
-        Person updated = person.get();
-        updated.setName(p.getName());
-        personRepository.save(updated);
+        User updated = person.get();
+        updated.setFirst_name(p.getFirst_name());
+        updated.setLast_name(p.getLast_name());
+        updated.setTeam(p.getTeam());
+        updated.setIs_active(p.getIs_active());
+        updated.setUser_type(p.getUser_type());
+        userRepository.save(updated);
         return "Updated";
     }
 
@@ -64,7 +72,7 @@ public class PersonController {
     String deleteUser(@PathVariable("id") Integer id) {
         System.out.println(id);
 
-        personRepository.deleteById(id);
+        userRepository.deleteById(id);
         return "Deleted";
     }
 }

@@ -13,23 +13,35 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name="person")
-public class Person {
+@Table(name="users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "user_id", nullable = false)
+    private Integer user_id;
 
     //@Column(name = "first_name", nullable = false)
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String first_name;
+
+    @Column(name = "last_name", nullable = false)
+    private String last_name;
+
+    @Column(name = "is_active", nullable = false)
+    private String is_active;
+
+    @Column(name = "team", nullable = true)
+    private String team;
+
+    @Column(name = "user_type", nullable = false)
+    private String user_type;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Person person = (Person) o;
-        return id != null && Objects.equals(id, person.id);
+        User user = (User) o;
+        return user_id != null && Objects.equals(user_id, user.user_id);
     }
 
     @Override
