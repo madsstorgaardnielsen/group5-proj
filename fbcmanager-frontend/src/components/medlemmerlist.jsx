@@ -17,6 +17,7 @@ function Medlemmerlist() {
 
   const [loading, setLoading] = useState(true);
 
+  const usrtype = ["Medlem", "Admin", "Super Admin"]
   async function fetchData() {
     const resp = await getAll();
     setList(resp.data);
@@ -35,6 +36,7 @@ function Medlemmerlist() {
   const delUsr = (id) => {
     deleteUser(id);
     setLoading(true);
+    setEdit(false);
   };
 
   const handleEdit = (medlem) => {
@@ -145,7 +147,7 @@ function Medlemmerlist() {
                 </td>
               )}
               {medlem.user_id !== key ? (
-                <td>{medlem.user_type}</td>
+                <td>{usrtype[medlem.user_type]}</td>
               ) : (
                 <td>
                 <select
@@ -167,14 +169,14 @@ function Medlemmerlist() {
                 </td>
               )}
               <td className="buttons">
-                <button
+              {edit ? <button
                   className="button"
                   onClick={() => {
                     delUsr(medlem.user_id);
                   }}
                 >
                   delete
-                </button>
+                </button> : undefined}
               </td>
               <td className="buttons">
                 {medlem.user_id !== key ? (
@@ -224,16 +226,16 @@ function Medlemmerlist() {
               <td>{medlem.last_name}</td>
               <td>{medlem.team}</td>
               <td >{medlem.is_active === "true" ? "ja" : "nej"}</td>
-              <td>{medlem.user_type}</td>
+              <td>{usrtype[medlem.user_type]}</td>
               <td className="buttons">
-                <button
+                {edit ? <button
                   className="button"
                   onClick={() => {
                     delUsr(medlem.user_id);
                   }}
                 >
                   delete
-                </button>
+                </button> : undefined}
               </td>
               <td className="buttons">
                 <button
