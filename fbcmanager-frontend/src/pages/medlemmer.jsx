@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../style.css";
-import Medlemmerlist from "../components/Medlemmerlist";
+import Medlemmerlist from "../components/medlemmerlist";
 
 class Medlemmer extends React.Component {
   render() {
