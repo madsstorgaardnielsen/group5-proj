@@ -15,22 +15,26 @@ function Medlemmerlist() {
   const [team, setTeam] = useState("");
   const [usertype, setUsertype] = useState("");
 
+  const [loading, setLoading] = useState(true);
 
   async function fetchData() {
     const resp = await getAll();
     setList(resp.data);
+    setLoading(false);
   }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [loading]);
 
   const addRnd = () => {
     addRandom();
+    setLoading(true);
   };
 
   const delUsr = (id) => {
     deleteUser(id);
+    setLoading(true);
   };
 
   const handleEdit = (medlem) => {
@@ -58,6 +62,7 @@ function Medlemmerlist() {
     setEdit(false);
     setKey(-1);
     setName("");
+    setLoading(true);
   };
 
   return edit ? (
@@ -80,7 +85,7 @@ function Medlemmerlist() {
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
               key={medlem.user_id}
             >
-              <td>{medlem.user_id}</td>
+              <td className="firstCol">{medlem.user_id}</td>
               {medlem.user_id !== key ? (
                 <td>{medlem.first_name}</td>
               ) : (
@@ -119,10 +124,12 @@ function Medlemmerlist() {
                 </td>
               )}
               {medlem.user_id !== key ? (
-                <td>{medlem.is_active ? "ja" : "nej"}</td>
+                <td>{medlem.is_active === "true" ? "ja" : "nej"}</td>
               ) : (
                 <td>
                   <select
+                    name="dropdown"
+                    className="dropdown"
                     value={active}
                     onChange={(e) => setActive(e.target.value)}
                   >
@@ -189,11 +196,11 @@ function Medlemmerlist() {
         <thead>
           <tr>
             <th>id</th>
-            <th>fornavn</th>
-            <th>efternavn</th>
-            <th>hold</th>
-            <th>aktiv</th>
-            <th>brugertype</th>
+            <th className="otherCols">fornavn</th>
+            <th className="otherCols">efternavn</th>
+            <th className="otherCols">hold</th>
+            <th className="otherCols">aktiv</th>
+            <th className="otherCols">brugertype</th>
           </tr>
         </thead>
         <tbody>
@@ -202,7 +209,7 @@ function Medlemmerlist() {
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
               key={medlem.user_id}
             >
-              <td>{medlem.user_id}</td>
+              <td className="firstCol">{medlem.user_id}</td>
               <td>{medlem.first_name}</td>
               <td>{medlem.last_name}</td>
               <td>{medlem.team}</td>
@@ -217,6 +224,8 @@ function Medlemmerlist() {
                 >
                   delete
                 </button>
+              </td>
+              <td className="buttons">
                 <button
                   onClick={() => {
                     handleEdit(medlem);

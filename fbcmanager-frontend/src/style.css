@@ -46,48 +46,65 @@
   margin-left: 25px;
 }
 
-.medlemmerList {
-  columns: 2;
+/* .medlemmerList {
+  columns: 8;
 }
 
 .medlemmerListItem {
   
-  float: left;
   width: 100%;
-}
+} */
 
 .medlemmerTable {
+  /* table-layout: fixed; */
+  /* columns: 8; */
   border-collapse: collapse;
   width: 100%;
 }
 
-
-.alternate{
-  background-color:#DDDDDD
+.firstCol {
+  width: 50px;
 }
 
-.tableRow{
+.otherCols{
+  width: 100px;
+}
+
+.alternate {
+  background-color: #dddddd;
+}
+
+.tableRow {
   height: 3rem;
 }
 
-.buttons{
-  text-align: right;
+.buttons {
   padding-right: 20px;
+  /* float: right; */
+  width: 50px;
+  
 }
 
-.button{
+.button {
   border: none;
   border-radius: 10px;
-  
-  padding:5px 10px;
-  margin-left:10px;
-  transition:transform 200ms ease-in-out;
+
+  padding: 5px 10px;
+  margin-left: 10px;
+  transition: transform 200ms ease-in-out;
 }
 
-.button:hover{
+.dropdown {
+  text-decoration: none;
+  width: 75px;
+  font-size: 25px;
+  /* width: 50%; */
+}
+
+.button:hover {
   transform: scale(1.1);
 }
 
-.tableTextField{
-  width:50%
+.tableTextField {
+  width: 50%;
 }
