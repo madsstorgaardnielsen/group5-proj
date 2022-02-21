@@ -1,14 +1,23 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../style.css";
+import "../css/forside.css"
+
+
+
 const Forside = () => {
   return (
     <div>
       <Navbar />
-      <div className="body">
-        <h1>Forside / nyheder ?</h1>
-        <p>content</p>
-      </div>
+      <header className="frontPageHeader">
+        <div className="headerWrapper">
+          <section>
+            <h1 className="mainHeader">Velkommen til NemSport</h1>
+            <p className="mainDescription">Danmarks største fodbold klub gjort nem</p>
+            <button className="headerLogin">Login</button>
+          </section>
+        </div>
+      </header>
     </div>
   );
 };
