@@ -9,7 +9,7 @@ export const getAll = () => {
 
 export const updateUser = (userObj) => {
   axios.put("http://localhost:8080/person/", userObj).then((response) => {
-    //console.log(response.data);
+    console.log(response.data + "user with id: " + userObj.user_id);
   });
 };
 
@@ -20,7 +20,6 @@ export const getUser = (id) => {
 };
 
 export const deleteUser = (id) => {
-  console.log(id)
   axios.delete("http://localhost:8080/person/" + id).then((response) => {
     console.log(response.data);
   });
@@ -33,6 +32,7 @@ export const createUser = (userObj) => {
 };
 
 export const addRandom = () => {
+  console.log("Adding random user");
   let is_active = Math.random() < 0.5;
   let first_name = (Math.random() + 1).toString(36).substring(5);
   let last_name = (Math.random() + 1).toString(36).substring(7);

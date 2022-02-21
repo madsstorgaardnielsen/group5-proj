@@ -75,8 +75,8 @@ function Medlemmerlist() {
             <th className="otherCols">fornavn</th>
             <th className="otherCols">efternavn</th>
             <th className="otherCols">hold</th>
-            <th className="otherCols">aktiv</th>
-            <th className="otherCols">brugertype</th>
+            <th className="dropdownCols">aktiv</th>
+            <th className="dropdownCols">brugertype</th>
           </tr>
         </thead>
         <tbody>
@@ -148,12 +148,22 @@ function Medlemmerlist() {
                 <td>{medlem.user_type}</td>
               ) : (
                 <td>
-                  <input
+                <select
+                    name="dropdown"
+                    className="dropdown"
+                    value={usertype}
+                    onChange={(e) => setUsertype(e.target.value)}
+                  >
+                    <option value={0}>Medlem</option>
+                    <option value={1}>Admin</option>
+                    <option value={2}>Super admin</option>
+                  </select>
+                  {/* <input
                     className="tableTextField"
                     value={usertype}
                     onChange={(e) => setUsertype(e.target.value)}
                     required
-                  />
+                  /> */}
                 </td>
               )}
               <td className="buttons">
@@ -199,8 +209,8 @@ function Medlemmerlist() {
             <th className="otherCols">fornavn</th>
             <th className="otherCols">efternavn</th>
             <th className="otherCols">hold</th>
-            <th className="otherCols">aktiv</th>
-            <th className="otherCols">brugertype</th>
+            <th className="dropdownCols">aktiv</th>
+            <th className="dropdownCols">brugertype</th>
           </tr>
         </thead>
         <tbody>
@@ -213,7 +223,7 @@ function Medlemmerlist() {
               <td>{medlem.first_name}</td>
               <td>{medlem.last_name}</td>
               <td>{medlem.team}</td>
-              <td>{medlem.is_active === "true" ? "ja" : "nej"}</td>
+              <td >{medlem.is_active === "true" ? "ja" : "nej"}</td>
               <td>{medlem.user_type}</td>
               <td className="buttons">
                 <button

@@ -68,7 +68,11 @@
 }
 
 .otherCols{
-  width: 100px;
+  width: 75;
+}
+
+.dropdownCols{
+  width: 150px;
 }
 
 .alternate {
@@ -97,7 +101,7 @@
 
 .dropdown {
   text-decoration: none;
-  width: 75px;
+  width: 120px;
   font-size: 25px;
   /* width: 50%; */
 }
