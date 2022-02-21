@@ -24,11 +24,10 @@ function Medlemmerlist() {
   const [isSearching, setIsSearching] = useState(false);
 
   const usrtype = ["Medlem", "Admin", "Super Admin"];
-
   async function fetchData() {
+    console.log("fetching")
     const resp = await getAll();
-
-    if (isSearching) {
+    if (isSearching && loading) {
       if (searchQuery.length > 0) {
         let filterByFirstname = list.filter((v) =>
           v.first_name.toLowerCase().includes(searchQuery)
@@ -53,7 +52,7 @@ function Medlemmerlist() {
       }
     }
 
-    if (!isSearching) {
+    if (!isSearching && loading) {
       let filteredList = [];
       if (aktivCheck && !inaktivCheck) {
         filteredList = list.filter((t) => {
@@ -74,7 +73,7 @@ function Medlemmerlist() {
 
   useEffect(() => {
     fetchData();
-  }, [loading]);
+  }, [loading, list]);
 
   const addRnd = () => {
     addRandom();
