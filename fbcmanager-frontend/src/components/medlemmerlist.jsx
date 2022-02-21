@@ -17,7 +17,7 @@ function Medlemmerlist() {
 
   const [loading, setLoading] = useState(true);
 
-  const usrtype = ["Medlem", "Admin", "Super Admin"]
+  const usrtype = ["Medlem", "Admin", "Super Admin"];
   async function fetchData() {
     const resp = await getAll();
     setList(resp.data);
@@ -87,7 +87,7 @@ function Medlemmerlist() {
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
               key={medlem.user_id}
             >
-              <td >{medlem.user_id}</td>
+              <td>{medlem.user_id}</td>
               {medlem.user_id !== key ? (
                 <td>{medlem.first_name}</td>
               ) : (
@@ -138,19 +138,13 @@ function Medlemmerlist() {
                     <option value={true}>ja</option>
                     <option value={false}>nej</option>
                   </select>
-                  {/* <input
-                    className="tableTextField"
-                    value={active}
-                    onChange={(e) => setActive(e.target.value)}
-                    required
-                  /> */}
                 </td>
               )}
               {medlem.user_id !== key ? (
                 <td>{usrtype[medlem.user_type]}</td>
               ) : (
                 <td>
-                <select
+                  <select
                     name="dropdown"
                     className="dropdown"
                     value={usertype}
@@ -160,23 +154,21 @@ function Medlemmerlist() {
                     <option value={1}>Admin</option>
                     <option value={2}>Super admin</option>
                   </select>
-                  {/* <input
-                    className="tableTextField"
-                    value={usertype}
-                    onChange={(e) => setUsertype(e.target.value)}
-                    required
-                  /> */}
                 </td>
               )}
               <td className="buttons">
-              {edit ? <button
-                  className="button"
-                  onClick={() => {
-                    delUsr(medlem.user_id);
-                  }}
-                >
-                  delete
-                </button> : undefined}
+                {medlem.user_id === key ? (
+                  edit ? (
+                    <button
+                      className="button"
+                      onClick={() => {
+                        delUsr(medlem.user_id);
+                      }}
+                    >
+                      delete
+                    </button>
+                  ) : undefined
+                ) : undefined}
               </td>
               <td className="buttons">
                 {medlem.user_id !== key ? (
@@ -225,17 +217,19 @@ function Medlemmerlist() {
               <td>{medlem.first_name}</td>
               <td>{medlem.last_name}</td>
               <td>{medlem.team}</td>
-              <td >{medlem.is_active === "true" ? "ja" : "nej"}</td>
+              <td>{medlem.is_active === "true" ? "ja" : "nej"}</td>
               <td>{usrtype[medlem.user_type]}</td>
               <td className="buttons">
-                {edit ? <button
-                  className="button"
-                  onClick={() => {
-                    delUsr(medlem.user_id);
-                  }}
-                >
-                  delete
-                </button> : undefined}
+                {edit ? (
+                  <button
+                    className="button"
+                    onClick={() => {
+                      delUsr(medlem.user_id);
+                    }}
+                  >
+                    delete
+                  </button>
+                ) : undefined}
               </td>
               <td className="buttons">
                 <button
