@@ -41,11 +41,13 @@ function Medlemmerlist() {
           v.team.toLowerCase().includes(searchQuery)
         );
 
-        let searchResult = filterByFirstname.concat(
+        let tempResult = filterByFirstname.concat(
           filterByLastname,
           filterByTeam
         );
-
+        
+        let searchResult = [...new Set(tempResult)] //convert to set to avoid duplicates
+        console.log(searchResult)
         setList(searchResult);
       } else if (searchQuery.length === 0) {
         setList(resp.data);
