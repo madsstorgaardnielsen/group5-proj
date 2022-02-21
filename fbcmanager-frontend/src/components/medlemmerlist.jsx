@@ -71,12 +71,12 @@ function Medlemmerlist() {
       <table className="medlemmerTable">
         <thead>
           <tr>
-            <th>id</th>
-            <th>fornavn</th>
-            <th>efternavn</th>
-            <th>hold</th>
-            <th>aktiv</th>
-            <th>brugertype</th>
+            <th className="firstCol">id</th>
+            <th className="otherCols">fornavn</th>
+            <th className="otherCols">efternavn</th>
+            <th className="otherCols">hold</th>
+            <th className="otherCols">aktiv</th>
+            <th className="otherCols">brugertype</th>
           </tr>
         </thead>
         <tbody>
@@ -85,7 +85,7 @@ function Medlemmerlist() {
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
               key={medlem.user_id}
             >
-              <td className="firstCol">{medlem.user_id}</td>
+              <td >{medlem.user_id}</td>
               {medlem.user_id !== key ? (
                 <td>{medlem.first_name}</td>
               ) : (
@@ -195,7 +195,7 @@ function Medlemmerlist() {
       <table className="medlemmerTable">
         <thead>
           <tr>
-            <th>id</th>
+            <th className="firstCol">id</th>
             <th className="otherCols">fornavn</th>
             <th className="otherCols">efternavn</th>
             <th className="otherCols">hold</th>
@@ -209,7 +209,7 @@ function Medlemmerlist() {
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
               key={medlem.user_id}
             >
-              <td className="firstCol">{medlem.user_id}</td>
+              <td>{medlem.user_id}</td>
               <td>{medlem.first_name}</td>
               <td>{medlem.last_name}</td>
               <td>{medlem.team}</td>
