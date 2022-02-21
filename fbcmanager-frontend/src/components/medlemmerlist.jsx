@@ -5,7 +5,6 @@ import { deleteUser } from "../services/user_services";
 import { updateUser } from "../services/user_services";
 
 function Medlemmerlist() {
-
   const [list, setList] = useState([]);
   const [edit, setEdit] = useState();
   const [key, setKey] = useState(-1);
@@ -16,11 +15,15 @@ function Medlemmerlist() {
   const [team, setTeam] = useState("");
   const [usertype, setUsertype] = useState("");
 
+
+  async function fetchData() {
+    const resp = await getAll();
+    setList(resp.data);
+  }
+
   useEffect(() => {
-    getAll().then((result) => {
-      setList(result.data);
-    });
-  }, [list]);
+    fetchData();
+  }, []);
 
   const addRnd = () => {
     addRandom();
@@ -36,7 +39,7 @@ function Medlemmerlist() {
     setTeam(medlem.team);
     setActive(medlem.is_active);
     setUsertype(medlem.user_type);
-    
+
     setEdit(true);
     setKey(medlem.user_id);
   };
