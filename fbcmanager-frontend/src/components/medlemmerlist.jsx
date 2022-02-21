@@ -25,8 +25,10 @@ function Medlemmerlist() {
 
   const usrtype = ["Medlem", "Admin", "Super Admin"];
   async function fetchData() {
-    console.log("fetching")
+    console.log("fetching");
     const resp = await getAll();
+    setList(resp.data);
+    
     if (isSearching && loading) {
       if (searchQuery.length > 0) {
         let filterByFirstname = list.filter((v) =>
@@ -45,9 +47,9 @@ function Medlemmerlist() {
           filterByLastname,
           filterByTeam
         );
-        
-        let searchResult = [...new Set(tempResult)] //convert to set to avoid duplicates
-        console.log(searchResult)
+
+        let searchResult = [...new Set(tempResult)]; //convert to set to avoid duplicates
+        console.log(searchResult);
         setList(searchResult);
       } else if (searchQuery.length === 0) {
         setList(resp.data);
@@ -75,33 +77,33 @@ function Medlemmerlist() {
 
   useEffect(() => {
     fetchData();
-  }, [loading, list]);
+  }, []);
 
-  const addRnd = () => {
-    addRandom();
-    setLoading(true);
+
+  const addRnd = async () => {
+    await addRandom();
+    fetchData()
+    // setLoading(true);
   };
 
-  const delUsr = (id) => {
-    deleteUser(id);
-    setLoading(true);
+  const delUsr = async (id) => {
+    await deleteUser(id);
     setEdit(false);
+    fetchData()
   };
 
   const handleAktivCheck = () => {
     setAktivCheck(!aktivCheck);
-    setLoading(true);
+    fetchData()
   };
 
   const handleInaktivCheck = () => {
     setinAktivCheck(!inaktivCheck);
-    setLoading(true);
   };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
     setIsSearching(true);
-    setLoading(true);
   };
 
   const handleEdit = (medlem) => {
