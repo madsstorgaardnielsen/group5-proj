@@ -1,6 +1,5 @@
 package com.gruppe5.fbcmanager;
 
-import com.gruppe5.fbcmanager.controllers.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
