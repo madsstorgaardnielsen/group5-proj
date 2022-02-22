@@ -282,6 +282,7 @@ function Medlemmerlist() {
         </label>
 
         <input
+        className="searchbar"
           value={searchQuery}
           placeholder="søg"
           onChange={(e) => {

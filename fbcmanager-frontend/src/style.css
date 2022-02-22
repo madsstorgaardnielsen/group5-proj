@@ -121,3 +121,9 @@
 .tableTextField {
   width: 50%;
 }
+
+.searchbar{
+  float:right;
+  margin-right: 30px;
+  
+}
