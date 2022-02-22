@@ -8,6 +8,7 @@ import java.util.Set;
 import com.gruppe5.fbcmanager.database.models.User;
 import com.gruppe5.fbcmanager.database.repository.UserRepository;
 // import com.gruppe5.fbcmanager.services.UserService;
+// import com.gruppe5.fbcmanager.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,9 @@ public class UserController {
 
     @PostMapping(path = "/add")
     public @ResponseBody String addNewUser(@RequestBody User user) {
-        // this.userService.addUser(p);
+        System.out.println(user);
+
+        // userService.addUser(user);
         var newUser = User.builder()
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
@@ -54,8 +57,8 @@ public class UserController {
     @GetMapping(path = "/searchuser")
     public @ResponseBody Iterable<User> searchUser(@RequestParam(name = "query") String query) {
         Set<User> result = new HashSet<>();
-        result.addAll(userRepository.findByFirstnameContaining(query));
-        result.addAll(userRepository.findByLastnameContaining(query));
+        result.addAll(userRepository.findByFirstnameStartsWith(query));
+        result.addAll(userRepository.findByLastnameStartsWith(query));
         // result.addAll(userRepository.findByTeamContaining(query));
         List<User> searchResults = new ArrayList<>(result);
         return searchResults;
@@ -64,8 +67,8 @@ public class UserController {
     @GetMapping(path = "/all/{active}")
     public @ResponseBody Iterable<User> getUsersByActivityStatus(@PathVariable("active") String active) {
         System.out.println(active);
-        System.out.println(userRepository.findByIsactive(active+""));
-        return userRepository.findByIsactive(active+"");
+        System.out.println(userRepository.findByIsactive(active + ""));
+        return userRepository.findByIsactive(active + "");
     }
 
     @PutMapping(path = "/person")

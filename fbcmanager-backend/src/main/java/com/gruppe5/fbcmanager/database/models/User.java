@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "userid", nullable = false)
     private Integer userid;
 
