@@ -56,6 +56,8 @@
 } */
 
 .headerContent{
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin-right: 50px;
 }
 
@@ -123,6 +125,8 @@
 }
 
 .searchbar{
+  margin-top: 20px;
+  margin-bottom: 20px;
   float:right;
   margin-right: 30px;
   
