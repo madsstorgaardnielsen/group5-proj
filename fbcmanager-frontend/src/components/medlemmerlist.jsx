@@ -3,6 +3,8 @@ import { getAll } from "../services/user_services";
 import { addRandom } from "../services/user_services";
 import { deleteUser } from "../services/user_services";
 import { updateUser } from "../services/user_services";
+import { searchUser } from "../services/user_services";
+import { getByActivity } from "../services/user_services";
 
 function Medlemmerlist() {
   const [list, setList] = useState([]);
@@ -15,123 +17,90 @@ function Medlemmerlist() {
   const [team, setTeam] = useState("");
   const [usertype, setUsertype] = useState("");
 
-  const [aktivCheck, setAktivCheck] = useState(false);
-  const [inaktivCheck, setinAktivCheck] = useState(false);
-
-  const [loading, setLoading] = useState(true);
-
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
+
+  const [isUserActive, setIsUserActive] = useState(false);
+  const [isInactive, setIsInactive] = useState(false);
 
   const usrtype = ["Medlem", "Admin", "Super Admin"];
+
   async function fetchData() {
-    console.log("fetching");
     const resp = await getAll();
     setList(resp.data);
-    
-    if (isSearching && loading) {
-      if (searchQuery.length > 0) {
-        let filterByFirstname = list.filter((v) =>
-          v.first_name.toLowerCase().includes(searchQuery)
-        );
-
-        let filterByLastname = list.filter((v) =>
-          v.last_name.toLowerCase().includes(searchQuery)
-        );
-
-        let filterByTeam = list.filter((v) =>
-          v.team.toLowerCase().includes(searchQuery)
-        );
-
-        let tempResult = filterByFirstname.concat(
-          filterByLastname,
-          filterByTeam
-        );
-
-        let searchResult = [...new Set(tempResult)]; //convert to set to avoid duplicates
-        console.log(searchResult);
-        setList(searchResult);
-      } else if (searchQuery.length === 0) {
-        setList(resp.data);
-      }
-    }
-
-    if (!isSearching && loading) {
-      let filteredList = [];
-      if (aktivCheck && !inaktivCheck) {
-        filteredList = list.filter((t) => {
-          return t.is_active === "true";
-        });
-        setList(filteredList);
-      } else if (inaktivCheck && !aktivCheck) {
-        filteredList = list.filter((t) => {
-          return t.is_active !== "true";
-        });
-        setList(filteredList);
-      } else if (loading) {
-        setList(resp.data);
-      }
-    }
-    setLoading(false);
   }
 
   useEffect(() => {
     fetchData();
   }, []);
 
-
   const addRnd = async () => {
     await addRandom();
-    fetchData()
-    // setLoading(true);
+    fetchData();
   };
 
   const delUsr = async (id) => {
     await deleteUser(id);
     setEdit(false);
-    fetchData()
+    fetchData();
   };
 
-  const handleAktivCheck = () => {
-    setAktivCheck(!aktivCheck);
-    fetchData()
+  const handleActiveCheck = async () => {
+    setIsUserActive(!isUserActive);
+    if (isUserActive) {
+      const resp = await getByActivity("true");
+      setList(resp.data);
+    } else {
+      fetchData();
+    }
+  };
+  const handleInactiveCheck = async () => {
+    setIsInactive(!isInactive);
+    if (isInactive) {
+      const resp = await getByActivity("false");
+      setList(resp.data);
+    } else {
+      fetchData();
+    }
   };
 
-  const handleInaktivCheck = () => {
-    setinAktivCheck(!inaktivCheck);
-  };
-
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
     setSearchQuery(query);
-    setIsSearching(true);
+
+    if (query.length > 0) {
+      const resp = await searchUser(searchQuery);
+      setList(resp.data);
+    } else {
+      fetchData();
+    }
   };
 
-  const handleEdit = (medlem) => {
-    setName(medlem.first_name);
-    setLastname(medlem.last_name);
-    setTeam(medlem.team);
-    setActive(medlem.is_active);
-    setUsertype(medlem.user_type);
+  const handleEdit = (user) => {
+    setName(user.firstname);
+    setLastname(user.lastname);
+    setTeam(user.team);
+    setActive(user.isactive);
+    setUsertype(user.usertype);
 
     setEdit(true);
-    setKey(medlem.user_id);
+    setKey(user.userid);
   };
 
-  const updUsr = (medlem) => {
-    const userObj = {
-      user_id: medlem.user_id,
-      first_name: name,
-      last_name: lastname,
-      team: team,
-      is_active: active,
-      user_type: usertype,
-    };
+  const updUsr = async (user) => {
+    console.log(user.userid);
 
-    updateUser(userObj);
+    const userObj = {
+      userid: user.userid,
+      firstname: name,
+      lastname: lastname,
+      team: team,
+      isactive: active,
+      usertype: usertype,
+    };
+    await updateUser(userObj);
     setEdit(false);
     setKey(-1);
     setName("");
-    setLoading(true);
+    fetchData();
   };
 
   return edit ? (
@@ -144,8 +113,8 @@ function Medlemmerlist() {
         <input
           className="headerContent2"
           type="checkbox"
-          checked={aktivCheck}
-          onChange={handleAktivCheck}
+          checked={isUserActive}
+          onChange={handleActiveCheck}
         />
         <label className="headerContent" htmlFor="aktive">
           vis aktive medlemmer
@@ -154,8 +123,8 @@ function Medlemmerlist() {
         <input
           className="headerContent2"
           type="checkbox"
-          checked={inaktivCheck}
-          onChange={handleInaktivCheck}
+          checked={isInactive}
+          onChange={handleInactiveCheck}
         />
         <label className="headerContent" htmlFor="inaktive">
           vis inaktive medlemmer
@@ -174,14 +143,14 @@ function Medlemmerlist() {
           </tr>
         </thead>
         <tbody>
-          {list.map((medlem, index) => (
+          {list.map((user, index) => (
             <tr
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
-              key={medlem.user_id}
+              key={user.userid}
             >
-              <td>{medlem.user_id}</td>
-              {medlem.user_id !== key ? (
-                <td>{medlem.first_name}</td>
+              <td>{user.userid}</td>
+              {user.userid !== key ? (
+                <td>{user.firstname}</td>
               ) : (
                 <td>
                   <input
@@ -193,8 +162,8 @@ function Medlemmerlist() {
                   />
                 </td>
               )}
-              {medlem.user_id !== key ? (
-                <td>{medlem.last_name}</td>
+              {user.userid !== key ? (
+                <td>{user.lastname}</td>
               ) : (
                 <td>
                   <input
@@ -205,8 +174,8 @@ function Medlemmerlist() {
                   />
                 </td>
               )}
-              {medlem.user_id !== key ? (
-                <td>{medlem.team}</td>
+              {user.userid !== key ? (
+                <td>{user.team}</td>
               ) : (
                 <td>
                   <input
@@ -217,8 +186,8 @@ function Medlemmerlist() {
                   />
                 </td>
               )}
-              {medlem.user_id !== key ? (
-                <td>{medlem.is_active === "true" ? "ja" : "nej"}</td>
+              {user.userid !== key ? (
+                <td>{user.isactive === "true" ? "ja" : "nej"}</td>
               ) : (
                 <td>
                   <select
@@ -232,8 +201,8 @@ function Medlemmerlist() {
                   </select>
                 </td>
               )}
-              {medlem.user_id !== key ? (
-                <td>{usrtype[medlem.user_type]}</td>
+              {user.userid !== key ? (
+                <td>{usrtype[user.usertype]}</td>
               ) : (
                 <td>
                   <select
@@ -249,12 +218,12 @@ function Medlemmerlist() {
                 </td>
               )}
               <td className="buttons">
-                {medlem.user_id === key ? (
+                {user.userid === key ? (
                   edit ? (
                     <button
                       className="button"
                       onClick={() => {
-                        delUsr(medlem.user_id);
+                        delUsr(user.userid);
                       }}
                     >
                       delete
@@ -263,16 +232,14 @@ function Medlemmerlist() {
                 ) : undefined}
               </td>
               <td className="buttons">
-                {medlem.user_id !== key ? (
-                  <button onClick={() => handleEdit(medlem)} className="button">
+                {user.userid !== key ? (
+                  <button onClick={() => handleEdit(user)} className="button">
                     edit
                   </button>
                 ) : (
                   <button
                     onClick={
-                      medlem.first_name.length > 0
-                        ? () => updUsr(medlem)
-                        : undefined
+                      user.firstname.length > 0 ? () => updUsr(user) : undefined
                     }
                     className="button"
                   >
@@ -297,10 +264,8 @@ function Medlemmerlist() {
             className="headerContent2"
             id="aktiv"
             type="checkbox"
-            checked={aktivCheck}
-            onChange={() => {
-              handleAktivCheck();
-            }}
+            checked={isUserActive}
+            onChange={handleActiveCheck}
           />
           vis aktive medlemmer
         </label>
@@ -310,10 +275,8 @@ function Medlemmerlist() {
             id="inaktiv"
             className="headerContent2"
             type="checkbox"
-            checked={inaktivCheck}
-            onChange={() => {
-              handleInaktivCheck();
-            }}
+            checked={isInactive}
+            onChange={handleInactiveCheck}
           />
           vis inaktive medlemmer
         </label>
@@ -338,23 +301,23 @@ function Medlemmerlist() {
           </tr>
         </thead>
         <tbody>
-          {list.map((medlem, index) => (
+          {list.map((user, index) => (
             <tr
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
-              key={medlem.user_id}
+              key={user.userid}
             >
-              <td>{medlem.user_id}</td>
-              <td>{medlem.first_name}</td>
-              <td>{medlem.last_name}</td>
-              <td>{medlem.team}</td>
-              <td>{medlem.is_active === "true" ? "ja" : "nej"}</td>
-              <td>{usrtype[medlem.user_type]}</td>
+              <td>{user.userid}</td>
+              <td>{user.firstname}</td>
+              <td>{user.lastname}</td>
+              <td>{user.team}</td>
+              <td>{user.isactive === "true" ? "ja" : "nej"}</td>
+              <td>{usrtype[user.usertype]}</td>
               <td className="buttons">
                 {edit ? (
                   <button
                     className="button"
                     onClick={() => {
-                      delUsr(medlem.user_id);
+                      delUsr(user.userid);
                     }}
                   >
                     delete
@@ -364,7 +327,7 @@ function Medlemmerlist() {
               <td className="buttons">
                 <button
                   onClick={() => {
-                    handleEdit(medlem);
+                    handleEdit(user);
                   }}
                   className="button"
                 >

@@ -1,7 +1,13 @@
 package com.gruppe5.fbcmanager.controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.gruppe5.fbcmanager.database.models.User;
 import com.gruppe5.fbcmanager.database.repository.UserRepository;
+// import com.gruppe5.fbcmanager.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,63 +17,76 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping
-@CrossOrigin("*") //FOR TESTING DONT DO THIS IN PROD
+@CrossOrigin("*") // FOR TESTING DONT DO THIS IN PROD
 public class UserController {
     @Autowired
     public UserRepository userRepository;
+    // private UserService userService;
 
     @PostMapping(path = "/add")
-    public @ResponseBody
-    String addNewUser(@RequestBody User p) {
+    public @ResponseBody String addNewUser(@RequestBody User user) {
+        // this.userService.addUser(p);
         var newUser = User.builder()
-        .first_name(p.getFirst_name())
-        .last_name(p.getLast_name())
-        .team(p.getTeam())
-        .user_type(p.getUser_type())
-        .is_active(p.getIs_active())
-        .build();
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .team(user.getTeam())
+                .usertype(user.getUsertype())
+                .isactive(user.getIsactive())
+                .build();
         userRepository.save(newUser);
         return "Saved";
     }
 
     @GetMapping(path = "/person/{id}")
-    public @ResponseBody
-    User getUser(@PathVariable("id") Integer id) {
+    public @ResponseBody User getUser(@PathVariable("id") Integer id) {
         if (!userRepository.findById(id).isPresent()) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "user not found"
-            );
+                    HttpStatus.NOT_FOUND, "user not found");
         }
         return userRepository.findById(id).get();
     }
 
     @GetMapping(path = "/all")
-    public @ResponseBody
-    Iterable<User> getAllUsers() {
+    public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @PutMapping(path = "/person")
-    public @ResponseBody
-    String updateUser(@RequestBody User p) {
+    @GetMapping(path = "/searchuser")
+    public @ResponseBody Iterable<User> searchUser(@RequestParam(name = "query") String query) {
+        Set<User> result = new HashSet<>();
+        result.addAll(userRepository.findByFirstnameContaining(query));
+        result.addAll(userRepository.findByLastnameContaining(query));
+        // result.addAll(userRepository.findByTeamContaining(query));
+        List<User> searchResults = new ArrayList<>(result);
+        return searchResults;
+    }
 
-        var person = userRepository.findById(p.getUser_id());
+    @GetMapping(path = "/all/{active}")
+    public @ResponseBody Iterable<User> getUsersByActivityStatus(@PathVariable("active") String active) {
+        System.out.println(active);
+        System.out.println(userRepository.findByIsactive(active+""));
+        return userRepository.findByIsactive(active+"");
+    }
+
+    @PutMapping(path = "/person")
+    public @ResponseBody String updateUser(@RequestBody User p) {
+
+        var person = userRepository.findById(p.getUserid());
         if (!person.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user not found");
         }
         User updated = person.get();
-        updated.setFirst_name(p.getFirst_name());
-        updated.setLast_name(p.getLast_name());
+        updated.setFirstname(p.getFirstname());
+        updated.setLastname(p.getLastname());
         updated.setTeam(p.getTeam());
-        updated.setIs_active(p.getIs_active());
-        updated.setUser_type(p.getUser_type());
+        updated.setIsactive(p.getIsactive());
+        updated.setUsertype(p.getUsertype());
         userRepository.save(updated);
         return "Updated";
     }
 
     @DeleteMapping(path = "/person/{id}")
-    public @ResponseBody
-    String deleteUser(@PathVariable("id") Integer id) {
+    public @ResponseBody String deleteUser(@PathVariable("id") Integer id) {
         System.out.println(id);
 
         userRepository.deleteById(id);

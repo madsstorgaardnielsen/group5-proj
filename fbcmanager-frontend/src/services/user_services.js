@@ -9,8 +9,16 @@ export const getAll = async () => {
 
 export const updateUser = async (userObj) => {
   await axios.put("http://localhost:8080/person/", userObj).then((response) => {
-    console.log(response.data + "user with id: " + userObj.user_id);
+    console.log(response.data + "user with id: " + userObj.userid);
   });
+};
+
+export const searchUser = async (query) => {
+  return await axios.get("http://localhost:8080/searchuser/?query=" + query);
+};
+
+export const getByActivity = async (bool) => {
+  return await axios.get("http://localhost:8080/all/" + bool);
 };
 
 export const getUser = async (id) => {
@@ -33,11 +41,11 @@ export const createUser = async (userObj) => {
 
 export const addRandom = async () => {
   console.log("Adding random user");
-  let is_active = Math.random() < 0.5;
-  let first_name = (Math.random() + 1).toString(36).substring(5);
-  let last_name = (Math.random() + 1).toString(36).substring(7);
+  let isactive = Math.random() < 0.5;
+  let firstname = (Math.random() + 1).toString(36).substring(5);
+  let lastname = (Math.random() + 1).toString(36).substring(7);
   let team = (Math.random() + 1).toString(36).substring(10);
-  let user_type = Math.floor(Math.random() * 1);
-  const userObj = { is_active, first_name, last_name, team, user_type };
+  let usertype = Math.floor(Math.random() * 1);
+  const userObj = { isactive, firstname, lastname, team, usertype };
   await axios.post("http://localhost:8080/add", userObj);
 };

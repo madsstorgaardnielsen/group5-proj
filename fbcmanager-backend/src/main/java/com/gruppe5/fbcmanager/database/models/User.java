@@ -14,26 +14,28 @@ import java.util.Objects;
 @Entity
 @Builder
 @Table(name = "users")
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false)
-    private Integer user_id;
+    @Column(name = "userid", nullable = false)
+    private Integer userid;
 
-    @Column(name = "first_name", nullable = false)
-    private String first_name;
+    
+    @Column(name = "firstname", nullable = false)
+    private String firstname;
 
-    @Column(name = "last_name", nullable = false)
-    private String last_name;
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
 
-    @Column(name = "is_active", nullable = false)
-    private String is_active;
+    @Column(name = "isactive", nullable = false)
+    private String isactive;
 
     @Column(name = "team", nullable = true)
     private String team;
 
-    @Column(name = "user_type", nullable = false)
-    private String user_type;
+    @Column(name = "usertype", nullable = false)
+    private String usertype;
 
     @Override
     public boolean equals(Object o) {
@@ -42,7 +44,7 @@ public class User {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
             return false;
         User user = (User) o;
-        return user_id != null && Objects.equals(user_id, user.user_id);
+        return userid != null && Objects.equals(userid, user.userid);
     }
 
     @Override
