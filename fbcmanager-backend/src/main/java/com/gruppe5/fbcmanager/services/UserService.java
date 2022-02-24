@@ -4,7 +4,7 @@ package com.gruppe5.fbcmanager.services;
 import com.gruppe5.fbcmanager.database.models.Address;
 import com.gruppe5.fbcmanager.database.models.ContactInfo;
 import com.gruppe5.fbcmanager.database.models.User;
-import com.gruppe5.fbcmanager.database.repository.UserRepository;
+import com.gruppe5.fbcmanager.database.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.database.repository;
+package com.gruppe5.fbcmanager.database.repositories;
 
 import java.util.List;
 

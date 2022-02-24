@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.gruppe5.fbcmanager.database.models.User;
-import com.gruppe5.fbcmanager.database.repository.UserRepository;
-// import com.gruppe5.fbcmanager.services.UserService;
-// import com.gruppe5.fbcmanager.services.UserService;
+import com.gruppe5.fbcmanager.database.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

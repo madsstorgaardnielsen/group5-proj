@@ -15,7 +15,7 @@ import com.gruppe5.fbcmanager.configuration.SpringDataConfiguration;
 import com.gruppe5.fbcmanager.database.models.Address;
 import com.gruppe5.fbcmanager.database.models.Practise;
 import com.gruppe5.fbcmanager.database.models.User;
-import com.gruppe5.fbcmanager.database.repository.PractiseRepository;
+import com.gruppe5.fbcmanager.database.repositories.PractiseRepository;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

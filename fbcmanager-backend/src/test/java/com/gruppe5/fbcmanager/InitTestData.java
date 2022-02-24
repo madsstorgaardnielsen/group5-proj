@@ -10,10 +10,10 @@ import com.gruppe5.fbcmanager.database.models.Address;
 import com.gruppe5.fbcmanager.database.models.ContactInfo;
 import com.gruppe5.fbcmanager.database.models.Practise;
 import com.gruppe5.fbcmanager.database.models.User;
-import com.gruppe5.fbcmanager.database.repository.AddressRepository;
-import com.gruppe5.fbcmanager.database.repository.ContactInfoRepository;
-import com.gruppe5.fbcmanager.database.repository.PractiseRepository;
-import com.gruppe5.fbcmanager.database.repository.UserRepository;
+import com.gruppe5.fbcmanager.database.repositories.AddressRepository;
+import com.gruppe5.fbcmanager.database.repositories.ContactInfoRepository;
+import com.gruppe5.fbcmanager.database.repositories.PractiseRepository;
+import com.gruppe5.fbcmanager.database.repositories.UserRepository;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
