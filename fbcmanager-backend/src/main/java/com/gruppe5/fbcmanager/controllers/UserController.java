@@ -28,15 +28,15 @@ public class UserController {
     public @ResponseBody String addNewUser(@RequestBody User user) {
         System.out.println(user);
 
-        // userService.addUser(user);
-        var newUser = User.builder()
-                .firstname(user.getFirstname())
-                .lastname(user.getLastname())
-                .team(user.getTeam())
-                .usertype(user.getUsertype())
-                .isactive(user.getIsactive())
-                .build();
-        userRepository.save(newUser);
+        // // userService.addUser(user);
+        // var newUser = User.builder()
+        //         .firstname(user.getFirstname())
+        //         .lastname(user.getLastname())
+        //         .team(user.getTeam())
+        //         .usertype(user.getUsertype())
+        //         .isactive(user.getIsactive())
+        //         .build();
+        // userRepository.save(newUser);
         return "Saved";
     }
 
@@ -74,17 +74,17 @@ public class UserController {
     @PutMapping(path = "/person")
     public @ResponseBody String updateUser(@RequestBody User p) {
 
-        var person = userRepository.findById(p.getUserid());
-        if (!person.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user not found");
-        }
-        User updated = person.get();
-        updated.setFirstname(p.getFirstname());
-        updated.setLastname(p.getLastname());
-        updated.setTeam(p.getTeam());
-        updated.setIsactive(p.getIsactive());
-        updated.setUsertype(p.getUsertype());
-        userRepository.save(updated);
+        // var person = userRepository.findById(p.getId());
+        // if (!person.isPresent()) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user not found");
+        // }
+        // User updated = person.get();
+        // updated.setFirstname(p.getFirstname());
+        // updated.setLastname(p.getLastname());
+        // updated.setTeam(p.getTeam());
+        // updated.setIsactive(p.getIsactive());
+        // updated.setUsertype(p.getUsertype());
+        // userRepository.save(updated);
         return "Updated";
     }
 
