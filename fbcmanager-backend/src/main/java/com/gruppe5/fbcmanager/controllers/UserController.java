@@ -40,14 +40,14 @@ public class UserController {
         return "Saved";
     }
 
-    @GetMapping(path = "/person/{id}")
-    public @ResponseBody User getUser(@PathVariable("id") Integer id) {
-        if (!userRepository.findById(id).isPresent()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "user not found");
-        }
-        return userRepository.findById(id).get();
-    }
+    // @GetMapping(path = "/person/{id}")
+    // public @ResponseBody User getUser(@PathVariable("id") Integer id) {
+    //     if (!userRepository.findById(id).isPresent()) {
+    //         throw new ResponseStatusException(
+    //                 HttpStatus.NOT_FOUND, "user not found");
+    //     }
+    //     return userRepository.findById(id).get();
+    // }
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<User> getAllUsers() {
@@ -88,11 +88,11 @@ public class UserController {
         return "Updated";
     }
 
-    @DeleteMapping(path = "/person/{id}")
-    public @ResponseBody String deleteUser(@PathVariable("id") Integer id) {
-        System.out.println(id);
+    // @DeleteMapping(path = "/person/{id}")
+    // public @ResponseBody String deleteUser(@PathVariable("id") Integer id) {
+    //     System.out.println(id);
 
-        userRepository.deleteById(id);
-        return "Deleted";
-    }
+    //     userRepository.deleteById(id);
+    //     return "Deleted";
+    // }
 }

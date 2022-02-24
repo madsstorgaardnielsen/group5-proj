@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,9 @@ public class User {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private ContactInfo contactInfos;
+
+    // @ManyToOne
+    // private Practise practise;
 
     // @Column(name = "firstname", nullable = false)
     @Column(nullable=false)
@@ -46,8 +50,8 @@ public class User {
     // @PrimaryKeyJoinColumn
     // private ContactInfo contactInfo;
 
-    // @OneToMany(mappedBy = "users")
-    // private Set<Practice> practices;
+    @OneToMany()
+    private List<Practise> practices;
 
     public User() {
     }

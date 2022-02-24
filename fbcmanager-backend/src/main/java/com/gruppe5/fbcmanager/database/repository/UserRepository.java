@@ -12,7 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 
 //https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findAllByOrderByFirstnameAsc();
 
