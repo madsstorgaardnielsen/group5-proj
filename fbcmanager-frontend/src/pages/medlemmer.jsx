@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../style.css";
+import "../scss/style.scss";
 import Medlemmerlist from "../components/medlemmerlist";
 
 class Medlemmer extends React.Component {

@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../style.css";
-//import "../css/forside.css"
-import "../scss/forside.scss"
+import "../scss/forside.scss";
+import "../scss/style.scss";
+
 
 
 

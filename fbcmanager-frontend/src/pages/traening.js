@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../style.css";
+import "../scss/style.scss"
+
+
 const Traening = () => {
   return (
     <div>
