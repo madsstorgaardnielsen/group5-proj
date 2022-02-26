@@ -9,6 +9,9 @@ import Medlemmer from './pages/medlemmer';
 import Betaling from './pages/betaling';
 import Events from './pages/events';
 import Traening from './pages/traening';
+import Home from './pages/home';
+
+
 ReactDOM.render(
       <Router>
         <Routes>
@@ -17,6 +20,7 @@ ReactDOM.render(
           <Route path="/betaling" element={<Betaling/>}/>
           <Route path="/events" element={<Events/>}/>
           <Route path="/traening" element={<Traening/>}/>
+          <Route path="/home" element={<Home/>}/>
         </Routes>
       </Router>,
   document.getElementById('root')
