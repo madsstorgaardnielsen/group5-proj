@@ -1,20 +1,11 @@
 package com.gruppe5.fbcmanager.services;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.gruppe5.fbcmanager.dtos.AddressDTO;
-import com.gruppe5.fbcmanager.dtos.ContactInfoDTO;
-import com.gruppe5.fbcmanager.dtos.PractiseDTO;
 import com.gruppe5.fbcmanager.dtos.UserDTO;
 import com.gruppe5.fbcmanager.entities.AddressEntity;
-import com.gruppe5.fbcmanager.entities.ContactInfoEntity;
-import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;
 import com.gruppe5.fbcmanager.repositories.AddressRepository;
 import com.gruppe5.fbcmanager.repositories.UserRepository;

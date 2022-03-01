@@ -1,9 +1,7 @@
 package com.gruppe5.fbcmanager.controllers;
 
-import java.util.Optional;
 
 import com.gruppe5.fbcmanager.dtos.UserDTO;
-import com.gruppe5.fbcmanager.entities.UserEntity;
 import com.gruppe5.fbcmanager.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-// import java.net.URI;
-// import java.util.ArrayList;
-// import java.util.HashSet;
-// import java.util.List;
-// import java.util.Set;
-
-// import com.gruppe5.fbcmanager.dtos.UserDTO;
-// import com.gruppe5.fbcmanager.entities.UserEntity;
-// import com.gruppe5.fbcmanager.repositories.UserRepository;
-// import com.gruppe5.fbcmanager.services.UserService;
-
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.ResponseEntity;
-
-// import org.springframework.web.bind.annotation.*;
-// import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(value = "/users")

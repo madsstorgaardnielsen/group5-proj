@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;

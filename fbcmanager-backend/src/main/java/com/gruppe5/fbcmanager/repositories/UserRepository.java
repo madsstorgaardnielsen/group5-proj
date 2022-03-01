@@ -2,7 +2,6 @@ package com.gruppe5.fbcmanager.repositories;
 
 import java.util.List;
 
-import com.gruppe5.fbcmanager.dtos.UserDTO;
 import com.gruppe5.fbcmanager.entities.UserEntity;
 
 import org.springframework.data.repository.CrudRepository;

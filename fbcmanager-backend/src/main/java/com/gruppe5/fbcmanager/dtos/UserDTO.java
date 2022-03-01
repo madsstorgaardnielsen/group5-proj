@@ -3,11 +3,7 @@ package com.gruppe5.fbcmanager.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.gruppe5.fbcmanager.entities.AddressEntity;
-import com.gruppe5.fbcmanager.entities.ContactInfoEntity;
-import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;
 
 
