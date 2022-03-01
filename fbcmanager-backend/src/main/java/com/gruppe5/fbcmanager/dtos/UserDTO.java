@@ -55,9 +55,8 @@ public class UserDTO implements Serializable {
     }
 
     public UserDTO(UserEntity userEntity) {
-        System.out.println("UserEntity to UserDTO ->"+userEntity.toString());
         this.userid = userEntity.getId();
-        // this.address = new AddressDTO(userEntity.getAddress());
+        this.address = new AddressDTO(userEntity.getAddress());
         // this.contactInfos = new ContactInfoDTO(userEntity.getContactInfos());
         this.firstname = userEntity.getFirstname();
         this.lastname = userEntity.getLastname();
@@ -80,7 +79,6 @@ public class UserDTO implements Serializable {
         // entity.setPractices(this.practices);
         entity.setTeam(team);
         entity.setUsertype(usertype);
-        System.out.println("UserDTO to UserEntity->"+entity.toString());
         return entity;
     }
 

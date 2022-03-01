@@ -16,6 +16,7 @@ import com.gruppe5.fbcmanager.entities.AddressEntity;
 import com.gruppe5.fbcmanager.entities.ContactInfoEntity;
 import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;
+import com.gruppe5.fbcmanager.repositories.AddressRepository;
 import com.gruppe5.fbcmanager.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,15 @@ public class UserService {
         @Autowired
         public UserRepository userRepository;
 
+        @Autowired 
+        public AddressRepository addressRepository;
+
         public UserDTO asd() {
 
-                UserEntity user = new UserEntity();
-                AddressEntity address = new AddressDTO("Street", "zip", "city").toEntity();
-
+                UserEntity user = new UserEntity("firstname","lastname","isactive","team","usertype",LocalDate.of(2222, 12, 12));
+                AddressEntity address = new AddressEntity(user, "Street", "zip", "city");
+                user.setAddress(address);
+                userRepository.save(user);
                 // ContactInfoEntity contactinfo = new ContactInfoDTO("phone",
                 // "email").toEntity();
                 // PractiseEntity practise = new PractiseDTO("Vejen", 10, LocalDate.of(2022,
@@ -41,21 +46,19 @@ public class UserService {
                 // practises.add(practise);
                 // user.setAddress(address);
                 // user.setContactInfos(contactinfo);
-                user.setBirthDate(LocalDate.of(1999, Month.JANUARY, 22));
-                user.setFirstname("firstname");
-                user.setLastname("lastname");
-                user.setIsactive("isactive");
-                // user.setPractices(practises);
-                user.setTeam("team");
-                user.setUsertype("usertype");
+                // user.setBirthDate(LocalDate.of(1999, Month.JANUARY, 22));
+                // user.setFirstname("firstname");
+                // user.setLastname("lastname");
+                // user.setIsactive("isactive");
+                // // user.setPractices(practises);
+                // user.setTeam("team");
+                // user.setUsertype("usertype");
 
-                var u = userRepository.save(user);
 
-                u.setAddress(address);
-                
+
                 
 
-                return new UserDTO(userRepository.save(u));
+                return new UserDTO(userRepository.save(user));
 
         }
 

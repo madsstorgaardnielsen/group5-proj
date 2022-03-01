@@ -53,6 +53,16 @@ public class UserEntity {
     @OneToMany()
     private List<PractiseEntity> practices;
 
+    public UserEntity(String firstname, String lastname, String isactive, String team, String usertype,
+            LocalDate birthDate) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.isactive = isactive;
+        this.team = team;
+        this.usertype = usertype;
+        this.birthDate = birthDate;
+    }
+
     public UserEntity() {
     }
 
@@ -149,5 +159,12 @@ public class UserEntity {
 
     public void setPractices(List<PractiseEntity> practices) {
         this.practices = practices;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity [address=" + address + ", birthDate=" + birthDate + ", contactInfos=" + contactInfos
+                + ", firstname=" + firstname + ", id=" + id + ", isactive=" + isactive + ", lastname=" + lastname
+                + ", practices=" + practices + ", team=" + team + ", usertype=" + usertype + "]";
     }
 }

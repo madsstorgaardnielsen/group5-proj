@@ -50,4 +50,8 @@ public class ContactInfoEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+    @Override
+    public String toString() {
+        return "ContactInfoEntity [email=" + email + ", id=" + id + ", phone=" + phone + ", user=" + user + "]";
+    }
 }

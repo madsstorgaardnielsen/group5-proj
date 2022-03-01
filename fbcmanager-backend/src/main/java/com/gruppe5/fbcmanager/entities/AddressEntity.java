@@ -81,4 +81,10 @@ public class AddressEntity {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+        return "AddressEntity [city=" + city + ", id=" + id + ", street=" + street + ", user=" + user + ", zipcode="
+                + zipcode + "]";
+    }
+
 }

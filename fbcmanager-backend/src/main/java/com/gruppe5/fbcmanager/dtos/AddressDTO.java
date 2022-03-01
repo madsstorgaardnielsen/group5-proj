@@ -6,6 +6,9 @@ import com.gruppe5.fbcmanager.entities.AddressEntity;
 
 public class AddressDTO implements Serializable {
     private static final long serialVersionUID = -3304734256617027874L;
+
+    UserDTO userDTO;
+    
     private Long id;
 
     private String street;
@@ -17,6 +20,7 @@ public class AddressDTO implements Serializable {
     public AddressEntity toEntity() {
         AddressEntity entity = new AddressEntity();
         entity.setId(this.id);
+        entity.setUser(this.userDTO.toEntity());
         entity.setCity(this.city);
         entity.setZipcode(this.zipcode);
         entity.setStreet(this.street);
@@ -41,7 +45,8 @@ public class AddressDTO implements Serializable {
         this.id = id;
     }
 
-    public AddressDTO(String street, String zipcode, String city) {
+    public AddressDTO(UserDTO userDTO, String street, String zipcode, String city) {
+        this.userDTO = userDTO;
         this.street = street;
         this.zipcode = zipcode;
         this.city = city;
@@ -69,5 +74,21 @@ public class AddressDTO implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressDTO [city=" + city + ", id=" + id + ", street=" + street + ", userDTO=" + userDTO + ", zipcode="
+                + zipcode + "]";
     }
 }

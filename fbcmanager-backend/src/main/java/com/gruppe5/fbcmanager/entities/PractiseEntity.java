@@ -143,6 +143,13 @@ public class PractiseEntity {
         this.trainer = trainer;
     }
 
+    @Override
+    public String toString() {
+        return "PractiseEntity [date=" + date + ", id=" + id + ", location=" + location + ", maxParticipants="
+                + maxParticipants + ", participants=" + participants + ", team=" + team + ", timeEnd=" + timeEnd
+                + ", timeStart=" + timeStart + ", trainer=" + trainer + "]";
+    }
+
 }
 
 // @Entity
