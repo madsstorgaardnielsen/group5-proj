@@ -31,6 +31,7 @@ function Forside() {
               <p className="mainDescription">Danmarks største fodbold klub gjort nem</p>
               {/*<NavLink className="headerLogin">Login</NavLink>*/}
               <button className="headerLogin" onClick={toHome}>Login</button>
+              <button className="headerTilmeld" >Tilmeld</button>
             </section>
           </div>
         </header>
@@ -38,12 +39,27 @@ function Forside() {
         <div className="grid-container-frontpage">
           <section className="grid-item-frontpage">
             <img src={noimgsmall}></img>
+            <section>
+              <h4>Danmarks største fodboldklub</h4>
+              <p>NemSport er en del af BKSkjold sport.</p>
+              <p>Vi holder til i Telia Parken</p>
+            </section>
           </section>
           <section className="grid-item-frontpage">
             <img src={noimgsmall}></img>
+            <section>
+              <h4>Helt nye kunstbaner</h4>
+              <p>Parken har netop fået helt nye kunstbaner</p>
+              <p>Vi holder til i Telia Parken</p>
+            </section>
           </section>
           <section className="grid-item-frontpage">
             <img src={noimgsmall}></img>
+            <section>
+              <h4>Tilmeld dig nemt og hurtigt</h4>
+              <p>Hos NemSport er det lidt nemmere</p>
+              <p>Vi holder til i Telia Parken</p>
+            </section>
           </section>
         </div>
       </div>
