@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.database.models;
+package com.gruppe5.fbcmanager.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable=false)
@@ -20,7 +20,7 @@ public class Address {
 
     
     @OneToOne(optional = false,cascade = CascadeType.PERSIST)
-    private User user;
+    private UserEntity user;
 
     @Column(nullable=false)
     private String street;
@@ -31,10 +31,10 @@ public class Address {
     @Column(nullable=false)
     private String city;
 
-    public Address() {
+    public AddressEntity() {
     }
 
-    public Address(User user, String street, String zipcode, String city) {
+    public AddressEntity(UserEntity user, String street, String zipcode, String city) {
         this.user = user;
         this.street = street;
         this.zipcode = zipcode;
@@ -49,11 +49,11 @@ public class Address {
         this.id = id;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

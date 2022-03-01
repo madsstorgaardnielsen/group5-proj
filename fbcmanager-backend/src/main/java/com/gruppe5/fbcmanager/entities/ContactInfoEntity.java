@@ -1,27 +1,27 @@
-package com.gruppe5.fbcmanager.database.models;
+package com.gruppe5.fbcmanager.entities;
 
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "contactinfos")
-public class ContactInfo {
+public class ContactInfoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable=false)
     private Long id;
 
     @OneToOne(optional = false,cascade = CascadeType.PERSIST)
-    private User user;
+    private UserEntity user;
 
     @Column(nullable=false)
     private String phone;
     
     @Column(nullable=false)
     private String email;
-    public ContactInfo() {
+    public ContactInfoEntity() {
     }
-    public ContactInfo(User user, String phone, String email) {
+    public ContactInfoEntity(UserEntity user, String phone, String email) {
         this.user = user;
         this.phone = phone;
         this.email = email;
@@ -32,10 +32,10 @@ public class ContactInfo {
     public void setId(Long id) {
         this.id = id;
     }
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
     public String getPhone() {
