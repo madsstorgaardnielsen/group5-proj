@@ -3,7 +3,7 @@
 /* -------------navbar------------- */
 .NavBar {
   position: fixed;
-  top: 5%;
+  top: 0;
   width: 20vw;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,8 @@
 /* ---------------------------- */
 
 .body {
-  margin-left: 20vw;
+  //display: flex;
+  margin: 100px 50px 50px 20vw;
 }
 
 /* .medlemmerList {

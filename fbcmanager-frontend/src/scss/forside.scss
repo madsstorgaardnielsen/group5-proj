@@ -5,12 +5,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 50vh;
-    width: 70vw;
+    width: 100%;
     display: flex;
-    margin: 10vh auto 0 auto
+    //margin: 10vh auto 0 auto
 }
 .headerWrapper{
-    padding: 200px 0 0 100px;
+    padding: 100px 0 0 100px;
     color: $light-text;
 }
 .mainHeader{
@@ -20,20 +20,41 @@
     font-size: 2rem;
     color: $light-text;
 }
-.headerLogin{
+.headerWrapper section button{
     border: none;
+    background-color: transparent;
     border-radius: 30px;
     padding: 10px 30px;
+    position: absolute;
+    top: 20px;
+    //right: 0;
+}
+.headerLogin{
+    right: 50px;
+}
+.headerTilmeld{
+    right: 200px;
 }
 
 
 .grid-container-frontpage{
-    margin: 10vh auto 0 auto;
+    margin: 50px 0 0 0;
+    width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
+    grid-gap: 50px;
 }
-.grid-item-frontpage img{
-    margin: 0 auto;
-    width: 300px;
+.grid-item-frontpage{
+    background-color: $light-grey;
+    border-radius: 15px;
     display: flex;
-}
+    flex-direction: column;
+    img{
+        width: 80%;
+        margin: 20px auto 0 auto;
+    }
+    section{
+        width: 80%;
+        margin: 5px auto 20px auto;
+    }
+} 
