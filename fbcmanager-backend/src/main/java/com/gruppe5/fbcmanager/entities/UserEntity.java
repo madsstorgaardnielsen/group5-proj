@@ -1,30 +1,31 @@
-package com.gruppe5.fbcmanager.database.models;
+package com.gruppe5.fbcmanager.entities;
 
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@DynamicUpdate
 @Table(name = "users") // user is a reserved word in sql, we circumvent this by giving the table a
                        // custom name
 
-public class User {
+public class UserEntity {
     @Id
     @Column(nullable=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private Address address;
+    private AddressEntity address;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ContactInfo contactInfos;
-
-    // @ManyToOne
-    // private Practise practise;
+    private ContactInfoEntity contactInfos;
 
     // @Column(name = "firstname", nullable = false)
     @Column(nullable=false)
@@ -46,29 +47,23 @@ public class User {
     @Column(nullable=false)
     private String usertype;
 
-    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    // @PrimaryKeyJoinColumn
-    // private ContactInfo contactInfo;
+    @Column(nullable = false)
+    private LocalDate birthDate;
 
     @OneToMany()
-    private List<Practise> practices;
+    private List<PractiseEntity> practices;
 
-    public User() {
-    }
-
-    public User(String firstname, String lastname, String isactive,
-            String team, String usertype) {
-
+    public UserEntity(String firstname, String lastname, String isactive, String team, String usertype,
+            LocalDate birthDate) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.isactive = isactive;
         this.team = team;
         this.usertype = usertype;
+        this.birthDate = birthDate;
     }
 
-    public User(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public UserEntity() {
     }
 
     @Override
@@ -77,7 +72,7 @@ public class User {
             return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
             return false;
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return id != null && Objects.equals(id, user.id);
     }
 
@@ -94,19 +89,19 @@ public class User {
         this.id = id;
     }
 
-    public Address getAddress() {
+    public AddressEntity getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressEntity address) {
         this.address = address;
     }
 
-    public ContactInfo getContactInfos() {
+    public ContactInfoEntity getContactInfos() {
         return contactInfos;
     }
 
-    public void setContactInfos(ContactInfo contactInfos) {
+    public void setContactInfos(ContactInfoEntity contactInfos) {
         this.contactInfos = contactInfos;
     }
 
@@ -148,5 +143,28 @@ public class User {
 
     public void setUsertype(String usertype) {
         this.usertype = usertype;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public List<PractiseEntity> getPractices() {
+        return practices;
+    }
+
+    public void setPractices(List<PractiseEntity> practices) {
+        this.practices = practices;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity [address=" + address + ", birthDate=" + birthDate + ", contactInfos=" + contactInfos
+                + ", firstname=" + firstname + ", id=" + id + ", isactive=" + isactive + ", lastname=" + lastname
+                + ", practices=" + practices + ", team=" + team + ", usertype=" + usertype + "]";
     }
 }

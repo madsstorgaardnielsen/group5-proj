@@ -11,3 +11,4 @@ public class FbcmanagerApplication {
         SpringApplication.run(FbcmanagerApplication.class, args);
     }
 }
+
