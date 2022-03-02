@@ -1,13 +1,16 @@
 package com.gruppe5.fbcmanager.services;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import com.gruppe5.fbcmanager.dtos.UserDTO;
-import com.gruppe5.fbcmanager.entities.AddressEntity;
+import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;
-import com.gruppe5.fbcmanager.repositories.AddressRepository;
+import com.gruppe5.fbcmanager.repositories.PractiseRepository;
 import com.gruppe5.fbcmanager.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,39 +22,10 @@ public class UserService {
         @Autowired
         public UserRepository userRepository;
 
-        @Autowired 
-        public AddressRepository addressRepository;
-
-        public UserDTO asd() {
-
-                UserEntity user = new UserEntity("firstname","lastname","isactive","team","usertype",LocalDate.of(2222, 12, 12));
-                AddressEntity address = new AddressEntity(user, "Street", "zip", "city");
-                user.setAddress(address);
-                userRepository.save(user);
-                // ContactInfoEntity contactinfo = new ContactInfoDTO("phone",
-                // "email").toEntity();
-                // PractiseEntity practise = new PractiseDTO("Vejen", 10, LocalDate.of(2022,
-                // Month.JANUARY, 22),
-                // LocalTime.of(17, 30), LocalTime.of(21, 30)).toEntity();
-                // var practises = new ArrayList<PractiseEntity>();
-                // practises.add(practise);
-                // user.setAddress(address);
-                // user.setContactInfos(contactinfo);
-                // user.setBirthDate(LocalDate.of(1999, Month.JANUARY, 22));
-                // user.setFirstname("firstname");
-                // user.setLastname("lastname");
-                // user.setIsactive("isactive");
-                // // user.setPractices(practises);
-                // user.setTeam("team");
-                // user.setUsertype("usertype");
+        @Autowired
+        public PractiseRepository practiseRepository;
 
 
-
-                
-
-                return new UserDTO(userRepository.save(user));
-
-        }
 
         @Transactional
         public UserDTO createUser(UserDTO user) {
@@ -65,7 +39,6 @@ public class UserService {
                 newUser.setIsactive(user.getIsactive());
                 newUser.setTeam(user.getTeam());
                 newUser.setUsertype(user.getUsertype());
-
 
                 return new UserDTO(userRepository.save(newUser));
 

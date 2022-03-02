@@ -28,9 +28,8 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserDTO> createUser(@RequestBody final UserDTO user) {
-        return new ResponseEntity<>(userService.asd(), HttpStatus.CREATED);
-        // System.out.println("Created user -> " +user.toString());
-        // return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+        System.out.println("Created user -> " +user.toString());
+        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

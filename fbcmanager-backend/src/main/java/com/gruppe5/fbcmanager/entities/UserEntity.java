@@ -5,10 +5,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @DynamicUpdate
@@ -17,44 +16,53 @@ import java.util.Objects;
 
 public class UserEntity {
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userid;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private AddressEntity address;
+    @ManyToMany(mappedBy = "participants")
+    private Set<PractiseEntity> practises;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ContactInfoEntity contactInfos;
+    @Column(nullable = false)
+    private String street;
 
-    // @Column(name = "firstname", nullable = false)
-    @Column(nullable=false)
+    @Column(nullable = false)
+    private String zipcode;
+
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String firstname;
 
-    // @Column(name = "lastname", nullable = false)
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String lastname;
 
-    // @Column(name = "isactive", nullable = false)
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String isactive;
 
-    // @Column(name = "team", nullable = true)
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String team;
 
-    // @Column(name = "usertype", nullable = false)
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String usertype;
 
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @OneToMany()
-    private List<PractiseEntity> practices;
-
-    public UserEntity(String firstname, String lastname, String isactive, String team, String usertype,
-            LocalDate birthDate) {
+    public UserEntity(String street, String zipcode, String city, String phone, String email, String firstname,
+            String lastname, String isactive, String team, String usertype, LocalDate birthDate) {
+        this.street = street;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.phone = phone;
+        this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.isactive = isactive;
@@ -73,7 +81,7 @@ public class UserEntity {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
             return false;
         UserEntity user = (UserEntity) o;
-        return id != null && Objects.equals(id, user.id);
+        return userid != null && Objects.equals(userid, user.userid);
     }
 
     @Override
@@ -82,27 +90,11 @@ public class UserEntity {
     }
 
     public Long getId() {
-        return id;
+        return userid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public AddressEntity getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressEntity address) {
-        this.address = address;
-    }
-
-    public ContactInfoEntity getContactInfos() {
-        return contactInfos;
-    }
-
-    public void setContactInfos(ContactInfoEntity contactInfos) {
-        this.contactInfos = contactInfos;
+    public void setId(Long userid) {
+        this.userid = userid;
     }
 
     public String getFirstname() {
@@ -153,18 +145,65 @@ public class UserEntity {
         this.birthDate = birthDate;
     }
 
-    public List<PractiseEntity> getPractices() {
-        return practices;
+
+
+    public String getStreet() {
+        return street;
     }
 
-    public void setPractices(List<PractiseEntity> practices) {
-        this.practices = practices;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity [address=" + address + ", birthDate=" + birthDate + ", contactInfos=" + contactInfos
-                + ", firstname=" + firstname + ", id=" + id + ", isactive=" + isactive + ", lastname=" + lastname
-                + ", practices=" + practices + ", team=" + team + ", usertype=" + usertype + "]";
+    public String getZipcode() {
+        return zipcode;
     }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public Set<PractiseEntity> getPractises() {
+        return practises;
+    }
+
+    public void setPractises(Set<PractiseEntity> practises) {
+        this.practises = practises;
+    }
+
+
 }

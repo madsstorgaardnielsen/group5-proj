@@ -2,10 +2,9 @@ package com.gruppe5.fbcmanager.entities;
 
 import javax.persistence.*;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "practises")
@@ -13,49 +12,46 @@ public class PractiseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "practiceid", nullable = false)
-    private Long id;
+    private Long practiseid;
 
-    // @OneToMany(mappedBy = "practise", fetch = FetchType.EAGER, cascade =
-    // CascadeType.PERSIST)
-    @ManyToOne(targetEntity = UserEntity.class)
-    private List<UserEntity> participants;
-
-    // @Column(name = "team", nullable = false)
+    // @Column(nullable = false)
     private String team;
 
     @Column(nullable = false)
     private String location;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private Integer maxParticipants;
 
     @Column(nullable = false)
     private LocalDate date;
 
-    // @Column(name = "timeend", nullable = false)
-
     @Column(nullable = false)
     private LocalTime timeStart;
 
+    @Column(nullable = false)
     private LocalTime timeEnd;
 
-    @ManyToOne(targetEntity = UserEntity.class)
-    // // @JoinColumn(name = "userid")
-    // // @Column(name = "trainerid", nullable = false)
-    private List<UserEntity> trainer;
+    @ManyToMany
+    @JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
+    private Set<UserEntity> participants;
 
-    public PractiseEntity(String location, LocalDate date, LocalTime timeStart) {
+
+
+    public PractiseEntity(String location, LocalDate date, LocalTime timeStart, LocalTime timeEnd,
+            Set<UserEntity> participants) {
         this.location = location;
         this.date = date;
         this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.participants = participants;
     }
 
-    public PractiseEntity(String team, String location, LocalDate date, LocalTime timeStart,
+    public PractiseEntity(String location, Integer maxParticipants, LocalDate date, LocalTime timeStart,
             LocalTime timeEnd) {
-        this.team = team;
         this.location = location;
-        this.setDate(date);
+        this.maxParticipants = maxParticipants;
+        this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
     }
@@ -72,11 +68,11 @@ public class PractiseEntity {
     }
 
     public Long getId() {
-        return id;
+        return practiseid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long practiseid) {
+        this.practiseid = practiseid;
     }
 
     public String getTeam() {
@@ -103,14 +99,6 @@ public class PractiseEntity {
         this.maxParticipants = maxParticipants;
     }
 
-    // public User getTrainer() {
-    // return trainer;
-    // }
-
-    // public void setTrainer(User trainer) {
-    // this.trainer = trainer;
-    // }
-
     public LocalTime getTimeStart() {
         return timeStart;
     }
@@ -127,72 +115,20 @@ public class PractiseEntity {
         this.timeEnd = timeEnd;
     }
 
-    public List<UserEntity> getParticipants() {
+    public Long getPractiseid() {
+        return practiseid;
+    }
+
+    public void setPractiseid(Long practiseid) {
+        this.practiseid = practiseid;
+    }
+
+    public Set<UserEntity> getParticipant() {
         return participants;
     }
 
-    public void setParticipants(List<UserEntity> participants) {
+    public void setParticipant(Set<UserEntity> participants) {
         this.participants = participants;
     }
 
-    public List<UserEntity> getTrainers() {
-        return trainer;
-    }
-
-    public void setTrainers(List<UserEntity> trainer) {
-        this.trainer = trainer;
-    }
-
-    @Override
-    public String toString() {
-        return "PractiseEntity [date=" + date + ", id=" + id + ", location=" + location + ", maxParticipants="
-                + maxParticipants + ", participants=" + participants + ", team=" + team + ", timeEnd=" + timeEnd
-                + ", timeStart=" + timeStart + ", trainer=" + trainer + "]";
-    }
-
 }
-
-// @Entity
-// @Table
-// public class ContactInfo {
-// @Id
-// @GeneratedValue(strategy = GenerationType.IDENTITY)
-// private Long id;
-
-// @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-// private User user;
-
-// private String phone;
-// private String email;
-// public ContactInfo() {
-// }
-// public ContactInfo(User user, String phone, String email) {
-// this.user = user;
-// this.phone = phone;
-// this.email = email;
-// }
-// public Long getId() {
-// return id;
-// }
-// public void setId(Long id) {
-// this.id = id;
-// }
-// public User getUser() {
-// return user;
-// }
-// public void setUser(User user) {
-// this.user = user;
-// }
-// public String getPhone() {
-// return phone;
-// }
-// public void setPhone(String phone) {
-// this.phone = phone;
-// }
-// public String getEmail() {
-// return email;
-// }
-// public void setEmail(String email) {
-// this.email = email;
-// }
-// }

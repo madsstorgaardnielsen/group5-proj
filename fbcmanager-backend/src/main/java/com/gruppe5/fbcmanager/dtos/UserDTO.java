@@ -18,9 +18,15 @@ public class UserDTO implements Serializable {
     
     private long userid;
 
-    private AddressDTO address;
+    private String street;
 
-    private ContactInfoDTO contactInfos;
+    private String zipcode;
+
+    private String city;
+
+    private String phone;
+
+    private String email;
 
     private String firstname;
 
@@ -34,13 +40,15 @@ public class UserDTO implements Serializable {
 
     private LocalDate birthDate;
 
+
+
     private List<PractiseDTO> practices;
 
-    public UserDTO(long userid, AddressDTO address, ContactInfoDTO contactInfos, String firstname, String lastname,
+    public UserDTO(long userid, String street, String zipcode, String city, String phone, String email, String firstname, String lastname,
             String isactive, String team, String usertype, LocalDate birthDate, List<PractiseDTO> practices) {
         this.userid = userid;
-        this.address = address;
-        this.contactInfos = contactInfos;
+        this.phone = phone;
+        this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.isactive = isactive;
@@ -48,12 +56,35 @@ public class UserDTO implements Serializable {
         this.usertype = usertype;
         this.birthDate = birthDate;
         this.practices = practices;
+        this.street = street;
+        this.city = city;
+        this.zipcode = zipcode;
+        // this.practices = practices;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public UserDTO(UserEntity userEntity) {
         this.userid = userEntity.getId();
-        this.address = new AddressDTO(userEntity.getAddress());
-        // this.contactInfos = new ContactInfoDTO(userEntity.getContactInfos());
+        this.email = userEntity.getEmail();
+        this.phone = userEntity.getPhone();
+        this.city = userEntity.getCity();
+        this.street = userEntity.getStreet();
+        this.zipcode = userEntity.getZipcode();
         this.firstname = userEntity.getFirstname();
         this.lastname = userEntity.getLastname();
         this.isactive = userEntity.getIsactive();
@@ -65,16 +96,19 @@ public class UserDTO implements Serializable {
 
     public UserEntity toEntity(){
         UserEntity entity = new UserEntity();
-        // entity.setAddress(this.address.toEntity());
+        entity.setStreet(this.street);  
+        entity.setCity(this.city);
+        entity.setZipcode(this.zipcode);
+        entity.setPhone(this.phone);
+        entity.setEmail(this.email);
         entity.setBirthDate(this.birthDate);
-        // entity.setContactInfos(this.contactInfos.toEntity());
         entity.setFirstname(this.firstname);
         entity.setId(this.userid);
         entity.setIsactive(this.isactive);
         entity.setLastname(this.lastname);
+        entity.setTeam(this.team);
+        entity.setUsertype(this.usertype);
         // entity.setPractices(this.practices);
-        entity.setTeam(team);
-        entity.setUsertype(usertype);
         return entity;
     }
 
@@ -98,21 +132,7 @@ public class UserDTO implements Serializable {
     }
 
 
-    public AddressDTO getAddress() {
-        return address;
-    }
 
-    public void setAddress(AddressDTO address) {
-        this.address = address;
-    }
-
-    public ContactInfoDTO getContactInfos() {
-        return contactInfos;
-    }
-
-    public void setContactInfos(ContactInfoDTO contactInfos) {
-        this.contactInfos = contactInfos;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -178,11 +198,30 @@ public class UserDTO implements Serializable {
         this.practices = practices;
     }
 
-    @Override
-    public String toString() {
-        return "UserDTO [address=" + address + ", birthDate=" + birthDate + ", contactInfos=" + contactInfos
-                + ", firstname=" + firstname + ", isactive=" + isactive + ", lastname=" + lastname + ", practices="
-                + practices + ", team=" + team + ", userid=" + userid + ", usertype=" + usertype + "]";
+
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
 
