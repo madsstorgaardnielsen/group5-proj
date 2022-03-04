@@ -16,6 +16,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import lombok.var;
+
 //https://lightrun.com/java/the-complete-list-of-spring-boot-annotations-you-must-know/
 
 @SpringBootApplication
@@ -60,6 +62,12 @@ public class FbcmanagerApplication {
             participants.add(user4);
             practiseRepository.save(new PractiseEntity("location3", LocalDate.of(2500, 12, 12), LocalTime.of(17, 30),
                     LocalTime.of(20, 30), participants));
+
+            var t = practiseRepository.findByPractiseid(1);
+
+            for (var string : t) {
+                System.out.println(string);
+            }
         };
     }
 

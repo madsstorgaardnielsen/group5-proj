@@ -20,7 +20,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(mappedBy = "participants", fetch = FetchType.EAGER)
     private Set<PractiseEntity> practises;
 
     @Column(nullable = false)
@@ -47,7 +47,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String isactive;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String team;
 
     @Column(nullable = false)
@@ -145,8 +145,6 @@ public class UserEntity {
         this.birthDate = birthDate;
     }
 
-
-
     public String getStreet() {
         return street;
     }
@@ -187,8 +185,6 @@ public class UserEntity {
         this.email = email;
     }
 
-
-
     public Long getUserid() {
         return userid;
     }
@@ -205,5 +201,9 @@ public class UserEntity {
         this.practises = practises;
     }
 
+    @Override
+    public String toString() {
+        return "[" + userid + " " + firstname + " "+lastname+ "]";
+    }
 
 }
