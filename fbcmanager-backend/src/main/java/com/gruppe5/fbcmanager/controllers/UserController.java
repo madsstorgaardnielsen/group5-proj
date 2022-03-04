@@ -28,15 +28,14 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserDTO> createUser(@RequestBody final UserDTO user) {
-        System.out.println("Created user -> " +user.toString());
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserDTO> getVehicle(@PathVariable(value = "id") long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-    }
+    // @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    // @ResponseStatus(HttpStatus.OK)
+    // public ResponseEntity<UserDTO> getVehicle(@PathVariable(value = "id") long id) {
+    //     return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    // }
 
     // @PutMapping(path = "/person")
     // public @ResponseBody String updateUser(@RequestBody UserDTO p) {

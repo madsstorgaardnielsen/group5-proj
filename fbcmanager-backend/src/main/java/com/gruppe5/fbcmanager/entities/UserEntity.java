@@ -16,8 +16,7 @@ import java.util.Set;
 
 public class UserEntity {
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userid;
 
     @ManyToMany(mappedBy = "participants", fetch = FetchType.EAGER)
@@ -87,14 +86,6 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    public Long getId() {
-        return userid;
-    }
-
-    public void setId(Long userid) {
-        this.userid = userid;
     }
 
     public String getFirstname() {
@@ -203,7 +194,10 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "[" + userid + " " + firstname + " "+lastname+ "]";
+        return "UserEntity [birthDate=" + birthDate + ", city=" + city + ", email=" + email + ", firstname=" + firstname
+                + ", isactive=" + isactive + ", lastname=" + lastname + ", phone=" + phone + ", practises=" + practises
+                + ", street=" + street + ", team=" + team + ", userid=" + userid + ", usertype=" + usertype
+                + ", zipcode=" + zipcode + "]";
     }
 
 }

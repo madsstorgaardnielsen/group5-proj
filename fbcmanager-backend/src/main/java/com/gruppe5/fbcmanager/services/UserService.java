@@ -30,11 +30,20 @@ public class UserService {
         @Transactional
         public UserDTO createUser(UserDTO user) {
                 UserEntity newUser = new UserEntity();
+                
+
+
+
+
+
+                newUser.setStreet(user.getStreet());
+                newUser.setZipcode(user.getZipcode());
+                newUser.setCity(user.getCity());
+                newUser.setPhone(user.getPhone());
+                newUser.setEmail(user.getEmail());
 
                 newUser.setFirstname(user.getFirstname());
                 newUser.setLastname(user.getLastname());
-                // newUser.setAddress(user.getAddress().toEntity());
-                // newUser.setContactInfos(user.getContactInfos().toEntity());
                 newUser.setBirthDate(user.getBirthDate());
                 newUser.setIsactive(user.getIsactive());
                 newUser.setTeam(user.getTeam());

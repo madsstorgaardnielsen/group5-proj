@@ -79,7 +79,7 @@ public class UserDTO implements Serializable {
     }
 
     public UserDTO(UserEntity userEntity) {
-        this.userid = userEntity.getId();
+        this.userid = userEntity.getUserid();
         this.email = userEntity.getEmail();
         this.phone = userEntity.getPhone();
         this.city = userEntity.getCity();
@@ -103,7 +103,7 @@ public class UserDTO implements Serializable {
         entity.setEmail(this.email);
         entity.setBirthDate(this.birthDate);
         entity.setFirstname(this.firstname);
-        entity.setId(this.userid);
+        entity.setUserid(this.userid);
         entity.setIsactive(this.isactive);
         entity.setLastname(this.lastname);
         entity.setTeam(this.team);
@@ -222,6 +222,14 @@ public class UserDTO implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO [birthDate=" + birthDate + ", city=" + city + ", email=" + email + ", firstname=" + firstname
+                + ", isactive=" + isactive + ", lastname=" + lastname + ", phone=" + phone + ", practices=" + practices
+                + ", street=" + street + ", team=" + team + ", userid=" + userid + ", usertype=" + usertype
+                + ", zipcode=" + zipcode + "]";
     }
 }
 
