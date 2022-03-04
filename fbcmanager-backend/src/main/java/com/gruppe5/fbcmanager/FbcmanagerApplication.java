@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import lombok.var;
+
 
 //https://lightrun.com/java/the-complete-list-of-spring-boot-annotations-you-must-know/
 
