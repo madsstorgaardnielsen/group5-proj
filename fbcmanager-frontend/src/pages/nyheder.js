@@ -13,7 +13,7 @@ const Betaling = () => {
     <div>
       <Navbar />
       <div className="body">
-        <h1>Betaling</h1>
+        <h1>Nyheder</h1>
         <Link to="/" onClick={t}>Test</Link>
         <p>content</p>
         

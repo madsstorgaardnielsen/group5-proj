@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Medlemmer from './pages/medlemmer';
-import Betaling from './pages/betaling';
+import Nyheder from './pages/nyheder';
 import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
@@ -17,7 +17,7 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App/>}/>
           <Route path="/medlemmer" element={<Medlemmer/>}/>
-          <Route path="/betaling" element={<Betaling/>}/>
+          <Route path="/nyheder" element={<Nyheder/>}/>
           <Route path="/events" element={<Events/>}/>
           <Route path="/traening" element={<Traening/>}/>
           <Route path="/home" element={<Home/>}/>
