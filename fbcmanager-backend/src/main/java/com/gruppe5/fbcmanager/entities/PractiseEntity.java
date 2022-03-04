@@ -32,7 +32,7 @@ public class PractiseEntity {
     @Column(nullable = false)
     private LocalTime timeEnd;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
     private Set<UserEntity> participants;
 
@@ -129,6 +129,11 @@ public class PractiseEntity {
 
     public void setParticipant(Set<UserEntity> participants) {
         this.participants = participants;
+    }
+
+    @Override
+    public String toString() {
+        return "[ id->"+practiseid+" participants->"+participants+"]";
     }
 
 }
