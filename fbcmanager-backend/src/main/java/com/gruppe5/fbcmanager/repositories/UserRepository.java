@@ -17,18 +17,14 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     List<UserEntity> findAllByOrderByFirstnameAsc();
 
-    List<UserEntity> findByFirstnameStartsWith(String query);
+    List<UserEntity> findByFirstnameStartsWith(String firstname);
 
-    List<UserEntity> findByLastnameStartsWith(String query);
+    List<UserEntity> findByLastnameStartsWith(String lastname);
 
-    List<UserEntity> findByTeamStartsWith(String query);
+    List<UserEntity> findByIsactive(boolean active);
 
-    List<UserEntity> findByIsactive(String active);
+    UserEntity findByPhone(int phone);
 
-    
+    UserEntity findByEmail(String email);
 
-
-    // List<User> findByPhone(String phone);
-
-    // List<User> findByStreet(String street);
 }

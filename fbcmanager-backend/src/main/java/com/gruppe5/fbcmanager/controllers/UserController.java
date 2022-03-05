@@ -1,17 +1,21 @@
 package com.gruppe5.fbcmanager.controllers;
 
+import java.util.ArrayList;
 
+import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import com.gruppe5.fbcmanager.dtos.UserDTO;
 import com.gruppe5.fbcmanager.services.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,72 +31,58 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> createUser(@RequestBody final UserDTO user) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    // @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    // @ResponseStatus(HttpStatus.OK)
-    // public ResponseEntity<UserDTO> getVehicle(@PathVariable(value = "id") long id) {
-    //     return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-    // }
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserDTO> getUser(@PathVariable(value = "id") long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    }
 
-    // @PutMapping(path = "/person")
-    // public @ResponseBody String updateUser(@RequestBody UserDTO p) {
+    @GetMapping(name = "getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ArrayList<UserDTO>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
 
-    // // var person = userRepository.findById(p.getId());
-    // // if (!person.isPresent()) {
-    // // throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user not
-    // found");
-    // // }
-    // // User updated = person.get();
-    // // updated.setFirstname(p.getFirstname());
-    // // updated.setLastname(p.getLastname());
-    // // updated.setTeam(p.getTeam());
-    // // updated.setIsactive(p.getIsactive());
-    // // updated.setUsertype(p.getUsertype());
-    // // userRepository.save(updated);
-    // return "Updated";
-    // }
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long id,
+            @RequestBody UserDTO user) {
+        return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
+    }
 
-    // @GetMapping(path = "/person/{id}")
-    // public @ResponseBody User getUser(@PathVariable("id") Integer id) {
-    // if (!userRepository.findById(id).isPresent()) {
-    // throw new ResponseStatusException(
-    // HttpStatus.NOT_FOUND, "user not found");
-    // }
-    // return userRepository.findById(id).get();
-    // }
+    @GetMapping(params = "firstname", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ArrayList<UserDTO>> getAllByFirstName(@PathParam("firstname") String firstname) {
+        return new ResponseEntity<>(userService.getAllUsersByFirstname(firstname), HttpStatus.OK);
+    }
 
-    // @GetMapping(path = "/all")
-    // public @ResponseBody Iterable<User> getAllUsers() {
-    // return userRepository.findAll();
-    // }
+    @GetMapping(params = "lastname", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ArrayList<UserDTO>> getAllByLastName(@PathParam("lastname") String lastname) {
+        return new ResponseEntity<>(userService.getAllUsersByLastname(lastname), HttpStatus.OK);
+    }
 
-    // @GetMapping(path = "/searchuser")
-    // public @ResponseBody Iterable<User> searchUser(@RequestParam(name = "query")
-    // String query) {
-    // Set<User> result = new HashSet<>();
-    // result.addAll(userRepository.findByFirstnameStartsWith(query));
-    // result.addAll(userRepository.findByLastnameStartsWith(query));
-    // // result.addAll(userRepository.findByTeamContaining(query));
-    // List<User> searchResults = new ArrayList<>(result);
-    // return searchResults;
-    // }
+    @GetMapping(params = "isactive", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ArrayList<UserDTO>> getByIsactive(@PathParam("isactive") boolean isactive) {
+        return new ResponseEntity<>(userService.getAllByIsactive(isactive), HttpStatus.OK);
+    }
 
-    // @GetMapping(path = "/all/{active}")
-    // public @ResponseBody Iterable<User>
-    // getUsersByActivityStatus(@PathVariable("active") String active) {
-    // System.out.println(active);
-    // System.out.println(userRepository.findByIsactive(active + ""));
-    // return userRepository.findByIsactive(active + "");
-    // }
+    @GetMapping(params = "phone", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserDTO> getUserByPhone(@PathParam("phone") int phone) {
+        return new ResponseEntity<>(userService.getUserByPhone(phone), HttpStatus.OK);
+    }
 
-    // @DeleteMapping(path = "/person/{id}")
-    // public @ResponseBody String deleteUser(@PathVariable("id") Integer id) {
-    // System.out.println(id);
+    @GetMapping(params = "email", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserDTO> getUserByEmail(@PathParam("email") String email) {
 
-    // userRepository.deleteById(id);
-    // return "Deleted";
-    // }
+        return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
+
+    }
 }

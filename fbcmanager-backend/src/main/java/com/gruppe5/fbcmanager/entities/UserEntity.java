@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -26,14 +27,17 @@ public class UserEntity {
     private String street;
 
     @Column(nullable = false)
+    
     private String zipcode;
 
     @Column(nullable = false)
     private String city;
 
+    // @Column(unique = true, nullable = false)
     @Column(nullable = false)
-    private String phone;
+    private int phone;
 
+    // @Column(unique = true,nullable = false)
     @Column(nullable = false)
     private String email;
 
@@ -44,19 +48,19 @@ public class UserEntity {
     private String lastname;
 
     @Column(nullable = false)
-    private String isactive;
+    private boolean isactive;
 
     // @Column(nullable = false)
     private String team;
 
     @Column(nullable = false)
-    private String usertype;
+    private int usertype;
 
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    public UserEntity(String street, String zipcode, String city, String phone, String email, String firstname,
-            String lastname, String isactive, String team, String usertype, LocalDate birthDate) {
+    public UserEntity(String street, String zipcode, String city, int phone, String email, String firstname,
+            String lastname, boolean isactive, String team, int usertype, LocalDate birthDate) {
         this.street = street;
         this.zipcode = zipcode;
         this.city = city;
@@ -104,11 +108,11 @@ public class UserEntity {
         this.lastname = lastname;
     }
 
-    public String getIsactive() {
+    public boolean getIsactive() {
         return isactive;
     }
 
-    public void setIsactive(String isactive) {
+    public void setIsactive(boolean isactive) {
         this.isactive = isactive;
     }
 
@@ -120,11 +124,11 @@ public class UserEntity {
         this.team = team;
     }
 
-    public String getUsertype() {
+    public int getUsertype() {
         return usertype;
     }
 
-    public void setUsertype(String usertype) {
+    public void setUsertype(int usertype) {
         this.usertype = usertype;
     }
 
@@ -160,11 +164,11 @@ public class UserEntity {
         this.city = city;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 

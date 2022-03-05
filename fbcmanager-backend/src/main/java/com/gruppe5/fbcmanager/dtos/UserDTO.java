@@ -4,48 +4,70 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.gruppe5.fbcmanager.entities.UserEntity;
 
+import org.hibernate.validator.constraints.Length;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
-/**A class used for transfering user data
- * the class consists of a 
+/**
+ * A class used for transfering user data
+ * the class consists of a
  * - UserDTO holding user information
- * - AddressDTO holding address information
- * - ContactInfoDTO holding contact information
  */
+
+
+
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = -3304734256617027874L;
-    
+
     private long userid;
 
+    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25 characters")
     private String street;
 
+    // @Size(min = 4, max = 4, message = "Zipcode must have length 4")
+    @NotNull
     private String zipcode;
 
+    // @Size(min = 2, max = 25, message = "City length should be 2 - 255 characters")
     private String city;
 
-    private String phone;
+    // @Pattern(regexp = "^[0-9]{8}$")
+    private int phone;
 
+    // @Email(message = "Error in email syntax")
     private String email;
 
+    // @Size(min = 2, max = 25, message = "First name length should be 2 - 25 characters")
     private String firstname;
 
+    // @Size(min = 2, max = 25, message = "Last name length should be 2 - 25 characters")
     private String lastname;
 
-    private String isactive;
+    // @Size(message = "Is active has to be true or false")
+    private boolean isactive;
 
+    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25 characters")
     private String team;
 
-    private String usertype;
+    // @Digits(integer = 1, fraction = 0, message = "The user has to have a type")
+    private int usertype;
 
     private LocalDate birthDate;
 
-
-
     private List<PractiseDTO> practices;
 
-    public UserDTO(long userid, String street, String zipcode, String city, String phone, String email, String firstname, String lastname,
-            String isactive, String team, String usertype, LocalDate birthDate, List<PractiseDTO> practices) {
+    public UserDTO(long userid, String street, String zipcode, String city, int phone, String email, String firstname,
+            String lastname,
+            boolean isactive, String team, int usertype, LocalDate birthDate, List<PractiseDTO> practices) {
         this.userid = userid;
         this.phone = phone;
         this.email = email;
@@ -59,7 +81,6 @@ public class UserDTO implements Serializable {
         this.street = street;
         this.city = city;
         this.zipcode = zipcode;
-        // this.practices = practices;
     }
 
     public String getEmail() {
@@ -70,11 +91,11 @@ public class UserDTO implements Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
@@ -91,12 +112,11 @@ public class UserDTO implements Serializable {
         this.team = userEntity.getTeam();
         this.usertype = userEntity.getUsertype();
         this.birthDate = userEntity.getBirthDate();
-        // this.practices = PractiseDTO.convertToListOfPractiseDTO(userEntity.getPractices());
     }
 
-    public UserEntity toEntity(){
+    public UserEntity toEntity() {
         UserEntity entity = new UserEntity();
-        entity.setStreet(this.street);  
+        entity.setStreet(this.street);
         entity.setCity(this.city);
         entity.setZipcode(this.zipcode);
         entity.setPhone(this.phone);
@@ -108,31 +128,11 @@ public class UserDTO implements Serializable {
         entity.setLastname(this.lastname);
         entity.setTeam(this.team);
         entity.setUsertype(this.usertype);
-        // entity.setPractices(this.practices);
         return entity;
     }
 
-    // public static List<UserDTO> convertToListOfUserDTO(List<UserEntity> entities) {
-
-    //     return entities.stream()
-    //             .map(e -> new UserDTO(e.getId(),e.getAddress(),e.getContactInfos(),e.getFirstname(),e.getLastname(),e.getIsactive(),e.getTeam(),e.getUsertype(),e.getBirthDate(),e.getPractices()))
-    //             .collect(Collectors.toList());
-    // }
-
-    // public static List<UserEntity> convertToListOfUserEntity(List<UserDTO> dtos) {
-    //     return dtos.stream()
-    //             .map(e -> new UserEntity(e.getUserid(),e.getAddress(),e.getContactInfos(),e.getFirstname(),e.getLastname(),e.getIsactive(),e.getTeam(),e.getUsertype(),e.getBirthDate(),e.getPractices()))
-    //             .collect(Collectors.toList());
-    // }
-
-
-
-
     public UserDTO() {
     }
-
-
-
 
     public String getFirstname() {
         return firstname;
@@ -150,11 +150,11 @@ public class UserDTO implements Serializable {
         this.lastname = lastname;
     }
 
-    public String getIsactive() {
+    public boolean getIsactive() {
         return isactive;
     }
 
-    public void setIsactive(String isactive) {
+    public void setIsactive(boolean isactive) {
         this.isactive = isactive;
     }
 
@@ -166,11 +166,11 @@ public class UserDTO implements Serializable {
         this.team = team;
     }
 
-    public String getUsertype() {
+    public int getUsertype() {
         return usertype;
     }
 
-    public void setUsertype(String usertype) {
+    public void setUsertype(int usertype) {
         this.usertype = usertype;
     }
 
@@ -197,8 +197,6 @@ public class UserDTO implements Serializable {
     public void setPractices(List<PractiseDTO> practices) {
         this.practices = practices;
     }
-
-
 
     public String getStreet() {
         return street;
@@ -232,4 +230,3 @@ public class UserDTO implements Serializable {
                 + ", zipcode=" + zipcode + "]";
     }
 }
-
