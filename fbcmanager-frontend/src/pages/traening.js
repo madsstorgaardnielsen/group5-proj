@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss"
 
+import Table from '@mui/material/Table';
 
 const Traening = () => {
   return (
@@ -10,6 +11,15 @@ const Traening = () => {
       <div className="body">
         <h1>Træning</h1>
           <p>Dine træninger:</p>
+          <p>Søg efter træninger</p>
+      </div>
+    </div>
+  );
+};
+
+export default Traening;
+
+/* //Table.
           <table>
               <tr>
                   <th>Dato</th>
@@ -26,10 +36,4 @@ const Traening = () => {
                   <td>Forelæsnings tid, husk at læse op</td>
               </tr>
           </table>
-          <p>Søg efter træninger</p>
-      </div>
-    </div>
-  );
-};
-
-export default Traening;
+ */
