@@ -40,7 +40,7 @@ export default function Navbar() {
           Begivenheder
         </NavLink>
         <NavLink activeclassname="active" className="navbartxt" to="/medlemmer">
-          <img className="navbarImg" src={news} alt="NemSport home" width="50px" height="50px"></img>
+          <img className="navbarImg" src={members} alt="NemSport home" width="50px" height="50px"></img>
           Medlemmer
         </NavLink>
         <NavLink activeclassname="active" className="navbartxt" to="/nyheder">
