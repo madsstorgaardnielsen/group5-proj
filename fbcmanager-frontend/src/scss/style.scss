@@ -16,7 +16,7 @@
 }
 
 .tabs {
-  padding: 15px 15px;
+  padding: 0;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 .navbarImg{
   height: 20px;
   padding-bottom: 3px;
-  margin-right: 10px;
+  margin-right: 0px;
   filter: invert(10%)
 }
 
@@ -67,6 +67,7 @@
   text-underline-offset: 5px;
   color: white;
 }
+
 
 /* ---------------------------- */
 
@@ -157,4 +158,19 @@
   float:right;
   margin-right: 30px;
   
+}
+
+
+
+@media only screen and (max-width: 1199px) {
+  /* NAVBAR */ 
+  .NavBar{
+    display: none;
+  }
+
+  /* ---------------------------- */
+  .body {
+    //display: flex;
+    margin: 100px 50px 50px 50px;
+  }
 }
