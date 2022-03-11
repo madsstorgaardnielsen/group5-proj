@@ -7,7 +7,7 @@
   width: 20vw;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   background-color: $light-text;
   padding: 15px 15px;
 }
@@ -26,16 +26,40 @@
 .navbartxt {
   margin: 10px;
   font-weight: lighter;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 5px 10px;
   font-size: 20px;
-  color: Grey;
+  color: $normal-grey;
   text-decoration: none;
 }
 
-.navbartxt.active {
-  text-decoration-line: underline;
+.navLogo{// LOGO in top left corner
+  text-decoration: none;
+  color: $main-color;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  margin-top: 50px;
+  
+}.navLogo:hover{
+  color: $main-color;
+}
+
+.navbartxt.active{
   text-underline-offset: 5px;
+  background-color: $main-color;
+  color: $light-text;
+  border-radius: 10px;
+  .navbarImg{
+    filter: invert(0%);
+    filter: brightness(100);
+  }
+}
+
+.navbarImg{
+  height: 20px;
+  padding-bottom: 3px;
+  margin-right: 10px;
+  filter: invert(10%)
 }
 
 .navbartxt:hover {
@@ -54,7 +78,6 @@
 /* .medlemmerList {
   columns: 8;
 }
-
 .medlemmerListItem {
   
   width: 100%;
