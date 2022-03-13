@@ -4,6 +4,8 @@ import "../scss/style.scss"
 
 import Table from '@mui/material/Table';
 
+
+
 const Traening = () => {
   return (
     <div>
