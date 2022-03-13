@@ -1,19 +1,20 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss";
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Hidden from '@mui/material/Hidden';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import {CardActionArea} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+import "../scss/eventPage.scss";
+import eventPic from "../res/img/events/eventPic.jpg";
+
 
 export default function BasicGrid() {
     return (
@@ -21,18 +22,94 @@ export default function BasicGrid() {
             <Grid container spacing={6}>
                 <Hidden mdDown>
                     <Grid item xs={3}>
-                        <Item>navigation</Item>
+                        <Navbar />
                     </Grid>
                 </Hidden>
+
+
                 <Grid item xs={12} sm={8} md={6}>
-                    <Item>content</Item>
+                    <div className="content">
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Grid container spacing={1}>
+                                <Grid container item spacing={3}>
+                                    <FormRow />
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </div>
                 </Grid>
+
+
                 <Grid item xs={12} sm={4} md={3}>
-                    <Item>right side content</Item>
+                    <Avatar alt="Mette Frederiksen" src={eventPic} />
+                    <p>Mette Frederiksen</p>
                 </Grid>
             </Grid>
         </Box>
     );
 }
 
+/*TODO Get number of cards or set maximum. Odd numbers are removed. */
+const numberOfCards = 10;
+function FormRow() {
+    return (
+        <React.Fragment>
+            <Grid item xs={6} >
+                <section className="eventCardGrid">
+                    {Array.from({ length: numberOfCards/2 }, (_, i) => <span key={i}>
+                            <EventCard/>
+                        </span>)}
+                </section>
+            </Grid>
+            <Grid item xs={6} className="eventCardGrid2">
+                <section>
+                    {Array.from({ length: numberOfCards/2 }, (_, i) => <span key={i}>
+                            <EventCard/>
+                        </span>)}
+                </section>
+            </Grid>
+        </React.Fragment>
+    );
+}
 
+/*TODO Eventually load this database
+*      And create navigation to page of specific event - Not a priority. */
+function EventCard() {
+    const navigate = useNavigate()
+    const toHome = () => {
+        navigate('/home')
+    }
+
+    return (
+        <Card sx={{ maxWidth: 400 }} className="eventCard">
+            <CardActionArea onClick={toHome}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={eventPic}
+                    alt="Event picture"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        Pølsehorn og snacks
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!
+                        Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!
+                        Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!
+                    </Typography>
+                    <div className="grid-container">
+                        <div>
+                            <Typography variant="subtitle2" color="text.secondary">
+                            <p className="cardDate">29/9 kl. 13:00</p>
+                            </Typography></div>
+                        <div className="cardLocation">
+                            <Typography variant="subtitle2" color="text.secondary" >
+                                <p className="cardLocation">klubhuset</p>
+                            </Typography></div>
+                    </div>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
+}
