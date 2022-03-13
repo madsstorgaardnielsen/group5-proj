@@ -1,9 +1,8 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss"
-
 import Table from '@mui/material/Table';
-
+import CollapsibleTable from "../components/TrainingsTable"
 
 
 const Traening = () => {
@@ -13,6 +12,7 @@ const Traening = () => {
       <div className="body">
         <h1>Træning</h1>
           <p>Dine træninger:</p>
+          <CollapsibleTable />
           <p>Søg efter træninger</p>
       </div>
     </div>
