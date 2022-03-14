@@ -16,9 +16,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 // Table inspired by MUI. https://mui.com/components/tables/
 
-function trainingstable(name, time, fat, carbs, protein, price, description) {
+function trainingstable(date, time, fat, carbs, protein, price, description) {
     return {
-        name,
+        date,
         time,
         fat,
         carbs,
@@ -45,7 +45,7 @@ function Row(props) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.date}
                 </TableCell>
                 <TableCell align="right">{row.calories}</TableCell>
                 <TableCell align="right">{row.fat}</TableCell>
@@ -74,18 +74,18 @@ Row.propTypes = {
         carbs: PropTypes.number.isRequired,
         fat: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         protein: PropTypes.number.isRequired,
     }).isRequired,
 };
 
 const rows = [
-    trainingstable('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    trainingstable('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    trainingstable('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    trainingstable('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    trainingstable('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+    trainingstable('15-03-2022', 159, 6.0, 24, 4.0, 3.99),
+    trainingstable('15-03-2022', 237, 9.0, 37, 4.3, 4.99),
+    trainingstable('17-03-2022', 262, 16.0, 24, 6.0, 3.79),
+    trainingstable('29-03-2022', 305, 3.7, 67, 4.3, 2.5),
+    trainingstable('26-04-2022', 356, 16.0, 49, 3.9, 1.5),
 ];
 
 export default function CollapsibleTable() {
@@ -95,7 +95,7 @@ export default function CollapsibleTable() {
                 <TableHead>
                     <TableRow>
                         <TableCell/>
-                        <TableCell>Dessert (100g serving)</TableCell>
+                        <TableCell>Date</TableCell>
                         <TableCell align="right">Calories</TableCell>
                         <TableCell align="right">Fat&nbsp;(g)</TableCell>
                         <TableCell align="right">Carbs&nbsp;(g)</TableCell>
@@ -104,7 +104,7 @@ export default function CollapsibleTable() {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <Row key={row.name} row={row}/>
+                        <Row key={row.date} row={row}/>
                     ))}
                 </TableBody>
             </Table>
