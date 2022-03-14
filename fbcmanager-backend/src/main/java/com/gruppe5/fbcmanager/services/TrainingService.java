@@ -1,10 +1,13 @@
 package com.gruppe5.fbcmanager.services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.persistence.EntityNotFoundException;
 
 import com.gruppe5.fbcmanager.dtos.TrainingDTO;
+import com.gruppe5.fbcmanager.entities.TrainingEntity;
 import com.gruppe5.fbcmanager.repositories.TrainingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,19 @@ public class TrainingService {
                 throw new EntityNotFoundException("No trainings found");
         }
 }
+
+    public TrainingDTO createTraining(TrainingDTO training) { //Todo mangler checks
+        System.out.println("test i service");
+        TrainingEntity trainingEntity = new TrainingEntity();
+
+        // trainingEntity.setDate(LocalDate.now());
+         trainingEntity.setLocation(training.getLocation());
+        // trainingEntity.setTimeEnd(LocalTime.now());
+        // trainingEntity.setTimeStart(LocalTime.now());
+
+        return new TrainingDTO(trainingRepository.save(trainingEntity));
+
+    }
     
 
     

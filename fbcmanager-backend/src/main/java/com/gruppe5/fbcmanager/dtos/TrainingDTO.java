@@ -78,12 +78,12 @@ public class TrainingDTO implements Serializable{
     public TrainingDTO(TrainingEntity entity) {
         this.id = entity.getId();
         // this.participants = entity.getParticipants();
-        this.team = entity.getTeam();
+        //this.team = entity.getTeam();
         this.location = entity.getLocation();
-        this.maxParticipants = entity.getMaxParticipants();
-        this.date = entity.getDate();
-        this.timeStart = entity.getTimeStart();
-        this.timeEnd = entity.getTimeEnd();
+        //this.maxParticipants = entity.getMaxParticipants();
+        //this.date = entity.getDate();
+        //this.timeStart = entity.getTimeStart();
+        //this.timeEnd = entity.getTimeEnd();
         // this.trainer = entity.getTrainers();
     }
 

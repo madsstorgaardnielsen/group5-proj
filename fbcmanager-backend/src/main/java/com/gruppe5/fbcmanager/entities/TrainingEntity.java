@@ -7,34 +7,34 @@ import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "practises")
+@Table(name = "training")
 public class TrainingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long practiseid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long trainingid;
 
     // @Column(nullable = false)
     private String team;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String location;
 
     // @Column(nullable = false)
     private Integer maxParticipants;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private LocalTime timeStart;
 
-    @Column(nullable = false)
+    // // @Column(nullable = false)
     private LocalTime timeEnd;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
-    private Set<UserEntity> participants;
+    //@ManyToMany(fetch = FetchType.EAGER)
+    //@JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
+    //private Set<UserEntity> participants;
 
 
 
@@ -44,7 +44,7 @@ public class TrainingEntity {
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.participants = participants;
+        //this.participants = participants;
     }
 
     public TrainingEntity(String location, Integer maxParticipants, LocalDate date, LocalTime timeStart,
@@ -68,11 +68,11 @@ public class TrainingEntity {
     }
 
     public Long getId() {
-        return practiseid;
+        return trainingid;
     }
 
-    public void setId(Long practiseid) {
-        this.practiseid = practiseid;
+    public void setId(Long trainingid) {
+        this.trainingid = trainingid;
     }
 
     public String getTeam() {
@@ -116,13 +116,13 @@ public class TrainingEntity {
     }
 
     public Long getPractiseid() {
-        return practiseid;
+        return trainingid;
     }
 
     public void setPractiseid(Long practiseid) {
-        this.practiseid = practiseid;
+        this.trainingid = practiseid;
     }
-
+/*
     public Set<UserEntity> getParticipant() {
         return participants;
     }
@@ -130,10 +130,12 @@ public class TrainingEntity {
     public void setParticipant(Set<UserEntity> participants) {
         this.participants = participants;
     }
+    
 
     @Override
     public String toString() {
         return "[ id->"+practiseid+" participants->"+participants+"]";
     }
 
+    */
 }

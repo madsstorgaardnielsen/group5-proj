@@ -39,5 +39,12 @@ public class TrainingController{
         return new ResponseEntity<>(trainingService.getAllTrainings(), HttpStatus.OK);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<TrainingDTO> createTraining(@RequestBody TrainingDTO training) {
+        System.out.println("test i controller");
+        return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.CREATED);
+    }
+
 }
 
