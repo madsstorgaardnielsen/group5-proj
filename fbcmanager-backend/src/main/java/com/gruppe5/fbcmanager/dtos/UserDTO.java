@@ -100,7 +100,7 @@ public class UserDTO implements Serializable {
     }
 
     public UserDTO(UserEntity userEntity) {
-        this.userid = userEntity.getUserid();
+        this.userid = userEntity.getId();
         this.email = userEntity.getEmail();
         this.phone = userEntity.getPhone();
         this.city = userEntity.getCity();
@@ -123,7 +123,7 @@ public class UserDTO implements Serializable {
         entity.setEmail(this.email);
         entity.setBirthDate(this.birthDate);
         entity.setFirstname(this.firstname);
-        entity.setUserid(this.userid);
+        entity.setId(this.userid);
         entity.setIsactive(this.isactive);
         entity.setLastname(this.lastname);
         entity.setTeam(this.team);

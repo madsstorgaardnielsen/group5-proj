@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/users")
-@CrossOrigin("*") // FOR TESTING DONT DO THIS IN PROD
+@CrossOrigin(origins= "*", maxAge = 3600) // FOR TESTING DONT DO THIS IN PROD
 public class UserController {
 
     @Autowired

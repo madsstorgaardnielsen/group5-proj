@@ -13,7 +13,6 @@ import com.gruppe5.fbcmanager.repositories.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.var;
 
 @Service
 public class UserService {

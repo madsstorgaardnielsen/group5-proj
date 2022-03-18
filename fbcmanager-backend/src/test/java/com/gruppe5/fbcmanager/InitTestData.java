@@ -1,119 +1,95 @@
-// package com.gruppe5.fbcmanager;
+package com.gruppe5.fbcmanager;
 
-// import java.time.LocalDate;
-// import java.time.LocalTime;
-// import java.time.Month;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
-// import com.gruppe5.fbcmanager.entities.Address;
-// import com.gruppe5.fbcmanager.entities.ContactInfo;
-// import com.gruppe5.fbcmanager.entities.Practise;
-// import com.gruppe5.fbcmanager.entities.User;
-// import com.gruppe5.fbcmanager.repositories.AddressRepository;
-// import com.gruppe5.fbcmanager.repositories.ContactInfoRepository;
-// import com.gruppe5.fbcmanager.repositories.PractiseRepository;
-// import com.gruppe5.fbcmanager.repositories.UserRepository;
+import com.gruppe5.fbcmanager.entities.UserEntity;
+import com.gruppe5.fbcmanager.repositories.PractiseRepository;
+import com.gruppe5.fbcmanager.repositories.UserRepository;
 
-// import org.junit.jupiter.api.AfterAll;
-// import org.junit.jupiter.api.BeforeAll;
-// import org.junit.jupiter.api.TestInstance;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// @SpringBootTest
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-// abstract class InitTestData {
-//         @Autowired
-//         UserRepository userRepository;
+abstract class InitTestData {
+        @Autowired
+        UserRepository userRepository;
 
-//         @Autowired
-//         AddressRepository addressRepository;
 
-//         @Autowired
-//         ContactInfoRepository contactInfoRepository;
+        // @Autowired
+        // PractiseRepository practiseRepository;
 
-//         @Autowired
-//         PractiseRepository practiseRepository;
+        @BeforeAll
+        void BeforeAll() {
+                userRepository.saveAll(generateUsers());
+        }
 
-//         @BeforeAll
-//         void BeforeAll() {
-//                 userRepository.saveAll(generateUsers());
-//                 practiseRepository.saveAll(generatePractises());
-//         }
+        private static List<UserEntity> generateUsers() {
+                List<UserEntity> users = new ArrayList<>();
 
-//         private static List<User> generateUsers() {
-//                 List<User> users = new ArrayList<>();
+                UserEntity bent = new UserEntity();
+                bent.setBirthDate(LocalDate.now());
+                bent.setCity("city");
+                bent.setEmail("email");
+                bent.setFirstname("bent");
+                bent.setIsactive(true);
+                bent.setLastname("lastname");
+                bent.setPhone(12345678);
+                bent.setStreet("street");
+                bent.setTeam("team");
+                bent.setUsertype(1);
+                bent.setZipcode("zipcode");
 
-//                 User john = new User(
-//                                 "John",
-//                                 "Johnsen",
-//                                 "active",
-//                                 "team",
-//                                 "usertype");
-//                 john.setAddress(
-//                                 new Address(john, "street", "zipcode", "city"));
+                UserEntity alice = new UserEntity();
+                alice.setBirthDate(LocalDate.now());
+                alice.setCity("city");
+                alice.setEmail("email");
+                alice.setFirstname("alice");
+                alice.setIsactive(true);
+                alice.setLastname("lastname");
+                alice.setPhone(12345678);
+                alice.setStreet("street");
+                alice.setTeam("team");
+                alice.setUsertype(1);
+                alice.setZipcode("zipcode");
 
-//                 john.setContactInfos(
-//                                 new ContactInfo(john, "123123123", "john@john.dk"));
+                users.add(bent);
+                users.add(alice);
 
-//                 User c = new User(
-//                                 "c",
-//                                 "Johnsen",
-//                                 "active",
-//                                 "team",
-//                                 "usertype");
-//                 c.setAddress(
-//                                 new Address(c, "street", "zipcode", "city"));
 
-//                 c.setContactInfos(
-//                                 new ContactInfo(c, "123123123", "ca@john.dk"));
+                return users;
+        }
 
-//                 User a = new User(
-//                                 "a",
-//                                 "Johnsen",
-//                                 "active",
-//                                 "team",
-//                                 "usertype");
-//                 a.setAddress(
-//                                 new Address(a, "street", "zipcode", "city"));
+        //
+        // public Practice(String team, String location, LocalDate date, LocalTime
+        // timeStart,
+        // LocalTime timeEnd, User trainer)
 
-//                 a.setContactInfos(
-//                                 new ContactInfo(a, "123123123", "a@john.dk"));
-
-//                 users.add(john);
-//                 users.add(c);
-//                 users.add(a);
-
-//                 return users;
-//         }
-
-//         //
-//         // public Practice(String team, String location, LocalDate date, LocalTime
-//         // timeStart,
-//         // LocalTime timeEnd, User trainer)
-
-//         private static List<Practise> generatePractises() {
-//                 List<Practise> practices = new ArrayList<>();
+        // private static List<Practise> generatePractises() {
+        //         List<Practise> practices = new ArrayList<>();
                
-//                 Practise practice1 = new Practise("team1", "location", LocalDate.of(2022, Month.JANUARY, 22),
-//                                 LocalTime.of(17, 30), LocalTime.of(20, 30));
+        //         Practise practice1 = new Practise("team1", "location", LocalDate.of(2022, Month.JANUARY, 22),
+        //                         LocalTime.of(17, 30), LocalTime.of(20, 30));
 
-//                 Practise practice2 = new Practise("team2", "location2", LocalDate.of(2022, Month.DECEMBER, 22),
-//                                 LocalTime.of(17, 30), LocalTime.of(20, 30));
+        //         Practise practice2 = new Practise("team2", "location2", LocalDate.of(2022, Month.DECEMBER, 22),
+        //                         LocalTime.of(17, 30), LocalTime.of(20, 30));
 
-//                 practices.add(practice1);
-//                 practices.add(practice2);
+        //         practices.add(practice1);
+        //         practices.add(practice2);
 
-//                 return practices;
-//         }
+        //         return practices;
+        // }
 
-//         @AfterAll
-//         void afterAll() {
-//                 addressRepository.deleteAll();
-//                 userRepository.deleteAll();
-//                 contactInfoRepository.deleteAll();
-//                 practiseRepository.deleteAll();
-//         }
-// }
+        @AfterAll
+        void afterAll() {
+                userRepository.deleteAll();
+        }
+}

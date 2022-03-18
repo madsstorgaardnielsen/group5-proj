@@ -1,6 +1,7 @@
 package com.gruppe5.fbcmanager.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.UserEntity;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
+    List<UserEntity> findAll();
+    
     List<UserEntity> findAllByOrderByFirstnameAsc();
 
     List<UserEntity> findByFirstnameStartsWith(String firstname);
@@ -26,5 +29,9 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
     UserEntity findByPhone(int phone);
 
     UserEntity findByEmail(String email);
+
+    Optional<UserEntity> findByUsername(String username);
+  Boolean existsByUsername(String username);
+  Boolean existsByEmail(String email);
 
 }
