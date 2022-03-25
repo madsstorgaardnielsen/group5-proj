@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss"
+import "../scss/homePage.scss"
 
 
 const Home = () => {
