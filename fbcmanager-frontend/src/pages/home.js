@@ -8,7 +8,15 @@ const Home = () => {
     <div>
       <Navbar />
       <div className="body">
-        <h1>Home</h1>
+        <div className="grid-container-home">
+          <div className="grid-item-home">
+            <h1>Home</h1>
+          </div>
+          <div className="grid-item-home">
+            <p>test</p>
+          </div>
+        
+        </div>
       </div>
     </div>
   );
