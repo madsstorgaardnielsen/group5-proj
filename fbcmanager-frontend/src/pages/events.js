@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import RightColumn from "../components/RightColumn";
 import "../scss/style.scss";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -41,8 +42,7 @@ export default function BasicGrid() {
 
 
                 <Grid item xs={12} sm={4} md={3}>
-                    <Avatar alt="Mette Frederiksen" src={eventPic} />
-                    <p>Mette Frederiksen</p>
+                    <RightColumn />
                 </Grid>
             </Grid>
         </Box>
