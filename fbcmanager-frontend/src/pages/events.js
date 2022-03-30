@@ -13,7 +13,7 @@ import {CardActionArea} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 import "../scss/eventPage.scss";
-import eventPic from "../res/img/events/eventPic.jpg";
+import eventPic from "../res/img/events/event-pic.jpg";
 
 
 export default function BasicGrid() {

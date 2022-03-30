@@ -1,0 +1,30 @@
+@import 'variables.scss';
+
+.grid-container-home{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.grid-item-home{
+    div{
+        margin: 30px 10px;
+        border-radius: 10px;
+        padding: 20px 30px; 
+    }
+}
+
+.next-practice{
+    background-color: $main-color;
+    color: $light-text;
+    .h{
+        color: $faded-grey;
+    }
+    .practice-info-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    }
+}
+
+.home-calendar{
+    background-color: $light-grey;
+    height: 30vh;
+}

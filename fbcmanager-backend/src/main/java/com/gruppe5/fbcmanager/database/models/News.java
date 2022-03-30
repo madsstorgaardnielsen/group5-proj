@@ -1,3 +1,4 @@
+/*
 package com.gruppe5.fbcmanager.database.models;
 
 import javax.persistence.*;
@@ -49,3 +50,4 @@ public class News {
 
 
 }
+*/
