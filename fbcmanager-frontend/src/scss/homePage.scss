@@ -2,29 +2,121 @@
 
 .grid-container-home{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 5fr 2fr;
 }
 .grid-item-home{
     div{
         margin: 30px 10px;
         border-radius: 10px;
-        padding: 20px 30px; 
+        
     }
 }
 
+// PRACTICE INFO CONTAINER XXXXXXXXXXXXXXXXXXXXXXXXXX
 .next-practice{
     background-color: $main-color;
     color: $light-text;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    .next-practice-container{
+        padding: 20px 30px; 
+    }
     .h{
         color: $faded-grey;
+        margin: 0;
+    }
+    h1{
+        margin: 0;
     }
     .practice-info-container{
         display: grid;
+        margin: 15px 0px;
+        padding: 0; 
         grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+        .pi-date{
+            p, h3{
+                margin: 0;
+            }
+        }
+        section span{
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            margin: 12px 0 0 0;
+            p, img{
+                display: flex;
+            }
+            p{
+                margin: auto auto auto 10px;
+            }
+            img{
+                margin: auto;
+            }
+        }
+        
+    }
+    .pi-last-column{
+        background-image: url('../res/img/homepage/soccer-ball.svg');
+        border-radius: 10px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-blend-mode: inherit;
+        opacity: 0.2;
     }
 }
 
+
+// CALENDAR XXXXXXXXXXXXXXXXXXXXXXXXXX
 .home-calendar{
     background-color: $light-grey;
+    //height: 30vh; 
+    div{
+        margin: 0;
+    }
+}
+/*
+.react-calendar{
+    .react-calendar__navigation{
+        font-size: 2rem;
+        .react-calendar__navigation__arrow{
+            color: $main-color;
+            border: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .react-calendar__navigation__label{
+            color: $main-color;
+            letter-spacing: 2px;
+            border: none;
+            font-weight: 400;
+        }
+    }
+    .react-calendar__viewContainer{
+        margin: 0;
+        .react-calendar__month-view {
+            margin: 0;
+            div{
+                margin: 0;
+                .react-calendar__month-view__weekdays{
+                    margin: 0;
+                }
+                .react-calendar__month-view__days{
+
+                }
+            }
+        }
+    }
+}
+
+.react-calendar__tile--active{
+    background: black;
+}*/
+
+
+
+
+
+// EVENTS XXXXXXXXXXXXXXXXXXXXXXXXXX
+.home-events{
+    background-color: lightcyan;
     height: 30vh;
 }
