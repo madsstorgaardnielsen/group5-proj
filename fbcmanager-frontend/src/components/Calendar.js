@@ -9,12 +9,11 @@ class Calendar extends Component {
         this.state = {
             viewType: "Week",
             durationBarVisible: false,
-            weekStarts: 0,
-            cellHeight: 10,
+            cellHeight: 15,
             locale: "da-dk",
-            heightSpec: "Full",
+            heightSpec: "BusinessHours",
             //height: 1000,
-            dayBeginsHour: 20,
+            businessBeginsHour: 11, 
         
             // TODO: THESE EVENTS SHOULD BE LOADED AS A LIST OF JSON OBJECT FROM THE DATABASE.
             events: [

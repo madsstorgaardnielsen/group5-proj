@@ -1,5 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Calendar from "../components/Calendar";
 import "../scss/style.scss"
 import "../scss/homePage.scss"
@@ -13,13 +14,18 @@ import team from "../res/img/homepage/team.svg"
 import participants from "../res/img/homepage/participants.svg"
 import location from "../res/img/homepage/location.svg"
 import coach from "../res/img/homepage/coach.svg"
-import react from "react";
 
 
 
 
 function Home() {
-  const [value, onChange] = useState(new Date());
+  //const [value, onChange] = useState(new Date());
+
+  const navigate = useNavigate()
+
+  const toEvents = () => {
+    navigate('/events')
+  }
 
   return (
     <div>
@@ -66,16 +72,57 @@ function Home() {
               </section>
               <section  className="pi-last-column"></section>
             </div>
+            {/* END Next Practice */}
 
             {/* Calendar */}
             <div className="home-calendar">
               <Calendar />
             </div>
+            {/* END Calendar */}
 
             {/* Events */}
             <div className="home-events">
-
+              <div>
+                <section>
+                  <h4>Pølsehorn og snacks</h4>
+                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
+                  <span>
+                    <p>29/09/2022 13:00</p>
+                    <p>Klubhuset</p>
+                  </span>
+                </section>
+                <section>
+                  <h4>Pølsehorn og snacks</h4>
+                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
+                  <span>
+                    <p>29/09/2022 13:00</p>
+                    <p>Klubhuset</p>
+                  </span>
+                </section>
+              </div>
+              <div>
+                <section>
+                  <h4>Pølsehorn og snacks</h4>
+                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
+                  <span>
+                    <p>29/09/2022 13:00</p>
+                    <p>Klubhuset</p>
+                  </span>
+                </section>
+                <section>
+                  <h4>Pølsehorn og snacks</h4>
+                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
+                  <span>
+                    <p>29/09/2022 13:00</p>
+                    <p>Klubhuset</p>
+                  </span>
+                </section>
+              </div>
             </div>
+            <div>
+              <a onClick={toEvents} className="all-events-link">Se alle begivenheder</a>
+            </div>
+            {/* END Events */}
           </div>
           {/* XXXXXX MIDDLE COLLUMN END XXXXXX*/}
 
