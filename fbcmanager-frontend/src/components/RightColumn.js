@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import {CardActionArea} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
-import UserPic from "../res/img/events/eventPic.jpg";
+import UserPic from "../res/img/events/event-pic.jpg";
 
 import "../scss/style.scss";
 

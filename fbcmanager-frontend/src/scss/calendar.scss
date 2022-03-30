@@ -1,0 +1,28 @@
+/* adjusting the built-in theme */
+
+
+/* calendar event */
+.calendar_default_event_inner {
+    background: #2e78d6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 10pt;
+    padding: 5px;
+    opacity: 0.8;
+}
+
+
+/*
+tr td table tbody tr{
+    height: 0px !important;
+}
+.calendar_default_rowheader{
+    height: 20px !important;
+}
+.calendar_default_cell{
+    height: 10px !important;
+}
+td{
+    height: auto !important;
+}*/
