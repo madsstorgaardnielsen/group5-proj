@@ -35,27 +35,27 @@ export default function Navbar() {
             <div className="profile-column-news-container">
                 <section>
                     <h4>Ny bane!</h4>
-                    <p>Se den helt nye kunstgrasbane i fælledparken....</p>
+                    <p>Se den helt nye baner i fælledparken....</p>
                     <p>03/03/2022 11:47</p>
                 </section>
                 <section>
                     <h4>Ny bane!</h4>
-                    <p>Se den helt nye kunstgrasbane i fælledparken....</p>
+                    <p>Se den helt nye baner i fælledparken....</p>
                     <p>03/03/2022 11:47</p>
                 </section>
                 <section>
                     <h4>Ny bane!</h4>
-                    <p>Se den helt nye kunstgrasbane i fælledparken....</p>
+                    <p>Se den helt nye baner i fælledparken....</p>
                     <p>03/03/2022 11:47</p>
                 </section>
                 <section>
                     <h4>Ny bane!</h4>
-                    <p>Se den helt nye kunstgrasbane i fælledparken....</p>
+                    <p>Se den helt nye baner i fælledparken....</p>
                     <p>03/03/2022 11:47</p>
                 </section>
                 <section>
                     <h4>Ny bane!</h4>
-                    <p>Se den helt nye kunstgrasbane i fælledparken....</p>
+                    <p>Se den helt nye baner i fælledparken....</p>
                     <p>03/03/2022 11:47</p>
                 </section>
             </div>
