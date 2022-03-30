@@ -16,7 +16,7 @@
 }
 
 .tabs {
-  padding: 15px 15px;
+  padding: 0;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 .navbarImg{
   height: 20px;
   padding-bottom: 3px;
-  margin-right: 10px;
+  margin-right: 0px;
   filter: invert(10%)
 }
 
@@ -67,6 +67,54 @@
   text-underline-offset: 5px;
   color: white;
 }
+
+/* -------------Right Column------------- */
+.right_column {
+  padding-top: 50px;
+  padding-right: 20%;
+}
+
+.column_top {
+  display: grid;
+  justify-content: flex-end;
+  grid-template-columns: 100%;
+}
+.avatar_dropdown {
+  display: inline-block;
+  float: right;
+  margin-bottom: 30px;
+}
+.right_align {
+  text-align: right;
+}
+.bulletin_header{
+  padding-top: 50px;
+  font-weight: bold;
+
+}
+.bulletin_card_grid{
+  display: grid;
+  justify-content: flex-end;
+  grid-template-columns: 100%;
+}
+.bulletin_card{
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: 0;
+  float: right;
+  .grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+    padding-top: 10px;
+
+    .bulletin_date {
+      font-size: 12px;
+      float: right;
+      height: 0;
+    }
+  }
+}
+
 
 /* ---------------------------- */
 
@@ -78,7 +126,6 @@
 /* .medlemmerList {
   columns: 8;
 }
-
 .medlemmerListItem {
   
   width: 100%;
@@ -142,7 +189,6 @@
   text-decoration: none;
   width: 120px;
   font-size: 25px;
-  /* width: 50%; */
 }
 
 .button:hover {
@@ -159,4 +205,19 @@
   float:right;
   margin-right: 30px;
   
+}
+
+
+
+@media only screen and (max-width: 1199px) {
+  /* NAVBAR */ 
+  .NavBar{
+    display: none;
+  }
+
+  /* ---------------------------- */
+  .body {
+    //display: flex;
+    margin: 100px 50px 50px 50px;
+  }
 }

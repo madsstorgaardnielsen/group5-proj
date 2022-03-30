@@ -1,0 +1,35 @@
+@import 'variables.scss';
+
+.profile-column-body{
+    display: flex;
+    flex-direction: column;
+    .profile-column-profile-container{
+        display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+        section, p{
+            margin: 10px 10px 10px auto
+        };
+        .profile-pic{
+            margin-left: 20px;
+        }
+    }
+    
+    .profile-column-news-container{
+        section{
+            background-color: $light-grey;
+            padding: 15px;
+            margin: 20px 10px;
+            border-radius: 10px;
+            p{
+                font-size: .8em;
+            }
+            :last-child{
+                font-size: .7em;
+                width: fit-content;
+                margin: 0 0 0 auto;
+            }
+        }
+    }
+
+}

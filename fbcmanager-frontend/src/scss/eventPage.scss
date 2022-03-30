@@ -1,0 +1,29 @@
+
+.content{
+    margin-top: 100px;
+}
+.eventCard{
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50% 50%;
+        padding-top: 10px;
+        .cardDate {
+            font-size: 12px;
+            float: left;
+            height: 0px;
+
+        }
+        .cardLocation {
+            font-size: 12px;
+            float: right;
+            height: 0px;
+
+        }
+    }
+}
+
+
+
