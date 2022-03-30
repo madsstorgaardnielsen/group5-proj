@@ -2,6 +2,7 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Calendar from "../components/Calendar";
+import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/homePage.scss"
 
@@ -14,7 +15,7 @@ import team from "../res/img/homepage/team.svg"
 import participants from "../res/img/homepage/participants.svg"
 import location from "../res/img/homepage/location.svg"
 import coach from "../res/img/homepage/coach.svg"
-
+//import profile from "../res/img/homepage/tmp-profile.png"
 
 
 
@@ -83,6 +84,7 @@ function Home() {
             {/* Events */}
             <div className="home-events">
               <div>
+                {/* TODO: THESE PREVEIWS OF EVENTS, SHOULD BE FETCHED DYNAMICALLY */}
                 <section>
                   <h4>Pølsehorn og snacks</h4>
                   <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
@@ -119,7 +121,7 @@ function Home() {
                 </section>
               </div>
             </div>
-            <div>
+            <div className="all-events-link-container">
               <a onClick={toEvents} className="all-events-link">Se alle begivenheder</a>
             </div>
             {/* END Events */}
@@ -130,9 +132,7 @@ function Home() {
           {/* XXXXXX RIGHT COLLUMN START XXXXXX*/}
           <div className="grid-item-home">
             {/* Profile */}
-            <div>
-
-            </div>
+            <ProfileColumn />
 
             {/* News */}
             <div>
