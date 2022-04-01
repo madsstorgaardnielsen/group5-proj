@@ -17,7 +17,7 @@ import arrow from "../res/img/profile/down-arrow.svg"
 
 
 
-export default function Navbar() {
+export default function profileColumn() {
     const membership_status = "Aktiv"
     const league = "U18"
     

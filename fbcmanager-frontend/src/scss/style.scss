@@ -55,6 +55,9 @@
   }
   
 }
+.NavBar-container{
+  display: block;
+}
 
 .navbarImg{
   height: 20px;
@@ -71,6 +74,18 @@
 .navbartxt:hover.active{
   color: white;
 }
+
+.burger{
+  height: 40px;
+  width: 40px;
+  margin: 30px 0 0 50px;
+  display: none;
+}
+
+
+
+
+
 
 /* -------------Right Column------------- */
 .right_column {
@@ -215,10 +230,26 @@
 
 @media only screen and (max-width: 1199px) {
   /* NAVBAR */ 
-  .NavBar{
-    display: none;
-  }
+  .NavBar-container{
+    opacity: 1;
+    position: relative;
+    padding: 40px 0 40px 0;
+    width: 50vw;
+    background-color: white;
+    box-shadow: 5px 10px 10px rgb(128, 128, 128, 0.5);
+    border-radius: 10px;
 
+    display: none;
+
+  }
+  .NavBar{
+    width: 50vw;
+    z-index: 2;
+  }
+  .burger{
+    display: block;
+  }
+  
   /* ---------------------------- */
   .body {
     //display: flex;
