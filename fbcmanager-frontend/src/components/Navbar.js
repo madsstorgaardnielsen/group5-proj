@@ -1,5 +1,4 @@
 import React, {Fragment, PureComponent} from "react";
-import "../scss/style.scss";
 import { useNavigate } from "react-router";
 import { Link, NavLink } from "react-router-dom";
 
