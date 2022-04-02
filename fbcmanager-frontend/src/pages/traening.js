@@ -5,7 +5,7 @@ import Table from '@mui/material/Table';
 import CollapsibleTable from "../components/TrainingsTable"
 
 
-const Traening = () => {
+function Traening () {
   return (
     <div>
       <Navbar />
