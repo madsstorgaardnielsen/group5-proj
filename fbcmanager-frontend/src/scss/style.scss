@@ -53,6 +53,7 @@
     filter: invert(0%);
     filter: brightness(100);
   }
+  
 }
 
 .navbarImg{
@@ -65,6 +66,9 @@
 .navbartxt:hover {
   text-decoration-line: underline;
   text-underline-offset: 5px;
+  color: $normal-grey;
+}
+.navbartxt:hover.active{
   color: white;
 }
 
