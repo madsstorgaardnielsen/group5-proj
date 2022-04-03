@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "training")
+@Table(name = "trainings")
 public class TrainingEntity {
 
     @Id
@@ -31,6 +32,8 @@ public class TrainingEntity {
 
     // // @Column(nullable = false)
     private LocalTime timeEnd;
+
+    private String trainers;
 
     //@ManyToMany(fetch = FetchType.EAGER)
     //@JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
@@ -63,6 +66,15 @@ public class TrainingEntity {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String getTrainers() {
+        return trainers;
+    }
+
+    public void setTrainers(String trainers) {
+        this.trainers = trainers;
+    }
+
 
     public TrainingEntity() {
     }

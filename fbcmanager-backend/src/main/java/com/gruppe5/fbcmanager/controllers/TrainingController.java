@@ -43,6 +43,7 @@ public class TrainingController{
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TrainingDTO> createTraining(@RequestBody TrainingDTO training) {
         System.out.println("test i controller");
+        System.out.println("DTO" + training.toString());
         return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.CREATED);
     }
 

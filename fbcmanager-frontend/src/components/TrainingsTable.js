@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import Table from '@mui/material/Table';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -14,9 +16,13 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+
 // Table inspired by MUI. https://mui.com/components/tables/
 
+
+
 function trainingstable(date, timeStart, timeEnd, location, team) {
+
     return {
         date,
         timeStart,
@@ -27,10 +33,12 @@ function trainingstable(date, timeStart, timeEnd, location, team) {
     };
 }
 
+
+
 function Row(props) {
+
     const { row } = props;
     const [open, setOpen] = React.useState(false);
-
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -75,13 +83,49 @@ Row.propTypes = {
     }).isRequired,
 };
 
-const rows = [
-    trainingstable('15-03-2022', '10:00', '11:00', 'Holte Station', 'U14'), //One traing in a line
-    trainingstable('15-03-2022', '10:00', '14:00', 'Anker Engelunds Vej nr. 1', 'U23'), //Date, timeS, timeE, Location, Team
-    trainingstable('17-03-2022', '22:00', '00:00', 'Lyngby svømmehal', 'U40')
-];
+//const rows = [
+    //trainingstable('15-03-2022', '10:00', '11:00', 'Holte Station', 'U14'), //One traing in a line
+    //trainingstable('15-03-2022', '10:00', '14:00', 'Anker Engelunds Vej nr. 1', 'U23'), //Date, timeS, timeE, Location, Team
+    //trainingstable('17-03-2022', '22:00', '00:00', 'Lyngby svømmehal', 'U40')
+
+    //training.map((t)=>trainingstable(t.team))
+
+
+//];
 
 export default function CollapsibleTable() {
+
+    const [training, setTraining] = React.useState([]);
+
+    useEffect(() => {
+        var object = {
+            "date": "2022-04-01",
+            "team": "U13",
+            "location": "Holte station",
+            "timeStart": "10:00:00",
+            "timeEnd": "12:00:00"
+            }
+        var object2 = {
+            "date": "2022-06-03",
+            "team": "U19",
+            "location": "Anker Engelunds Vej 1",
+            "timeStart": "10:00:00",
+            "timeEnd": "14:30:00"
+            }
+        var object3 = {
+            "date": "2022-11-23",
+            "team": "U15",
+            "location": "Lyngby Svømmehal",
+            "timeStart": "22:00:00",
+            "timeEnd": "00:00:00"
+            }
+      axios.post("http://localhost:8080/training", object).then((response)=>console.log(response.data)) //respone contains the data from post
+      axios.post("http://localhost:8080/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
+      axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
+      axios.get("http://localhost:8080/training").then((response)=>setTraining(response.data)) //Setter data i training variable
+    }, [])
+
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -96,11 +140,12 @@ export default function CollapsibleTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <Row key={row.date} row={row}/>
+                    {training.map((row) => (
+                        <Row key={row.id} row={row}/>
                     ))}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 }
+

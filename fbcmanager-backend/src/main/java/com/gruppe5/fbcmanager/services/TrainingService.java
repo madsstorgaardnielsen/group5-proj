@@ -40,15 +40,14 @@ public class TrainingService {
         System.out.println("test i service");
         TrainingEntity trainingEntity = new TrainingEntity();
 
-        // trainingEntity.setDate(LocalDate.now());
+         trainingEntity.setDate(training.getDate());
          trainingEntity.setLocation(training.getLocation());
-        // trainingEntity.setTimeEnd(LocalTime.now());
-        // trainingEntity.setTimeStart(LocalTime.now());
+         trainingEntity.setTimeEnd(training.getTimeEnd());
+         trainingEntity.setTimeStart(training.getTimeStart());
+         trainingEntity.setTrainers(training.getTrainers());
+         trainingEntity.setTeam(training.getTeam());
 
         return new TrainingDTO(trainingRepository.save(trainingEntity));
 
     }
-    
-
-    
 }

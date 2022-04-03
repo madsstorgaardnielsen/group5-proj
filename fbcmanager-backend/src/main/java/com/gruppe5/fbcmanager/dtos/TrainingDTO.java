@@ -28,7 +28,7 @@ public class TrainingDTO implements Serializable{
 
     private LocalTime timeEnd;
 
-    private List<UserDTO> trainer;
+    private String trainers;
 
     public TrainingEntity toEntity(){
         TrainingEntity entity = new TrainingEntity();
@@ -36,16 +36,16 @@ public class TrainingDTO implements Serializable{
         entity.setDate(this.date);
         entity.setLocation(this.location);
         entity.setMaxParticipants(this.maxParticipants);
-        // entity.setParticipants(this.participants);
+        //entity.setParticipants(this.participants);
         entity.setTeam(this.team);
         entity.setTimeEnd(this.timeEnd);
         entity.setTimeStart(this.timeStart);
-        // entity.setTrainers(this.trainer);
+        entity.setTrainers(this.trainers);
         return entity;
     }
 
     public TrainingDTO(Long id, List<UserEntity> participants, String team, String location, int maxParticipants,
-            LocalDate date, LocalTime timeStart, LocalTime timeEnd, List<UserEntity> trainer) {
+            LocalDate date, LocalTime timeStart, LocalTime timeEnd, String trainers) {
         this.id = id;
         // this.participants = participants;
         this.team = team;
@@ -54,7 +54,7 @@ public class TrainingDTO implements Serializable{
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        // this.trainer = trainer;
+        this.trainers = trainers;
     }
 
     public TrainingDTO() {
@@ -77,14 +77,14 @@ public class TrainingDTO implements Serializable{
 
     public TrainingDTO(TrainingEntity entity) {
         this.id = entity.getId();
-        // this.participants = entity.getParticipants();
-        //this.team = entity.getTeam();
+        //this.participants = entity.getParticipants();
+        this.team = entity.getTeam();
         this.location = entity.getLocation();
         //this.maxParticipants = entity.getMaxParticipants();
-        //this.date = entity.getDate();
-        //this.timeStart = entity.getTimeStart();
-        //this.timeEnd = entity.getTimeEnd();
-        // this.trainer = entity.getTrainers();
+        this.date = entity.getDate();
+        this.timeStart = entity.getTimeStart();
+        this.timeEnd = entity.getTimeEnd();
+        this.trainers = entity.getTrainers();
     }
 
     public TrainingDTO(String location, int maxParticipants, LocalDate date, LocalTime timeStart,
@@ -160,12 +160,18 @@ public class TrainingDTO implements Serializable{
         this.timeEnd = timeEnd;
     }
 
-    public List<UserDTO> getTrainer() {
-        return trainer;
+    public String getTrainers() {
+        return trainers;
     }
 
-    public void setTrainer(List<UserDTO> trainer) {
-        this.trainer = trainer;
+    public void setTrainer(String trainers) {
+        this.trainers = trainers;
+    }
+
+    public String toString(){
+        return "Trainers:" + this.trainers + " TimeS:" +this.timeStart+" TimeE:"+ this.timeEnd + 
+        " Date:"+this.date + " MaxP:"+this.maxParticipants + " Location:"+this.location+" team:"+this.team+
+        " Praticipants"+this.participants+" Id:"+this.id;
     }
 
 }
