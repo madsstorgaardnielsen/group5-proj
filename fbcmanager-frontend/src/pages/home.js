@@ -39,7 +39,7 @@ function Home() {
             {/* next practice */}
             <div className="next-practice">
               <section className="next-practice-container">
-                <p className="h">Næste træning</p>
+                <p className="prac-sub-header">Næste træning</p>
                 <h1>Træning for seniorer</h1>
               {/* info container */}
                 <div className="practice-info-container">
