@@ -20,11 +20,15 @@ import arrow from "../res/img/profile/down-arrow.svg"
 export default function Navbar() {
     const membership_status = "Aktiv"
     const league = "U18"
-    
+    const navigate = useNavigate()
+    const toProfile = () => {
+        navigate('/profil')
+    }
 
     return (
         <div className="profile-column-body">
-            <div className="profile-column-profile-container">
+            <div className="profile-column-profile-container"
+                 onClick={toProfile}>
                 <section className="profile-pic-section">
                     <img src={arrow}/>
                     <img src={profile} className="profile-pic"/>

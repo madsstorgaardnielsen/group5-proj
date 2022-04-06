@@ -53,6 +53,10 @@ function DropdownMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const navigate = useNavigate()
+    const toProfile = () => {
+        navigate('/profil')
+    }
 
     return (
         <div>
@@ -75,8 +79,8 @@ function DropdownMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={toProfile}>Profile</MenuItem>
+                <MenuItem onClick={toProfile}>My account</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
         </div>
