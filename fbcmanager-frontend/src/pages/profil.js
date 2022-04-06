@@ -1,5 +1,5 @@
 import React from "react";
-import "../scss/style.scss";
+import "../scss/profilePage.scss";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import CollapsibleTable from "../components/TrainingsTable";
@@ -15,7 +15,51 @@ function Profil () {
                 <CollapsibleTable />
                 <p>Søg efter træninger</p>
             </div>
+
+            <div className="profile-info">
+                <div>
+                    {}
+                    <section>
+                        <h4>Headda</h4>
+                        <p>Contents</p>
+                        <span>
+                    <p>Subcontents</p>
+                    <p>Subsubcontents</p>
+                  </span>
+                    </section>
+                    {}
+                    <section>
+                        <h4>Headda</h4>
+                        <p>Contents</p>
+                        <span>
+                    <p>Subcontents</p>
+                    <p>Subsubcontents</p>
+                  </span>
+                    </section>
+                    {}
+                    <section>
+                        <h4>Headda</h4>
+                        <p>Contents</p>
+                        <span>
+                    <p>Subcontents</p>
+                    <p>Subsubcontents</p>
+                  </span>
+                    </section>
+                    {}
+                    <section>
+                        <h4>Headda</h4>
+                        <p>Contents</p>
+                        <span>
+                    <p>Subcontents</p>
+                    <p>Subsubcontents</p>
+                  </span>
+                    </section>
+                </div>
+            </div>
         </div>
+
+
+
     );
 };
 
