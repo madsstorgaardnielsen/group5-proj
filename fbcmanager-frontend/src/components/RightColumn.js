@@ -22,7 +22,7 @@ export default function RightColumn() {
             <div className="column_top">
                 <div>
                     <div className="avatar_dropdown">
-                        <Avatar alt="Profile Picture" src={UserPic} variant="rounded"/>
+                        <a href="/profil"><Avatar alt="Profile Picture" src={UserPic} variant="rounded"/></a>
                     </div>
                     <div className="avatar_dropdown">
                         <DropdownMenu/>

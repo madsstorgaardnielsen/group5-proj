@@ -29,6 +29,7 @@ export default function profileColumn() {
         } else {
             x.style.display = "block";
         }
+
       }
     
 
@@ -36,7 +37,7 @@ export default function profileColumn() {
         <div className="">
             <section className="profile-pic-section" >
                 <a onClick={profileMenu}><img src={arrow}/></a>
-                <img src={profile} className="profile-pic"/>
+                <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
             </section>
             <div className="profile-column-body" id="profile-column">
                 <div className="profile-column-profile-container">
