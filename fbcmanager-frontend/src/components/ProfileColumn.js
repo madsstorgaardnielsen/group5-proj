@@ -17,53 +17,63 @@ import arrow from "../res/img/profile/down-arrow.svg"
 
 
 
-export default function Navbar() {
+export default function profileColumn() {
     const membership_status = "Aktiv"
     const league = "U18"
-    const navigate = useNavigate()
-    const toProfile = () => {
-        navigate('/profil')
-    }
+
+
+    function profileMenu(){
+        var x = document.getElementById("profile-column");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+      }
+    
 
     return (
-        <div className="profile-column-body">
-            <div className="profile-column-profile-container"
-                 onClick={toProfile}>
-                <section className="profile-pic-section">
-                    <img src={arrow}/>
-                    <img src={profile} className="profile-pic"/>
-                </section>
-                <p>Mette Frederiksen</p>
-                <p>Medlemsskab: {membership_status}</p>
-                <p>{league}</p>
+        <div className="">
+            <section className="profile-pic-section" >
+                <a onClick={profileMenu}><img src={arrow}/></a>
+                <img src={profile} className="profile-pic"/>
+            </section>
+            <div className="profile-column-body" id="profile-column">
+                <div className="profile-column-profile-container">
+                    
+                    <p>Mette Frederiksen</p>
+                    <p>Medlemsskab: {membership_status}</p>
+                    <p>{league}</p>
+                </div>
+                <div className="profile-column-news-container">
+                    <section>
+                        <h4>Ny bane!</h4>
+                        <p>Se den helt nye baner i fælledparken....</p>
+                        <p>03/03/2022 11:47</p>
+                    </section>
+                    <section>
+                        <h4>Ny bane!</h4>
+                        <p>Se den helt nye baner i fælledparken....</p>
+                        <p>03/03/2022 11:47</p>
+                    </section>
+                    <section>
+                        <h4>Ny bane!</h4>
+                        <p>Se den helt nye baner i fælledparken....</p>
+                        <p>03/03/2022 11:47</p>
+                    </section>
+                    <section>
+                        <h4>Ny bane!</h4>
+                        <p>Se den helt nye baner i fælledparken....</p>
+                        <p>03/03/2022 11:47</p>
+                    </section>
+                    <section>
+                        <h4>Ny bane!</h4>
+                        <p>Se den helt nye baner i fælledparken....</p>
+                        <p>03/03/2022 11:47</p>
+                    </section>
+                </div>
             </div>
-            <div className="profile-column-news-container">
-                <section>
-                    <h4>Ny bane!</h4>
-                    <p>Se den helt nye baner i fælledparken....</p>
-                    <p>03/03/2022 11:47</p>
-                </section>
-                <section>
-                    <h4>Ny bane!</h4>
-                    <p>Se den helt nye baner i fælledparken....</p>
-                    <p>03/03/2022 11:47</p>
-                </section>
-                <section>
-                    <h4>Ny bane!</h4>
-                    <p>Se den helt nye baner i fælledparken....</p>
-                    <p>03/03/2022 11:47</p>
-                </section>
-                <section>
-                    <h4>Ny bane!</h4>
-                    <p>Se den helt nye baner i fælledparken....</p>
-                    <p>03/03/2022 11:47</p>
-                </section>
-                <section>
-                    <h4>Ny bane!</h4>
-                    <p>Se den helt nye baner i fælledparken....</p>
-                    <p>03/03/2022 11:47</p>
-                </section>
-            </div>
+            
         </div>
     );
 }
