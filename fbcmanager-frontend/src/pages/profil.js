@@ -16,34 +16,36 @@ function Profil () {
                 <div>
                     {}
                     <section>
-                        <h4>Headda</h4>
+                        <h4>Contact information</h4>
+                        <p style={{fontWeight: "bold"}}>Name</p>
+                        <p>Mette Frederiksen</p>
+                        <p style={{fontWeight: "bold"}}>Address</p>
+                        <p>Vej 1, 2300 København S</p>
+                        <p style={{fontWeight: "bold"}}>E-mail</p>
+                        <p>mette@frederiksen.dk</p>
+                        <p style={{fontWeight: "bold"}}>Phone number</p>
+                        <p>+4570707070</p>
+                        <span>
+                    <p>Subcontents</p>
+                    <p>Subsubcontents</p>
+                  </span>
+                        <button type="button">Change information</button>
+                        <button type="button">Change password</button>
+
+                    </section>
+                    {}
+                    <section>
+                        <h4>My training sessions</h4>
                         <p>Contents</p>
                         <span>
                     <p>Subcontents</p>
                     <p>Subsubcontents</p>
                   </span>
+                        <button type="button">See complete history</button>
                     </section>
                     {}
                     <section>
-                        <h4>Headda</h4>
-                        <p>Contents</p>
-                        <span>
-                    <p>Subcontents</p>
-                    <p>Subsubcontents</p>
-                  </span>
-                    </section>
-                    {}
-                    <section>
-                        <h4>Headda</h4>
-                        <p>Contents</p>
-                        <span>
-                    <p>Subcontents</p>
-                    <p>Subsubcontents</p>
-                  </span>
-                    </section>
-                    {}
-                    <section>
-                        <h4>Headda</h4>
+                        <h4>My statistics</h4>
                         <p>Contents</p>
                         <span>
                     <p>Subcontents</p>
