@@ -10,12 +10,13 @@ import Nyheder from './pages/nyheder';
 import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
-
+import Profil from './pages/profil';
 
 ReactDOM.render(
       <Router>
         <Routes>
           <Route path="/" element={<App/>}/>
+          <Route path="/profil" element={<Profil/>}/>
           <Route path="/medlemmer" element={<Medlemmer/>}/>
           <Route path="/nyheder" element={<Nyheder/>}/>
           <Route path="/events" element={<Events/>}/>
@@ -25,7 +26,6 @@ ReactDOM.render(
       </Router>,
   document.getElementById('root')
 );
-
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

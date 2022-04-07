@@ -1,4 +1,5 @@
 import React, {Fragment, PureComponent} from "react";
+import "../scss/style.scss";
 import { useNavigate } from "react-router";
 import { Link, NavLink } from "react-router-dom";
 
@@ -60,6 +61,10 @@ export default function Navbar() {
           <NavLink activeclassname="active" className="navbartxt" to="/nyheder">
             <img className="navbarImg" src={news} alt="NemSport home" width="50px" height="50px"></img>
             Nyheder
+          </NavLink>
+          <NavLink activeclassname="active" className="navbartxt" to="/profil">
+            <img className="navbarImg" src={news} alt="NemSport home" width="50px" height="50px"></img>
+            Profil
           </NavLink>
         </div>
       </div>
