@@ -3,16 +3,16 @@ import "../scss/profilePage.scss";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import CollapsibleTable from "../components/TrainingsTable";
-
+import profile from "../res/img/profile/tmp-profile.png";
 
 function Profil () {
     return (
         <div>
             <Navbar />
-
-
-
             <div className="profile-info">
+                <section className="profile-pic-section" >
+                    <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
+                </section>
                 <div>
                     {}
                     <section>
