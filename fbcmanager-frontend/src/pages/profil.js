@@ -9,12 +9,8 @@ function Profil () {
     return (
         <div>
             <Navbar />
-            <div className="body">
-                <h1>Profil</h1>
-                <p>Dine træninger:</p>
-                <CollapsibleTable />
-                <p>Søg efter træninger</p>
-            </div>
+
+
 
             <div className="profile-info">
                 <div>
