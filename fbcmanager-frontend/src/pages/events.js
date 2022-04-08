@@ -22,13 +22,13 @@ export default function BasicGrid() {
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={6}>
                 <Hidden mdDown>
-                    <Grid item xs={3}>
+                    <Grid item lg={3}>
                         <Navbar />
                     </Grid>
                 </Hidden>
 
 
-                <Grid item xs={12} sm={8} md={6}>
+                <Grid item xs={12} md={8} lg={6}>
                     <div className="content">
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container spacing={1}>
