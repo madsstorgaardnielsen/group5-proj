@@ -1,8 +1,8 @@
-package com.gruppe5.fbcmanager.entities;
+package com.gruppe5.fbcmanager.domain.entities;
 
 import javax.persistence.*;
 
-import com.gruppe5.fbcmanager.models.ERole;
+import com.gruppe5.fbcmanager.domain.models.ERole;
 @Entity
 @Table(name = "roles")
 public class RoleEntity {

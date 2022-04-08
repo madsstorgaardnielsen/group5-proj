@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.models;
+package com.gruppe5.fbcmanager.domain.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

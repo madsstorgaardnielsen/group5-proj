@@ -2,8 +2,8 @@ package com.gruppe5.fbcmanager.controllers;
 
 import java.util.ArrayList;
 
-import com.gruppe5.fbcmanager.dtos.TrainingDTO;
-import com.gruppe5.fbcmanager.services.TrainingService;
+import com.gruppe5.fbcmanager.domain.dtos.TrainingDTO;
+import com.gruppe5.fbcmanager.domain.services.TrainingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

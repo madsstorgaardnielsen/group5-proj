@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.entities;
+package com.gruppe5.fbcmanager.domain.entities;
 
 import javax.persistence.*;
 

@@ -2,11 +2,11 @@ package com.gruppe5.fbcmanager.controllers;
 
 import javax.validation.Valid;
 
+import com.gruppe5.fbcmanager.domain.services.AuthService;
 import com.gruppe5.fbcmanager.security.jwt.JwtUtils;
 import com.gruppe5.fbcmanager.security.request.LoginRequest;
 import com.gruppe5.fbcmanager.security.request.SignupRequest;
 import com.gruppe5.fbcmanager.security.response.MessageResponse;
-import com.gruppe5.fbcmanager.services.AuthService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

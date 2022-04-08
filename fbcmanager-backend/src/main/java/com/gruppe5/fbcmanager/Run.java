@@ -1,8 +1,8 @@
 package com.gruppe5.fbcmanager;
 
-import com.gruppe5.fbcmanager.entities.RoleEntity;
-import com.gruppe5.fbcmanager.models.ERole;
-import com.gruppe5.fbcmanager.repositories.RoleRepository;
+import com.gruppe5.fbcmanager.domain.entities.RoleEntity;
+import com.gruppe5.fbcmanager.domain.models.ERole;
+import com.gruppe5.fbcmanager.domain.repositories.RoleRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Bean;
 
 @EnableAutoConfiguration
 @SpringBootApplication
-public class FbcmanagerApplication {
+public class Run {
     public static void main(String[] args) {
-        SpringApplication.run(FbcmanagerApplication.class, args);
+        SpringApplication.run(Run.class, args);
     }
 
     @Bean
