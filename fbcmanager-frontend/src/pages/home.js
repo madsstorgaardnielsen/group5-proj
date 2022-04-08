@@ -33,7 +33,6 @@ function Home() {
       <Navbar />
       <div className="body">
         <div className="main-grid-container">
-
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
           <div className="main-grid-item">
             {/* next practice */}

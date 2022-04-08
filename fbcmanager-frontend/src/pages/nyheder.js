@@ -28,7 +28,7 @@ function NewsPage() {
     <div>
       <Navbar />
       <div className="body">
-        <div className="grid-container-news">
+        <div className="main-grid-container">
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
           <div className="news-grid">
             <Grid container spacing={4}>
@@ -41,7 +41,7 @@ function NewsPage() {
 
 
           {/* XXXXXX RIGHT COLLUMN START XXXXXX*/}
-          <div className="grid-item-news">
+          <div className="main-grid-item">
             {/* Profile */}
             <ProfileColumn />
           </div>
