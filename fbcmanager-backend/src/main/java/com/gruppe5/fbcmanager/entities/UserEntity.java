@@ -5,59 +5,83 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @DynamicUpdate
-@Table(name = "users") // user is a reserved word in sql, we circumvent this by giving the table a
-                       // custom name
+@Table(name = "users", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "email")
+}) 
 
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToMany(mappedBy = "participants", fetch = FetchType.EAGER)
     private Set<PractiseEntity> practises;
 
-    @Column(nullable = false)
+    @Size(max = 20)
+    private String username;
+
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", 
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles = new HashSet<>();
+
+    // @Column(nullable = false)
     private String street;
 
-    @Column(nullable = false)
-    
+    // @Column(nullable = false)
     private String zipcode;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String city;
 
     // @Column(unique = true, nullable = false)
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private int phone;
 
     // @Column(unique = true,nullable = false)
-    @Column(nullable = false)
+    // @Column(nullable = false)
+    @Email
     private String email;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String firstname;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String lastname;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private boolean isactive;
 
     // @Column(nullable = false)
     private String team;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private int usertype;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private LocalDate birthDate;
+
+    public UserEntity(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+      }
 
     public UserEntity(String street, String zipcode, String city, int phone, String email, String firstname,
             String lastname, boolean isactive, String team, int usertype, LocalDate birthDate) {
@@ -84,7 +108,7 @@ public class UserEntity {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
             return false;
         UserEntity user = (UserEntity) o;
-        return userid != null && Objects.equals(userid, user.userid);
+        return id != null && Objects.equals(id, user.id);
     }
 
     @Override
@@ -180,14 +204,6 @@ public class UserEntity {
         this.email = email;
     }
 
-    public Long getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
-
     public Set<PractiseEntity> getPractises() {
         return practises;
     }
@@ -196,12 +212,47 @@ public class UserEntity {
         this.practises = practises;
     }
 
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "UserEntity [birthDate=" + birthDate + ", city=" + city + ", email=" + email + ", firstname=" + firstname
-                + ", isactive=" + isactive + ", lastname=" + lastname + ", phone=" + phone + ", practises=" + practises
-                + ", street=" + street + ", team=" + team + ", userid=" + userid + ", usertype=" + usertype
-                + ", zipcode=" + zipcode + "]";
+        return "UserEntity [email=" + email + ", password=" + password + ", roles=" + roles + ", username=" + username
+                + "]";
     }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
 
 }

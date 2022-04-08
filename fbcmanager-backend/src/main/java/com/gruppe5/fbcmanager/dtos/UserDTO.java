@@ -23,21 +23,21 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
  * - UserDTO holding user information
  */
 
-
-
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = -3304734256617027874L;
 
     private long userid;
 
-    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25 characters")
+    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25
+    // characters")
     private String street;
 
     // @Size(min = 4, max = 4, message = "Zipcode must have length 4")
     @NotNull
     private String zipcode;
 
-    // @Size(min = 2, max = 25, message = "City length should be 2 - 255 characters")
+    // @Size(min = 2, max = 25, message = "City length should be 2 - 255
+    // characters")
     private String city;
 
     // @Pattern(regexp = "^[0-9]{8}$")
@@ -46,16 +46,19 @@ public class UserDTO implements Serializable {
     // @Email(message = "Error in email syntax")
     private String email;
 
-    // @Size(min = 2, max = 25, message = "First name length should be 2 - 25 characters")
+    // @Size(min = 2, max = 25, message = "First name length should be 2 - 25
+    // characters")
     private String firstname;
 
-    // @Size(min = 2, max = 25, message = "Last name length should be 2 - 25 characters")
+    // @Size(min = 2, max = 25, message = "Last name length should be 2 - 25
+    // characters")
     private String lastname;
 
     // @Size(message = "Is active has to be true or false")
     private boolean isactive;
 
-    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25 characters")
+    // @Size(min = 2, max = 25, message = "Team name length should be 2 - 25
+    // characters")
     private String team;
 
     // @Digits(integer = 1, fraction = 0, message = "The user has to have a type")
@@ -100,7 +103,7 @@ public class UserDTO implements Serializable {
     }
 
     public UserDTO(UserEntity userEntity) {
-        this.userid = userEntity.getUserid();
+        this.userid = userEntity.getId();
         this.email = userEntity.getEmail();
         this.phone = userEntity.getPhone();
         this.city = userEntity.getCity();
@@ -123,7 +126,7 @@ public class UserDTO implements Serializable {
         entity.setEmail(this.email);
         entity.setBirthDate(this.birthDate);
         entity.setFirstname(this.firstname);
-        entity.setUserid(this.userid);
+        entity.setId(this.userid);
         entity.setIsactive(this.isactive);
         entity.setLastname(this.lastname);
         entity.setTeam(this.team);
