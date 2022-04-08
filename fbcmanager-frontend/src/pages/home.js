@@ -32,10 +32,10 @@ function Home() {
     <div>
       <Navbar />
       <div className="body">
-        <div className="grid-container-home">
+        <div className="main-grid-container">
 
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
-          <div className="grid-item-home">
+          <div className="main-grid-item">
             {/* next practice */}
             <div className="next-practice">
               <section className="next-practice-container">
@@ -130,7 +130,7 @@ function Home() {
 
 
           {/* XXXXXX RIGHT COLLUMN START XXXXXX*/}
-          <div className="grid-item-home">
+          <div className="main-grid-item">
             {/* Profile */}
             <ProfileColumn />
 
