@@ -8,7 +8,8 @@ import "../scss/style.scss";
 
 import noimg from "../res/img/noimg.png";
 import noimgsmall from "../res/img/noimg-small.png";
-
+import LoginPopup from "../components/login_component/LoginPopup";
+// import RegisterPopup from "../components/register_component/RegisterPopup";
 
 
 
@@ -18,6 +19,10 @@ function Forside() {
 
   const toHome = () => {
     navigate('/home')
+  }
+
+  const toRegistrationPage = () => {
+    navigate('/signup')
   }
   
   return (
@@ -30,8 +35,10 @@ function Forside() {
               <h1 className="mainHeader">Velkommen til NemSport</h1>
               <p className="mainDescription">Danmarks største fodbold klub gjort nem</p>
               {/*<NavLink className="headerLogin">Login</NavLink>*/}
-              <button className="headerLogin" onClick={toHome}>Login</button>
-              <button className="headerTilmeld" >Tilmeld</button>
+              <LoginPopup/>
+              {/* <RegisterPopup/> */}
+              {/* <button className="headerLogin" onClick={toHome}>Login</button> */}
+              <button className="headerTilmeld" onClick={toRegistrationPage}>Tilmeld</button>
             </section>
           </div>
         </header>
