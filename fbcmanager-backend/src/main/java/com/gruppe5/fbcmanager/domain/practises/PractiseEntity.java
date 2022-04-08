@@ -1,56 +1,55 @@
-package com.gruppe5.fbcmanager.domain.entities;
+package com.gruppe5.fbcmanager.domain.practises;
 
 import javax.persistence.*;
 
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "trainings")
-public class TrainingEntity {
+@Table(name = "practises")
+public class PractiseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long trainingid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long practiseid;
 
     // @Column(nullable = false)
     private String team;
 
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private String location;
 
     // @Column(nullable = false)
     private Integer maxParticipants;
 
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private LocalDate date;
 
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime timeStart;
 
-    // // @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime timeEnd;
 
-    private String trainers;
-
-    //@ManyToMany(fetch = FetchType.EAGER)
-    //@JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
-    //private Set<UserEntity> participants;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
+    private Set<UserEntity> participants;
 
 
 
-    public TrainingEntity(String location, LocalDate date, LocalTime timeStart, LocalTime timeEnd,
+    public PractiseEntity(String location, LocalDate date, LocalTime timeStart, LocalTime timeEnd,
             Set<UserEntity> participants) {
         this.location = location;
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        //this.participants = participants;
+        this.participants = participants;
     }
 
-    public TrainingEntity(String location, Integer maxParticipants, LocalDate date, LocalTime timeStart,
+    public PractiseEntity(String location, Integer maxParticipants, LocalDate date, LocalTime timeStart,
             LocalTime timeEnd) {
         this.location = location;
         this.maxParticipants = maxParticipants;
@@ -67,24 +66,15 @@ public class TrainingEntity {
         this.date = date;
     }
 
-    public String getTrainers() {
-        return trainers;
-    }
-
-    public void setTrainers(String trainers) {
-        this.trainers = trainers;
-    }
-
-
-    public TrainingEntity() {
+    public PractiseEntity() {
     }
 
     public Long getId() {
-        return trainingid;
+        return practiseid;
     }
 
-    public void setId(Long trainingid) {
-        this.trainingid = trainingid;
+    public void setId(Long practiseid) {
+        this.practiseid = practiseid;
     }
 
     public String getTeam() {
@@ -128,13 +118,13 @@ public class TrainingEntity {
     }
 
     public Long getPractiseid() {
-        return trainingid;
+        return practiseid;
     }
 
     public void setPractiseid(Long practiseid) {
-        this.trainingid = practiseid;
+        this.practiseid = practiseid;
     }
-/*
+
     public Set<UserEntity> getParticipant() {
         return participants;
     }
@@ -142,12 +132,10 @@ public class TrainingEntity {
     public void setParticipant(Set<UserEntity> participants) {
         this.participants = participants;
     }
-    
 
     @Override
     public String toString() {
         return "[ id->"+practiseid+" participants->"+participants+"]";
     }
 
-    */
 }

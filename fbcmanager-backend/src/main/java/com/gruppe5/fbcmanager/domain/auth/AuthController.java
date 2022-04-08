@@ -1,8 +1,7 @@
-package com.gruppe5.fbcmanager.controllers;
+package com.gruppe5.fbcmanager.domain.auth;
 
 import javax.validation.Valid;
 
-import com.gruppe5.fbcmanager.domain.services.AuthService;
 import com.gruppe5.fbcmanager.security.jwt.JwtUtils;
 import com.gruppe5.fbcmanager.security.request.LoginRequest;
 import com.gruppe5.fbcmanager.security.request.SignupRequest;

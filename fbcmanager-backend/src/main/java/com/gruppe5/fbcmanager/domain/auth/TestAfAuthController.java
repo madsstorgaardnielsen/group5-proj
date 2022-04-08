@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.controllers;
+package com.gruppe5.fbcmanager.domain.auth;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;

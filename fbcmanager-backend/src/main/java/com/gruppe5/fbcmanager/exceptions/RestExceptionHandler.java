@@ -4,7 +4,7 @@ package com.gruppe5.fbcmanager.exceptions;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
-import com.gruppe5.fbcmanager.domain.models.ErrorModel;
+import com.gruppe5.fbcmanager.exceptions.models.ErrorModel;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

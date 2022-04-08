@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.domain.models;
+package com.gruppe5.fbcmanager.domain.roles;
 
 public enum ERole {
     ROLE_USER,

@@ -1,9 +1,8 @@
-package com.gruppe5.fbcmanager.domain.repositories;
+package com.gruppe5.fbcmanager.domain.practises;
 
 import java.util.List;
 
-import com.gruppe5.fbcmanager.domain.entities.PractiseEntity;
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

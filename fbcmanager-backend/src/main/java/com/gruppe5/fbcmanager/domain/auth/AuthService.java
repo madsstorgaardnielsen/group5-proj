@@ -1,15 +1,15 @@
-package com.gruppe5.fbcmanager.domain.services;
+package com.gruppe5.fbcmanager.domain.auth;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.gruppe5.fbcmanager.domain.entities.RoleEntity;
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
-import com.gruppe5.fbcmanager.domain.models.ERole;
-import com.gruppe5.fbcmanager.domain.repositories.RoleRepository;
-import com.gruppe5.fbcmanager.domain.repositories.UserRepository;
+import com.gruppe5.fbcmanager.domain.roles.ERole;
+import com.gruppe5.fbcmanager.domain.roles.RoleEntity;
+import com.gruppe5.fbcmanager.domain.roles.RoleRepository;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
+import com.gruppe5.fbcmanager.domain.users.UserRepository;
 import com.gruppe5.fbcmanager.security.jwt.JwtUtils;
 import com.gruppe5.fbcmanager.security.request.LoginRequest;
 import com.gruppe5.fbcmanager.security.request.SignupRequest;

@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.domain.services;
+package com.gruppe5.fbcmanager.domain.users;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
-import com.gruppe5.fbcmanager.domain.dtos.UserDTO;
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
-import com.gruppe5.fbcmanager.domain.repositories.PractiseRepository;
-import com.gruppe5.fbcmanager.domain.repositories.UserRepository;
+import com.gruppe5.fbcmanager.domain.practises.PractiseRepository;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;

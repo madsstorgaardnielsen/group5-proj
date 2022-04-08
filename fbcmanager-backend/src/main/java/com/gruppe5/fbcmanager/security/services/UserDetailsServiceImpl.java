@@ -1,7 +1,7 @@
 package com.gruppe5.fbcmanager.security.services;
 
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
-import com.gruppe5.fbcmanager.domain.repositories.UserRepository;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
+import com.gruppe5.fbcmanager.domain.users.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

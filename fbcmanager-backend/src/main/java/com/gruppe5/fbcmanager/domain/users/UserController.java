@@ -1,11 +1,8 @@
-package com.gruppe5.fbcmanager.controllers;
+package com.gruppe5.fbcmanager.domain.users;
 
 import java.util.ArrayList;
 
 import javax.websocket.server.PathParam;
-
-import com.gruppe5.fbcmanager.domain.dtos.UserDTO;
-import com.gruppe5.fbcmanager.domain.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

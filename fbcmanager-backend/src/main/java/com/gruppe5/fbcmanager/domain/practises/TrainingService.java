@@ -1,14 +1,10 @@
-package com.gruppe5.fbcmanager.domain.services;
+package com.gruppe5.fbcmanager.domain.practises;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.persistence.EntityNotFoundException;
-
-import com.gruppe5.fbcmanager.domain.dtos.TrainingDTO;
-import com.gruppe5.fbcmanager.domain.entities.TrainingEntity;
-import com.gruppe5.fbcmanager.domain.repositories.TrainingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

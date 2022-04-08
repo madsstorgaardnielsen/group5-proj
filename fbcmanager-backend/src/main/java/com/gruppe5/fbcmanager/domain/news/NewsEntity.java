@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.domain.entities;
+package com.gruppe5.fbcmanager.domain.news;
 /*
 package com.gruppe5.fbcmanager.database.models;
 

@@ -1,8 +1,8 @@
 package com.gruppe5.fbcmanager;
 
-import com.gruppe5.fbcmanager.domain.entities.RoleEntity;
-import com.gruppe5.fbcmanager.domain.models.ERole;
-import com.gruppe5.fbcmanager.domain.repositories.RoleRepository;
+import com.gruppe5.fbcmanager.domain.roles.ERole;
+import com.gruppe5.fbcmanager.domain.roles.RoleEntity;
+import com.gruppe5.fbcmanager.domain.roles.RoleRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

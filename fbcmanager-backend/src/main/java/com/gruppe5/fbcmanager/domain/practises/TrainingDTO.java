@@ -1,12 +1,12 @@
-package com.gruppe5.fbcmanager.domain.dtos;
+package com.gruppe5.fbcmanager.domain.practises;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.gruppe5.fbcmanager.domain.entities.TrainingEntity;
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
+import com.gruppe5.fbcmanager.domain.users.UserDTO;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
 
 public class TrainingDTO implements Serializable{
 

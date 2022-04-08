@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.domain.entities;
+package com.gruppe5.fbcmanager.domain.users;
 
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,6 +8,9 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.gruppe5.fbcmanager.domain.practises.PractiseEntity;
+import com.gruppe5.fbcmanager.domain.roles.RoleEntity;
 
 import java.time.LocalDate;
 import java.util.HashSet;

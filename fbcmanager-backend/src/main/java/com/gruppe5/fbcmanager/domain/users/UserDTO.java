@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.domain.dtos;
+package com.gruppe5.fbcmanager.domain.users;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
+import com.gruppe5.fbcmanager.domain.practises.PractiseDTO;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.boot.context.properties.bind.DefaultValue;

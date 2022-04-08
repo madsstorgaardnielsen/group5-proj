@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.gruppe5.fbcmanager.domain.entities.UserEntity;
-import com.gruppe5.fbcmanager.domain.repositories.UserRepository;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
+import com.gruppe5.fbcmanager.domain.users.UserRepository;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
