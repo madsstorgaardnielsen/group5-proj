@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.payload.request;
+package com.gruppe5.fbcmanager.security.request;
 import java.util.Set;
 
 import javax.validation.constraints.*;

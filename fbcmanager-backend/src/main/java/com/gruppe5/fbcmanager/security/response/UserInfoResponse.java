@@ -1,4 +1,4 @@
-package com.gruppe5.fbcmanager.payload.response;
+package com.gruppe5.fbcmanager.security.response;
 
 import java.util.List;
 
