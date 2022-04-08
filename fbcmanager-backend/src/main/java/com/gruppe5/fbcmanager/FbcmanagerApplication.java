@@ -1,18 +1,8 @@
 package com.gruppe5.fbcmanager;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.gruppe5.fbcmanager.dtos.UserDTO;
-import com.gruppe5.fbcmanager.entities.PractiseEntity;
 import com.gruppe5.fbcmanager.entities.RoleEntity;
-import com.gruppe5.fbcmanager.entities.UserEntity;
 import com.gruppe5.fbcmanager.models.ERole;
-import com.gruppe5.fbcmanager.repositories.PractiseRepository;
 import com.gruppe5.fbcmanager.repositories.RoleRepository;
-import com.gruppe5.fbcmanager.repositories.UserRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

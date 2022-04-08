@@ -1,9 +1,5 @@
 package com.gruppe5.fbcmanager.security.services;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import com.gruppe5.fbcmanager.entities.UserEntity;
 import com.gruppe5.fbcmanager.repositories.UserRepository;
 

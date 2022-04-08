@@ -1,7 +1,5 @@
 package com.gruppe5.fbcmanager.security;
 
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 import com.gruppe5.fbcmanager.security.jwt.AuthEntryPointJwt;
 import com.gruppe5.fbcmanager.security.jwt.AuthTokenFilter;
 import com.gruppe5.fbcmanager.security.services.UserDetailsServiceImpl;
