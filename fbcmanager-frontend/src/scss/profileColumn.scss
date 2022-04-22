@@ -1,5 +1,19 @@
 @import 'variables.scss';
 
+.profile-pic-section{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    width: fit-content;
+    img{
+        height: 40px;
+        width: 40px;
+    }
+    .profile-pic{
+        margin-left: 20px;
+    }
+}
+
 .profile-column-body{
     display: flex;
     flex-direction: column;
@@ -7,12 +21,10 @@
         display: flex;
         flex-direction: column;
         margin: 0 !important;
-        section, p{
+        p{
             margin: 10px 10px 10px auto
         };
-        .profile-pic{
-            margin-left: 20px;
-        }
+        
     }
     
     .profile-column-news-container{
@@ -32,4 +44,38 @@
         }
     }
 
+}
+
+
+@media only screen and (max-width: 800px) {
+    .profile-column-body{
+        display: none;
+
+        position: absolute;
+        top: 90px;
+        right: 20px;
+        z-index: 2;
+        padding: 40px 0 40px 0;
+        width: 50vw;
+        background-color: white;
+        box-shadow: 5px 10px 10px rgb(128, 128, 128, 0.5);
+        border-radius: 10px;
+    }
+    .grid-container-home{
+        grid-template-columns: 1fr !important;
+    }
+    .profile-pic-section{
+        position: absolute;
+        top: 45px;
+        right: 30px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .profile-column-body{
+        width: 100%;
+        right: 0vw;
+        margin-right: 0px !important;
+    }
+    
 }
