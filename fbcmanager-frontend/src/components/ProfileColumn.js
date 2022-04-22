@@ -23,11 +23,11 @@ export default function profileColumn() {
 
 
     function profileMenu(){
-        var x = document.getElementById("profile-column");
-        if (x.style.display === "block") {
+        var x = document.getElementById("profile-dropdown");
+        if (x.style.display === "flex") {
             x.style.display = "none";
         } else {
-            x.style.display = "block";
+            x.style.display = "flex";
         }
 
       }
@@ -39,6 +39,10 @@ export default function profileColumn() {
                 <a onClick={profileMenu}><img src={arrow}/></a>
                 <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
             </section>
+            <div className="profile-dropdown" id="profile-dropdown">
+                <a>Profil</a>
+                <a>Indstillinger</a>
+            </div>
             <div className="profile-column-body" id="profile-column">
                 <div className="profile-column-profile-container">
                     
