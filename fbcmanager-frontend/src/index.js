@@ -10,9 +10,9 @@ import Nyheder from './pages/nyheder';
 import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
-import Profil from './pages/profil';
 import Registration from './pages/registration';
 
+import Profil from './pages/profil';
 
 ReactDOM.render(
       <Router>
