@@ -6,6 +6,7 @@ import "../scss/style.scss"
 import "../scss/newsPage.scss"
 import NewsCard from "../components/newsCard"
 import { Grid } from "@mui/material"
+import { Helmet } from 'react-helmet';
 
 
 function NewsPage() {
@@ -26,6 +27,9 @@ function NewsPage() {
 
   return (
     <div>
+      <Helmet>
+        <title>News | NemSport</title>
+      </Helmet>
       <Navbar />
       <div className="body">
         <div className="main-grid-container">

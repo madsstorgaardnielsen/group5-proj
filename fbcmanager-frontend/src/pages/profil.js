@@ -4,10 +4,14 @@ import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import CollapsibleTable from "../components/TrainingsTable";
 import profile from "../res/img/profile/tmp-profile.png";
+import { Helmet } from 'react-helmet';
 
 function Profil () {
     return (
         <div>
+            <Helmet>
+                <title>Profile | NemSport</title>
+            </Helmet>
             <Navbar />
             <div className="profile-info">
                 <section className="profile-pic-section" >

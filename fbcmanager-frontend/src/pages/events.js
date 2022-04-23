@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import {CardActionArea} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 import "../scss/eventPage.scss";
 import eventPic from "../res/img/events/event-pic.jpg";
@@ -30,6 +31,9 @@ export default function BasicGrid() {
 
                 <Grid item xs={12} md={8} lg={6}>
                     <div className="content">
+                        <Helmet>
+                            <title>Events | NemSport</title>
+                        </Helmet>
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container spacing={1}>
                                 <Grid container item spacing={3}>
