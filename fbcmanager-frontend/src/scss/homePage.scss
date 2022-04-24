@@ -21,7 +21,7 @@
     .next-practice-container{
         padding: 20px 30px; 
     }
-    .h{
+    .prac-sub-header{
         color: $faded-grey;
         margin: 0;
     }
@@ -73,43 +73,7 @@
         margin: 0;
     }
 }
-/*
-.react-calendar{
-    .react-calendar__navigation{
-        font-size: 2rem;
-        .react-calendar__navigation__arrow{
-            color: $main-color;
-            border: none;
-            font-weight: bold;
-            margin: 0 10px;
-        }
-        .react-calendar__navigation__label{
-            color: $main-color;
-            letter-spacing: 2px;
-            border: none;
-            font-weight: 400;
-        }
-    }
-    .react-calendar__viewContainer{
-        margin: 0;
-        .react-calendar__month-view {
-            margin: 0;
-            div{
-                margin: 0;
-                .react-calendar__month-view__weekdays{
-                    margin: 0;
-                }
-                .react-calendar__month-view__days{
 
-                }
-            }
-        }
-    }
-}
-
-.react-calendar__tile--active{
-    background: black;
-}*/
 
 
 
@@ -117,6 +81,58 @@
 
 // EVENTS XXXXXXXXXXXXXXXXXXXXXXXXXX
 .home-events{
-    background-color: lightcyan;
-    height: 30vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 30px 10px 0px 10px !important;
+    div{
+        margin: 0;
+    }
+    div section{
+        background-color: $light-grey;
+        padding: 15px;
+        margin: 20px 10px;
+        border-radius: 10px;
+        span{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 30px 0 0 0;
+            p{
+                display: flex;
+            }
+            :first-child{
+                margin-right: auto;
+            }
+            :last-child{
+                margin-left: auto;
+            }
+        }
+    }
+}
+.all-events-link-container{
+    margin: 0  0 30px 0!important;
+}
+.all-events-link{
+    text-decoration: none;
+    color: $main-color;
+    font-size: 2rem;
+    font-weight: 600;
+    display: flex;
+    margin: 0 auto;
+    width: fit-content;
+}.all-events-link:hover{
+    font-size: 2.2rem;
+    transition: 1s;
+    color: $main-color;
+    cursor: pointer;
+}
+
+
+
+/// TMP PROFILE
+.profile{
+    display: flex;
+    margin-left: auto;
+    section{
+        margin-left: auto;
+    }
 }

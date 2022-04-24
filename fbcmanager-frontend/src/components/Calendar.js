@@ -9,14 +9,21 @@ class Calendar extends Component {
         this.state = {
             viewType: "Week",
             durationBarVisible: false,
+<<<<<<< HEAD
             weekStarts: 0,
+=======
+>>>>>>> 331ff16c297eb03611b38dc6849f121a8449518c
             cellHeight: 15,
             locale: "da-dk",
             heightSpec: "BusinessHours",
             //height: 1000,
+<<<<<<< HEAD
             dayBeginsHour: 20,
             businessBeginsHour: 11,
             businessEndsHour: 22,
+=======
+            businessBeginsHour: 11, 
+>>>>>>> 331ff16c297eb03611b38dc6849f121a8449518c
         
             // TODO: THESE EVENTS SHOULD BE LOADED AS A LIST OF JSON OBJECT FROM THE DATABASE.
             // See https://api.daypilot.org/daypilot-calendar-events-load/

@@ -56,7 +56,7 @@ public class UserEntity {
     @Column(nullable = false)
     private int usertype;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private LocalDate birthDate;
 
     public UserEntity(String street, String zipcode, String city, int phone, String email, String firstname,
