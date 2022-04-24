@@ -18,9 +18,6 @@ function Profil() {
             <Navbar/>
 
             <div className="profile-info">
-                <section className="profile-pic-section">
-                    <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
-                </section>
 
                 <div>
                     {}
@@ -28,6 +25,10 @@ function Profil() {
 
                         <form>
                             <h4>Contact information</h4>
+
+                            <div className="centerStat">
+                                <a><img target={"_blank"} src={profile} className="profile-pic"/></a>
+                            </div>
 
                             <div className="form-row">
 
