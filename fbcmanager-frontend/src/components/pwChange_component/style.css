@@ -1,4 +1,4 @@
-.modalDiv{
+.modalDiv {
     background-color: rgb(255, 255, 255);
     padding: 60px 60px;
     padding-bottom: 90px;
@@ -8,11 +8,11 @@
     border-bottom-left-radius: 10px;
 }
 
-.form-group{
+.form-group {
     padding: 10px;
 }
 
-.loginBtnDiv{
+.loginBtnDiv {
     padding: 10px;
     float: right;
 }

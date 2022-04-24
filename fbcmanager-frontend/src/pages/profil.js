@@ -24,10 +24,10 @@ function Profil() {
                     <section>
 
                         <form>
-                            <h4>Contact information</h4>
+                            <h4>Profile information</h4>
 
                             <div className="centerStat">
-                                <a><img target={"_blank"} src={profile} className="profile-pic"/></a>
+                                <ImagePopup/>
                             </div>
 
                             <div className="form-row">
@@ -126,20 +126,20 @@ function Profil() {
                         </form>
 
                         <span>
+
                             <div className="tilmeldBtn">
                                 <button type="submit" className="btn btn-primary">
-                                    Update information
+                                   Update information
                                 </button>
 
+                                &nbsp;
+
+                                <button type="submit" className="btn btn-primary-lg">
+                                    <PasswordPopup/>
+                                </button>
                             </div>
 
                             <span>{""}</span>
-
-                            <PasswordPopup/>
-
-                            <span>{" "}</span>
-
-                            <ImagePopup/>
 
                         </span>
 
@@ -159,9 +159,7 @@ function Profil() {
                             <p id={"numpractices_no"}>150 </p>
                         </div>
 
-
-                        <span>
-                        </span>
+                        <span></span>
 
                     </section>
 

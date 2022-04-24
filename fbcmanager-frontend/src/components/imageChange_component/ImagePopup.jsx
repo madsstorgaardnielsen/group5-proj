@@ -11,9 +11,7 @@ const ImagePopup = () => {
 
   return (
       <div className="tilmeldBtn">
-      <button type="submit" className="btn btn-primary" onClick={open}>
-        Change profile picture
-      </button>
+        <a><img target={"_blank"} src={profile} className="profile-pic" onClick={open}/></a>
       <Modal>
         <div className="modalDiv">
           <form>
