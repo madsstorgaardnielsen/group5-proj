@@ -81,7 +81,7 @@ function FormRow() {
 function EventCard() {
     const navigate = useNavigate()
     const toHome = () => {
-        navigate('/home')
+        navigate('/adminPanel')
     }
 
     return (

@@ -11,6 +11,7 @@ import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
 import Registration from './pages/registration';
+import AdminPanel from './pages/adminPanel';
 
 import Profil from './pages/profil';
 
@@ -25,6 +26,7 @@ ReactDOM.render(
           <Route path="/traening" element={<Traening/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/signup" element={<Registration/>}/>
+          <Route path="/adminPanel" element={<AdminPanel/>}/>
         </Routes>
       </Router>,
   document.getElementById('root')
