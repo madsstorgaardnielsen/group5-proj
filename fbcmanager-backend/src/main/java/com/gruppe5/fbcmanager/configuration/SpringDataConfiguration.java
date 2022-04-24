@@ -31,10 +31,16 @@
 //     @Bean
 //     public DataSource dataSource() {
 //         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//         dataSource.setUrl("jdbc:mysql://localhost:3306/FBCManager");
-//         dataSource.setUsername("root");
-//         dataSource.setPassword("123");
+//         // dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//         // dataSource.setUrl("jdbc:mysql://localhost:3306/FBCManager");
+//         // dataSource.setUsername("root");
+//         // dataSource.setPassword("123");
+
+//         dataSource.setDriverClassName("org.h2.Driver");
+//         dataSource.setUrl("jdbc:h2:mem:testdb");
+//         dataSource.setUsername("sa");
+//         dataSource.setPassword("");
+        
 //         return dataSource;
 //     }
 
@@ -56,16 +62,37 @@
 //         LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 //         localContainerEntityManagerFactoryBean.setDataSource(dataSource());
 //         Properties properties = new Properties();
-//         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-//         properties.put("generate-ddl", true);
-//         // properties.put("hibernate.hbm2ddl.auto", "create-drop");
-//         properties.put("hibernate.hbm2ddl.auto", "create");
-//         // properties.put("hibernate.hbm2ddl.auto", "update");
-//         properties.put("show-sql", true);
-//         properties.put("logging.level.org.hibernate.SQL", "DEBUG");
-//         properties.put("logging.level.org.springframework.web","DEBUG");
-//         properties.put("logging.level.org.hibernate", "ERROR");
-//         properties.put("logging.level.com","DEBUG");
+//         properties.put("spring.h2.console.enabled",true);
+//         properties.put("spring.datasource.url","jdbc:h2:mem:testdb");
+//         properties.put("spring.datasource.driverClassName","org.h2.Driver");
+//         properties.put("spring.datasource.username","sa");
+//         properties.put("spring.datasource.password","");
+//         properties.put("spring.jpa.show-sql","true");
+//         properties.put("spring.jpa.properties.hibernate.dialect","org.hibernate.dialect.H2Dialect");
+//         properties.put("spring.jpa.hibernate.ddl-auto","create-drop");
+//         properties.put("spring.h2.console.path","/h2");
+//         // properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+//         // properties.put("generate-ddl", true);
+//         // // properties.put("hibernate.hbm2ddl.auto", "create-drop");
+//         // properties.put("hibernate.hbm2ddl.auto", "create");
+//         // // properties.put("hibernate.hbm2ddl.auto", "update");
+//         // properties.put("show-sql", true);
+//         // properties.put("logging.level.org.hibernate.SQL", "DEBUG");
+//         // properties.put("logging.level.org.springframework.web","DEBUG");
+//         // properties.put("logging.level.org.hibernate", "ERROR");
+//         // properties.put("logging.level.com","DEBUG");
+
+// // spring.h2.console.enabled=true
+// // spring.datasource.url=jdbc:h2:mem:testdb
+// // spring.datasource.driverClassName=org.h2.Driver
+// // spring.datasource.username=sa
+// // spring.datasource.password=
+ 
+// // spring.jpa.show-sql=true
+// // spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+// // spring.jpa.hibernate.ddl-auto= create-drop
+// // # default path: h2-console
+// // spring.h2.console.path=/h2
 
 //         // properties.put("hibernate.hbm2ddl.auto", "none");
 

@@ -10,6 +10,8 @@ import Nyheder from './pages/nyheder';
 import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
+import Registration from './pages/registration';
+
 import Profil from './pages/profil';
 
 ReactDOM.render(
@@ -22,6 +24,7 @@ ReactDOM.render(
           <Route path="/events" element={<Events/>}/>
           <Route path="/traening" element={<Traening/>}/>
           <Route path="/home" element={<Home/>}/>
+          <Route path="/signup" element={<Registration/>}/>
         </Routes>
       </Router>,
   document.getElementById('root')

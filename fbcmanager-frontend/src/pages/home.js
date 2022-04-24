@@ -5,6 +5,7 @@ import Calendar from "../components/Calendar";
 import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/homePage.scss"
+import { Helmet } from 'react-helmet';
 
 //import Calendar from 'react-calendar'
 //import 'react-calendar/dist/Calendar.css'
@@ -30,10 +31,12 @@ function Home() {
 
   return (
     <div>
+      <Helmet>
+        <title>Home | NemSport</title>
+      </Helmet>
       <Navbar />
       <div className="body">
         <div className="main-grid-container">
-
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
           <div className="main-grid-item">
             {/* next practice */}
