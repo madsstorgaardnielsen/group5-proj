@@ -62,9 +62,9 @@ export default function Navbar() {
             <img className="navbarImg" src={news} alt="NemSport home" width="50px" height="50px"></img>
             Nyheder
           </NavLink>
-          <NavLink activeclassname="active" className="navbartxt" to="/profil">
+          <NavLink activeclassname="active" className="navbartxt" to="/profile">
             <img className="navbarImg" src={news} alt="NemSport home" width="50px" height="50px"></img>
-            Profil
+            Profile
           </NavLink>
         </div>
       </div>

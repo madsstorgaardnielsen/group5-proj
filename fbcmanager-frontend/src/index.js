@@ -19,7 +19,7 @@ ReactDOM.render(
       <Router>
         <Routes>
           <Route path="/" element={<App/>}/>
-          <Route path="/profil" element={<Profil/>}/>
+          <Route path="/profile" element={<Profil/>}/>
           <Route path="/medlemmer" element={<Medlemmer/>}/>
           <Route path="/nyheder" element={<Nyheder/>}/>
           <Route path="/events" element={<Events/>}/>
