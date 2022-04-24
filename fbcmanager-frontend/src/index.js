@@ -11,9 +11,15 @@ import Events from './pages/events';
 import Traening from './pages/traening';
 import Home from './pages/home';
 import Registration from './pages/registration';
+import Profil from './pages/profil';
 import AdminPanel from './pages/adminPanel';
 
-import Profil from './pages/profil';
+import AddNews from './pages/addNews';
+import AddTraining from './pages/addTraining';
+//import AddEvent from './pages/addEvent';
+
+
+
 
 ReactDOM.render(
       <Router>
@@ -27,6 +33,8 @@ ReactDOM.render(
           <Route path="/home" element={<Home/>}/>
           <Route path="/signup" element={<Registration/>}/>
           <Route path="/adminPanel" element={<AdminPanel/>}/>
+          <Route path="/addNews" element={<AddNews/>}/>
+          <Route path="/addTraining" element={<AddTraining/>}/>
         </Routes>
       </Router>,
   document.getElementById('root')

@@ -4,7 +4,7 @@ import "../scss/style.scss"
 import { Helmet } from 'react-helmet';
 import ProfileColumn from "../components/ProfileColumn";
 import Button from '@mui/material/Button';
-import  "../scss/adminPanel.css";
+import  "../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 
 function AdminPanel () {
@@ -13,10 +13,10 @@ function AdminPanel () {
         navigate('/home')
     }
     const toAddTraining = () => {
-        navigate('/home')
+        navigate('/addTraining')
     }
     const toAddNews = () => {
-        navigate('/home')
+        navigate('/addNews')
     }
 
     return (
@@ -30,17 +30,17 @@ function AdminPanel () {
                     <div className="adminPanel-content">
                         <h1>Admin Panel</h1>
 
-                        <h5 className="adminAdd">Opret ny træning</h5>
+                        <h5 className="addItem">Opret ny træning</h5>
                         <Button variant="contained" size="large" onClick={toAddTraining}>
                             +
                         </Button>
 
-                        <h5 className="adminAdd">Opret ny begivenhed</h5>
+                        <h5 className="addItem">Opret ny begivenhed</h5>
                         <Button variant="contained" size="large" onClick={toAddEvent}>
                             +
                         </Button>
 
-                        <h5 className="adminAdd">Opret ny Nyhed</h5>
+                        <h5 className="addItem">Opret Nyhed</h5>
                         <Button variant="contained" size="large" onClick={toAddNews}>
                             +
                         </Button>
