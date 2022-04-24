@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import CollapsibleTable from "../components/TrainingsTable";
 import profile from "../res/img/profile/tmp-profile.png";
 import {Helmet} from 'react-helmet';
+import ImagePopup from "../components/imageChange_component/ImagePopup";
+import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 
 function Profil() {
     return (
@@ -127,19 +129,17 @@ function Profil() {
                                 <button type="submit" className="btn btn-primary">
                                     Update information
                                 </button>
-                                &nbsp;  &nbsp;  &nbsp;
-                                <button type="submit" className="btn btn-primary">
-                                    Change password
-                                </button>
+
                             </div>
+
+                            <span>{""}</span>
+
+                            <PasswordPopup/>
 
                             <span>{" "}</span>
 
-                            <div className="tilmeldBtn">
-                                <button type="submit" className="btn btn-primary">
-                                    Change profile picture
-                                </button>
-                            </div>
+                            <ImagePopup/>
+
                         </span>
 
                     </section>
@@ -157,6 +157,7 @@ function Profil() {
                         <div className="centerStat">
                             <p id={"numpractices_no"}>150 </p>
                         </div>
+
 
                         <span>
                         </span>
