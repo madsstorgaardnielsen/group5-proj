@@ -1,97 +1,122 @@
 package com.gruppe5.fbcmanager.domain.events;
-/*
-package com.gruppe5.fbcmanager.database.models;
+
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import com.gruppe5.fbcmanager.domain.users.UserEntity;
+import com.gruppe5.fbcmanager.domain.roles.RoleEntity;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "events")
-public class Events {
-
+@DynamicUpdate
+@Table(name = "events", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "eventid")
+}) 
+public class EventsEntity {
     @Id
-    // @Column(name = "practiceid", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long eventid;
 
-    // @OneToMany(mappedBy = "practise", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @ManyToOne(targetEntity = User.class)
-    private List<User> participants;
+    @ManyToMany(fetch = FetchType.EAGER)
+    //@JoinTable(name = "user_practises", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "practiseid"))
+    private Set<UserEntity> participants;
 
     private String type;
-
+    
     private String description;
 
-    private LocalDateTime date;
+    private Date date;
 
-    private double price;
+    private Double price;
 
+    
+    public EventsEntity(String type, String description, Date date, Double price){
 
-    public Event(String type, String description, LocalDateTime date, double price){
         this.type = type;
         this.description = description;
         this.date = date;
         this.price = price;
+
     }
 
-    public Long getId() {
-        return id;
+    public EventsEntity(){
+        
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        EventsEntity event = (EventsEntity) o;
+        return eventid != null && Objects.equals(eventid, event.eventid);
     }
 
-    public List<User> getParticipants() {
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    } 
+
+    public Long getId(){
+        return eventid;
+    }
+
+    public void setId(Long id){
+        this.eventid = id;
+    }
+
+    public Set<UserEntity> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<User> participants) {
+    public void setParticipants(Set<UserEntity> participants) {
         this.participants = participants;
     }
 
-    public String getType() {
+    public String getType(){
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description){
         this.description = description;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate(){
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date){
         this.date = date;
     }
 
-    public double getPrice() {
+    public Double getPrice(){
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price){
         this.price = price;
     }
 
-
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
+}
 
 
-
-}*/
