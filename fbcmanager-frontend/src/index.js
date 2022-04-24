@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import TopScroll from "./components/topScroll";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route path="/home" element={<Home/>}/>
           <Route path="/signup" element={<Registration/>}/>
         </Routes>
+          <TopScroll/>
       </Router>,
   document.getElementById('root')
 );
