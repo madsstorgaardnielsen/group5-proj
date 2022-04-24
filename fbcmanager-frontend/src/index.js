@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import TopScroll from "./components/topScroll";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Medlemmer from './pages/medlemmer';
@@ -16,20 +16,20 @@ import Registration from './pages/registration';
 import Profil from './pages/profil';
 
 ReactDOM.render(
-      <Router>
+    <Router>
         <Routes>
-          <Route path="/" element={<App/>}/>
-          <Route path="/profile" element={<Profil/>}/>
-          <Route path="/medlemmer" element={<Medlemmer/>}/>
-          <Route path="/nyheder" element={<Nyheder/>}/>
-          <Route path="/events" element={<Events/>}/>
-          <Route path="/traening" element={<Traening/>}/>
-          <Route path="/home" element={<Home/>}/>
-          <Route path="/signup" element={<Registration/>}/>
+            <Route path="/" element={<App/>}/>
+            <Route path="/profile" element={<Profil/>}/>
+            <Route path="/medlemmer" element={<Medlemmer/>}/>
+            <Route path="/nyheder" element={<Nyheder/>}/>
+            <Route path="/events" element={<Events/>}/>
+            <Route path="/traening" element={<Traening/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/signup" element={<Registration/>}/>
         </Routes>
-          <TopScroll/>
-      </Router>,
-  document.getElementById('root')
+        <TopScroll/>
+    </Router>,
+    document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
