@@ -140,20 +140,6 @@ function Profil() {
 
                     <section>
 
-                        <h4>My training sessions</h4>
-
-
-                        <span>
-                        </span>
-
-                        <button type="button">See complete history</button>
-
-                    </section>
-
-                    {}
-
-                    <section>
-
                         <h4>My statistics</h4>
 
                         <div className="centerStat">
