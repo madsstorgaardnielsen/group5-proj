@@ -17,6 +17,14 @@ import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {TimePicker} from '@mui/x-date-pickers/TimePicker';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 {/* You need to run these command:
 npm install @mui/x-date-pickers
@@ -29,14 +37,9 @@ function AdminPanel () {
         navigate('/adminPanel')
     }
 
-    const [Team, setTeam] = React.useState('');
-    const handleChangeEvent = (event) => {
-        setTeam(event.target.value);
-    };
-
-    const [Field, setField] = React.useState('');
+    const [Location, setLocation] = React.useState('');
     const handleChangeField = (event) => {
-        setField(event.target.value);
+        setLocation(event.target.value);
     };
 
 
@@ -48,8 +51,23 @@ function AdminPanel () {
     const handleChangeEndDate = (newValue) => {
         setEndDate(newValue);
     };
+
+    const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+    });
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+
+
     {/*IMPORTANT: EndDate should take same DAY/Month/Year as StartDate!
     TODO Sikkerhed ift slut skal være efter start og at alt skal være udfyldt før der kan trykkes OPRET
+    TODO Undersøg lige om der ifg db skal være sluttidspunkt på
     */}
 
     return (
@@ -61,7 +79,7 @@ function AdminPanel () {
             <div className="body">
                 <div className="main-grid-container">
                     <div className="adminPanel-content">
-                        <h1>Opret ny Træning</h1>
+                        <h1>Opret ny Begivenhed</h1>
                         <Box
                             className="addBox"
                             sx={{
@@ -71,33 +89,34 @@ function AdminPanel () {
                             <Stack spacing={3}>
                                 <h6>Udfyld følgende</h6>
 
-                                {/* Hold */}
-                                <FormControl className="itemSelect" variant="filled" sx={{ m: 1, width: 150 }}>
-                                    <InputLabel>Hold</InputLabel>
-                                    <Select
-                                        id="Team"
-                                        value={Team}
-                                        label="Team"
-                                        onChange={handleChangeEvent}
-                                        style={{
-                                            backgroundColor: "white"}}
-                                    >
-                                        <MenuItem value={12}>U12</MenuItem>
-                                        <MenuItem value={13}>U13</MenuItem>
-                                        <MenuItem value={14}>U14</MenuItem>
-                                    </Select>
-                                </FormControl>
-
-                                {/* Bane */}
-                                <FormControl className="itemSelect" variant="filled" sx={{ m: 1, width: 150 }}>
-                                    <InputLabel>Bane</InputLabel>
+                                <TextField
+                                    fullWidth
+                                    multiline
+                                    rows={1}
+                                    label="Overskrift"
+                                    id="Headline"
+                                    variant="outlined"
+                                    style={{backgroundColor: "white"}}
+                                />
+                                <TextField
+                                    fullWidth
+                                    multiline
+                                    rows={10}
+                                    label="Beskrivelse"
+                                    id="Body"
+                                    variant="outlined"
+                                    style={{borderRadius:'50',
+                                        backgroundColor: "white"}}
+                                />
+                                {/* Sted */}
+                                <FormControl className="itemSelect" variant="filled">
+                                    <InputLabel>Sted</InputLabel>
                                     <Select
                                         id="Field"
-                                        value={Field}
+                                        value={Location}
                                         label="Field"
                                         onChange={handleChangeField}
-                                        style={{
-                                            backgroundColor: "white"}}
+                                        style={{backgroundColor: "white"}}
                                     >
                                         <MenuItem value={1}>A</MenuItem>
                                         <MenuItem value={2}>B</MenuItem>
@@ -115,14 +134,14 @@ function AdminPanel () {
                                         onChange={handleChangeStartDate}
                                         renderInput={(params) => <TextField {...params}
                                                                             style={{backgroundColor: "white"}}/>}
-                                     />
+                                    />
                                     <TimePicker
                                         label="Starttidspunkt"
                                         value={StartDate}
                                         onChange={handleChangeStartDate}
                                         renderInput={(params) => <TextField {...params}
                                                                             style={{backgroundColor: "white"}}/>}
-                                        />
+                                    />
                                     <TimePicker
                                         label="Sluttidspunkt"
                                         value={EndDate}
@@ -132,17 +151,19 @@ function AdminPanel () {
                                     />
                                 </LocalizationProvider>
 
+                                <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                                    <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
+                                    <FilledInput
+                                        id="filled-adornment-amount"
+                                        value={values.amount}
+                                        onChange={handleChange('amount')}
+                                        startAdornment={<InputAdornment position="start">DKK</InputAdornment>}
+                                        style={{backgroundColor: "white"}}
+                                    />
+                                </FormControl>
 
-                                <TextField
-                                    fullWidth
-                                    multiline
-                                    rows={10}
-                                    label="Beskrivelse"
-                                    id="Body"
-                                    variant="outlined"
-                                    style={{borderRadius:'50',
-                                        backgroundColor: "white"}}
-                                />
+
+
                             </Stack>
                         </Box>
                         <Button variant="contained" size="large" onClick={Add}>

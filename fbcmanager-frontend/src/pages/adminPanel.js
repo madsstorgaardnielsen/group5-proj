@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 function AdminPanel () {
     const navigate = useNavigate()
     const toAddEvent = () => {
-        navigate('/home')
+        navigate('/addEvent')
     }
     const toAddTraining = () => {
         navigate('/addTraining')

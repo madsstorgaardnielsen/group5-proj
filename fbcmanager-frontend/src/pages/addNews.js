@@ -29,8 +29,7 @@ function AdminPanel () {
                         <Box
                             className="addBox"
                             sx={{
-                                width: 500,
-                                maxWidth: '100%',
+                                maxWidth: 600
                             }}
                         >
                             <h6 className="adminAdd">Skriv en passende overskrift</h6>

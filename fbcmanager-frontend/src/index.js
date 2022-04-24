@@ -16,7 +16,7 @@ import AdminPanel from './pages/adminPanel';
 
 import AddNews from './pages/addNews';
 import AddTraining from './pages/addTraining';
-//import AddEvent from './pages/addEvent';
+import AddEvent from './pages/addEvent';
 
 
 
@@ -35,6 +35,7 @@ ReactDOM.render(
           <Route path="/adminPanel" element={<AdminPanel/>}/>
           <Route path="/addNews" element={<AddNews/>}/>
           <Route path="/addTraining" element={<AddTraining/>}/>
+          <Route path="/addEvent" element={<AddEvent/>}/>
         </Routes>
       </Router>,
   document.getElementById('root')
