@@ -132,6 +132,14 @@ function Profil() {
                                     Change password
                                 </button>
                             </div>
+
+                            <span>{" "}</span>
+
+                            <div className="tilmeldBtn">
+                                <button type="submit" className="btn btn-primary">
+                                    Change profile picture
+                                </button>
+                            </div>
                         </span>
 
                     </section>
