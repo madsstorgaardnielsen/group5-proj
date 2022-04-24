@@ -16,6 +16,7 @@ class Calendar extends Component {
             businessBeginsHour: 11, 
         
             // TODO: THESE EVENTS SHOULD BE LOADED AS A LIST OF JSON OBJECT FROM THE DATABASE.
+            // See https://api.daypilot.org/daypilot-calendar-events-load/
             events: [
                 {
                     id: 1,
