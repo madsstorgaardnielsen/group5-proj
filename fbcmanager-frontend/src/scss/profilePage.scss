@@ -86,7 +86,7 @@
   div section{
     background-color: $light-grey;
     padding: 15px;
-    width: 500px;
+    width: 750px;
     //height: 100px;
     margin: 20px 10px;
     border-radius: 10px;
@@ -107,8 +107,11 @@
   }
 }
 
-
-
+.centerStat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
