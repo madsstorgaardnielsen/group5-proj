@@ -21,7 +21,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 // Table inspired by MUI. https://mui.com/components/tables/
 
 
-
 function trainingstable(date, timeStart, timeEnd, location, team) {
 
     return {
@@ -37,6 +36,14 @@ function trainingstable(date, timeStart, timeEnd, location, team) {
 
 function Row(props) {
 
+    var object3 = {
+        "date": "2022-11-23",
+        "team": "U15",
+        "location": "Lyngby Svømmehal",
+        "timeStart": "22:00:00",
+        "timeEnd": "00:00:00"
+        }
+
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     return (
@@ -46,8 +53,7 @@ function Row(props) {
                     <IconButton
                         aria-label="expand row"
                         size="small"
-                        onClick={() => setOpen(!open)}
-                    >
+                        onClick={() => setOpen(!open)}>
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
@@ -56,7 +62,11 @@ function Row(props) {
                 <TableCell >{row.timeEnd}</TableCell>
                 <TableCell >{row.location}</TableCell>
                 <TableCell >{row.team}</TableCell>
-                <TableCell ><Button onClick={() => {alert('clicked');}}> Click me </Button></TableCell>
+                <TableCell ><Button value="Tilmeld" onClick={() => { //Toggle button?
+                    axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) ; //Todo change to add to users list
+                    alert('Tilmeldt');
+
+                }}> Tilmeld/Afmeld </Button></TableCell>
 
             </TableRow>
             <TableRow>
@@ -85,16 +95,6 @@ Row.propTypes = {
     }).isRequired,
 };
 
-//const rows = [
-    //trainingstable('15-03-2022', '10:00', '11:00', 'Holte Station', 'U14'), //One traing in a line
-    //trainingstable('15-03-2022', '10:00', '14:00', 'Anker Engelunds Vej nr. 1', 'U23'), //Date, timeS, timeE, Location, Team
-    //trainingstable('17-03-2022', '22:00', '00:00', 'Lyngby svømmehal', 'U40')
-
-    //training.map((t)=>trainingstable(t.team))
-
-
-//];
-
 export default function CollapsibleTable() {
 
     const [training, setTraining] = React.useState([]);
@@ -121,7 +121,7 @@ export default function CollapsibleTable() {
             "timeStart": "22:00:00",
             "timeEnd": "00:00:00"
             }
-      axios.post("http://localhost:8080/training", object).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://localhost:8080/training", object).then((response)=>console.log(response.data)) //respone contains the data from post
       //axios.post("http://localhost:8080/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
       //axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
       axios.get("http://localhost:8080/training").then((response)=>setTraining(response.data)) //Setter data i training variable
@@ -151,4 +151,3 @@ export default function CollapsibleTable() {
         </TableContainer>
     );
 }
-
