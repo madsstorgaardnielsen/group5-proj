@@ -22,7 +22,7 @@ export default function RightColumn() {
             <div className="column_top">
                 <div>
                     <div className="avatar_dropdown">
-                        <a href="/profil"><Avatar alt="Profile Picture" src={UserPic} variant="rounded"/></a>
+                        <a href="/profile"><Avatar alt="Profile Picture" src={UserPic} variant="rounded"/></a>
                     </div>
                     <div className="avatar_dropdown">
                         <DropdownMenu/>
@@ -55,7 +55,7 @@ function DropdownMenu() {
     };
     const navigate = useNavigate()
     const toProfile = () => {
-        navigate('/profil')
+        navigate('/profile')
     }
 
     return (

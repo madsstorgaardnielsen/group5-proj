@@ -1,9 +1,14 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss";
+import { Helmet } from 'react-helmet';
+
 const Registration = () => {
   return (
     <div>
+      <Helmet>
+        <title>Register | NemSport</title>
+      </Helmet>
       <Navbar />
       <div className="body">
         <h1>Tilmelding</h1>
