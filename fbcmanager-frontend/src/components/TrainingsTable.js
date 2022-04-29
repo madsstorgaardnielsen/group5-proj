@@ -4,6 +4,7 @@ import axios from "axios";
 import Table from '@mui/material/Table';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import TableBody from '@mui/material/TableBody';
@@ -34,7 +35,6 @@ function trainingstable(date, timeStart, timeEnd, location, team) {
 }
 
 
-
 function Row(props) {
 
     const { row } = props;
@@ -56,6 +56,8 @@ function Row(props) {
                 <TableCell >{row.timeEnd}</TableCell>
                 <TableCell >{row.location}</TableCell>
                 <TableCell >{row.team}</TableCell>
+                <TableCell ><Button onClick={() => {alert('clicked');}}> Click me </Button></TableCell>
+
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -120,8 +122,8 @@ export default function CollapsibleTable() {
             "timeEnd": "00:00:00"
             }
       axios.post("http://localhost:8080/training", object).then((response)=>console.log(response.data)) //respone contains the data from post
-      axios.post("http://localhost:8080/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
-      axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://localhost:8080/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
       axios.get("http://localhost:8080/training").then((response)=>setTraining(response.data)) //Setter data i training variable
     }, [])
 
@@ -133,10 +135,11 @@ export default function CollapsibleTable() {
                     <TableRow>
                         <TableCell/>
                         <TableCell>Date</TableCell>
-                        <TableCell >Time Start</TableCell>
-                        <TableCell >Time End&nbsp; </TableCell>
-                        <TableCell >Location&nbsp; </TableCell>
-                        <TableCell >Team&nbsp; </TableCell>
+                        <TableCell>Time Start</TableCell>
+                        <TableCell>Time End&nbsp; </TableCell>
+                        <TableCell>Location&nbsp; </TableCell>
+                        <TableCell>Team&nbsp; </TableCell>
+                        <TableCell>Tilmeld</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
