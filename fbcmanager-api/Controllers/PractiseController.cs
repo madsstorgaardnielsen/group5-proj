@@ -3,6 +3,8 @@ using fbcmanager_api.Database.Models;
 using fbcmanager_api.Database.UnitOfWork;
 using fbcmanager_api.Models.DAOs;
 using fbcmanager_api.Models.DTOs;
+using fbcmanager_api.Utils;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,7 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize]
-    [HttpGet("{userId}/all",Name = "GetAllJoinedPractises")]
+    [HttpGet("{userId}/all", Name = "GetAllJoinedPractises")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -37,15 +39,48 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize]
-    [HttpPost("join",Name = "JoinPractise")]
+    [HttpPost("join", Name = "JoinPractise")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> JoinPractise([FromBody] string practiseId, string userId) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var tokenUtils = new TokenUtils();
+        var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
+
+        if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
+            return BadRequest("Invalid data");
+        }
+        
         var practise = await _unitOfWork.Practises.Get(p => p.Id == practiseId);
         var user = await _unitOfWork.Users.Get(u => u.Id == userId);
         if (practise != null && user != null) {
             practise.Participants.Add(user);
+            await _unitOfWork.Save();
+            return NoContent();
+        }
+
+        return BadRequest();
+    }
+
+    [Authorize]
+    [HttpPost("leave", Name = "LeavePractise")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> LeavePractise([FromBody] string practiseId, string userId) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var tokenUtils = new TokenUtils();
+        var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
+
+        if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
+            return BadRequest("Invalid data");
+        }
+        
+        var user = await _unitOfWork.Users.Get(user => user.Id == userId);
+        var team = await _unitOfWork.Practises.Get(u => u.Id == practiseId);
+        if (team != null && user != null && team.Participants.Contains(user)) {
+            team.Participants.Remove(user);
             await _unitOfWork.Save();
             return NoContent();
         }

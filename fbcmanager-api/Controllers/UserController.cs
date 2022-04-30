@@ -49,10 +49,9 @@ public class UserController : ControllerBase {
         if (ModelState.IsValid) {
             var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
             var tokenUtils = new TokenUtils();
-            var userName = tokenUtils.GetUserNameFromToken(token);
+            var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-            
-            if (User.Identity.Name != userName && User.IsInRole("Admin") != true) {
+            if (userIdFromToken != id && User.IsInRole("Admin") != true) {
                 return BadRequest("Invalid data");
             }
 
@@ -99,7 +98,8 @@ public class UserController : ControllerBase {
             await _unitOfWork.Save();
 
             var userDao = _mapper.Map<UserDAO>(user);
-            return CreatedAtRoute("GetUser", new {id = user.Id}, userDao);
+            // return CreatedAtRoute("GetUser", new {id = user.Id}, userDao);
+            return NoContent();
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateUser)}");
@@ -121,7 +121,7 @@ public class UserController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpGet("name/{query}", Name = "GetUserByName")]
+    [HttpGet("search/{query}", Name = "GetUserByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUserByName(string query) {

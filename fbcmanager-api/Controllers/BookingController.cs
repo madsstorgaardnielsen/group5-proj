@@ -23,37 +23,31 @@ public class BookingController : ControllerBase {
         _logger = logger;
         _mapper = mapper;
     }
-    
-    
 
-    
+
     [Authorize]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteBooking(string bookingId) {
+    public async Task<IActionResult> DeleteBooking([FromBody] string userId, string bookingId) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var tokenUtils = new TokenUtils();
-        var nameFromToken = tokenUtils.GetUserNameFromToken(token);
+        var idFromToken = tokenUtils.GetUserIdFromToken(token);
 
-        if (User.Identity == null) {
+
+        if (userId != idFromToken && User.IsInRole("Admin") != true) {
             _logger.LogInformation($"Identity error in {nameof(DeleteBooking)}");
             return BadRequest();
         }
 
-        if (User.Identity.Name != nameFromToken && User.IsInRole("Admin") != true) {
-            _logger.LogInformation($"Identity error in {nameof(DeleteBooking)}");
-            return BadRequest();
-        }
-        
         var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
         if (booking != null) {
             await _unitOfWork.Bookings.Delete(bookingId);
             await _unitOfWork.Save();
             return NoContent();
         }
-    
+
         return BadRequest();
     }
 
@@ -101,7 +95,7 @@ public class BookingController : ControllerBase {
     }
 
     [Authorize]
-    [HttpGet("{bookingId}",Name = "Get")]
+    [HttpGet("{bookingId}", Name = "GetBooking")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetBooking(string bookingId) {
