@@ -22,6 +22,38 @@ public class PractiseController : ControllerBase {
         _mapper = mapper;
     }
 
+    [Authorize]
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllJoinedPractises([FromBody] string userId) {
+        var user = await _unitOfWork.Users.Get(u => u.Id == userId);
+        if (user != null) {
+            return Ok(user.Practises);
+        }
+
+        return BadRequest();
+    }
+
+    [Authorize]
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> JoinPractise([FromBody] string practiseId, string userId) {
+        var practise = await _unitOfWork.Practises.Get(p => p.Id == practiseId);
+        var user = await _unitOfWork.Users.Get(u => u.Id == userId);
+        if (practise != null && user != null) {
+            practise.Participants.Add(user);
+            await _unitOfWork.Save();
+            return NoContent();
+        }
+
+        return BadRequest();
+    }
+
+
     [Authorize(Roles = "Admin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

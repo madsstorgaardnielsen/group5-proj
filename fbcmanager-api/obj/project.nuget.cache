@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H1tE9B678afzUAGM9Jy46Y68Yin6vjTNkAKIe0x1eEOTCdW1SO9V8a7r0V6g5ot7XqmCavrMG2nL0lcDcB81WA==",
+  "dgSpecHash": "w/iP6lqYC4I99OUZAGqNpBpQG0MNR2YDCKLvuEZcAp3qAKZxeMVKPqTQ/fFbr2bw2OhAhebVI5f8vf5X9cRS3Q==",
   "success": true,
-  "projectFilePath": "/Users/madsstorgaard-nielsen/Desktop/csharp_proj/fbcmanager-api/fbcmanager-api.csproj",
+  "projectFilePath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
   "expectedPackageFiles": [
     "/Users/madsstorgaard-nielsen/.nuget/packages/aspnetcoreratelimit/4.0.2/aspnetcoreratelimit.4.0.2.nupkg.sha512",
     "/Users/madsstorgaard-nielsen/.nuget/packages/automapper/11.0.0/automapper.11.0.0.nupkg.sha512",

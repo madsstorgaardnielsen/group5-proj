@@ -22,15 +22,16 @@ public class BookingController : ControllerBase {
         _mapper = mapper;
     }
 
-    [Authorize(Roles = "Admin")]
+
+    [Authorize]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteBooking(string id) {
-        var booking = await _unitOfWork.Bookings.Get(u => u.Id == id);
+    public async Task<IActionResult> DeleteBooking(string bookingId) {
+        var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
         if (booking != null) {
-            await _unitOfWork.Bookings.Delete(id);
+            await _unitOfWork.Bookings.Delete(bookingId);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -38,14 +39,14 @@ public class BookingController : ControllerBase {
         return BadRequest();
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateBooking(string id, [FromBody] BookingDTO bookingDTO) {
+    public async Task<IActionResult> UpdateBooking(string bookingId, [FromBody] BookingDTO bookingDTO) {
         if (ModelState.IsValid) {
-            var booking = await _unitOfWork.Bookings.Get(u => u.Id == id);
+            var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
 
             if (booking == null) {
                 return BadRequest("Invalid data");
@@ -62,7 +63,7 @@ public class BookingController : ControllerBase {
         return BadRequest(ModelState);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -82,11 +83,11 @@ public class BookingController : ControllerBase {
     }
 
     [Authorize]
-    [HttpGet("{id}", Name = "GetBooking")]
+    [HttpGet("{bookingId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetBookings(string id) {
-        var booking = await _unitOfWork.Bookings.Get(u => u.Id == id);
+    public async Task<IActionResult> GetBooking(string bookingId) {
+        var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
         if (booking != null) {
             var result = _mapper.Map<BookingDTO>(booking);
             return Ok(result);
@@ -100,8 +101,8 @@ public class BookingController : ControllerBase {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetBookings() {
-        var bookings = await _unitOfWork.Bookings.GetAll();
+    public async Task<IActionResult> GetBookings(string teamId) {
+        var bookings = await _unitOfWork.Bookings.GetAll(b => b.Team.Id == teamId);
         var results = _mapper.Map<IList<BookingDTO>>(bookings);
         return Ok(results);
     }

@@ -3837,11 +3837,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/madsstorgaard-nielsen/Desktop/csharp_proj/fbcmanager-api/fbcmanager-api.csproj",
+      "projectUniqueName": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
       "projectName": "fbcmanager-api",
-      "projectPath": "/Users/madsstorgaard-nielsen/Desktop/csharp_proj/fbcmanager-api/fbcmanager-api.csproj",
+      "projectPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
       "packagesPath": "/Users/madsstorgaard-nielsen/.nuget/packages/",
-      "outputPath": "/Users/madsstorgaard-nielsen/Desktop/csharp_proj/fbcmanager-api/obj/",
+      "outputPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
