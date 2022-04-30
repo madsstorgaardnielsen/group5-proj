@@ -11,7 +11,6 @@ public class DatabaseContext : IdentityDbContext<User> {
 
     public DatabaseContext() {
     }
-    
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
@@ -44,6 +43,11 @@ public class DatabaseContext : IdentityDbContext<User> {
             .Ignore(u => u.LockoutEnd)
             .Ignore(u => u.AccessFailedCount);
 
-        
+        builder.Entity<Team>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Booking>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Event>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Field>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<News>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Practise>().Property(e => e.Id).ValueGeneratedOnAdd();
     }
 }

@@ -132,13 +132,18 @@ public class TeamController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateTeam([FromBody] TeamDTO teamDTO) {
+        _logger.LogInformation("team name->" + teamDTO.TeamName);
+        _logger.LogInformation("team name->" + teamDTO.TeamName);
+        _logger.LogInformation("team name->" + teamDTO.TeamName);
+        _logger.LogInformation("team name->" + teamDTO.TeamName);
         if (ModelState.IsValid) {
             var team = _mapper.Map<Team>(teamDTO);
             await _unitOfWork.Teams.Insert(team);
             await _unitOfWork.Save();
 
             var teamDAO = _mapper.Map<TeamDAO>(team);
-            return CreatedAtRoute("GetTeam", new {id = team.Id}, teamDAO);
+            // return CreatedAtRoute("GetTeam", new {id = team.Id}, teamDAO);
+            return NoContent();
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateTeam)}");
