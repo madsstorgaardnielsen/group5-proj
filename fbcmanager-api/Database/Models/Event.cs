@@ -12,7 +12,7 @@ public class Event {
     public TimeOnly From{ get; set; }
     public TimeOnly To{ get; set; }
     public double Price { get; set; }
-    public List<User> Participants{ get; set; }
+    public List<User> Participants{ get; set; } = new();
 
     public string Id { get; set; }
 }

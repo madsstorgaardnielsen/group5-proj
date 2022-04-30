@@ -10,7 +10,7 @@ public class TokenUtils {
         var handler = new JwtSecurityTokenHandler();
 
         var decodedToken = handler.ReadJwtToken(token);
-
+        
         return decodedToken.Claims.First(claim => claim.Type == "id").Value;
     }
 }

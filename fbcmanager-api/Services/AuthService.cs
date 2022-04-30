@@ -36,7 +36,7 @@ public class AuthService : IAuthService {
 
         var expiration = DateTime
             .Now
-            .AddMinutes(15);
+            .AddMinutes(9999); //TODO sæt ned når det skal i prod
 
         var issuer = jwtSettings.GetSection("Issuer").Value;
 

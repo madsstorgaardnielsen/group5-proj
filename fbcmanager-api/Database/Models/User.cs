@@ -10,7 +10,8 @@ public class User : IdentityUser {
     public string Street { get; set; }
     public DateOnly Birthdate { get; set; }
     public string TeamId { get; set; }
-    public List<Practise> Practises { get; set; }
-    public List<Event> Events { get; set; }
+    public Team Team { get; set; }
+    public List<Practise> Practises { get; set; } = new();
+    public List<Event> Events { get; set; } = new();
 
 }

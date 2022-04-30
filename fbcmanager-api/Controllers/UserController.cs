@@ -6,6 +6,7 @@ using fbcmanager_api.Models.DTOs;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fbcmanager_api.Controllers;
@@ -17,11 +18,14 @@ public class UserController : ControllerBase {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<UserController> _logger;
     private readonly IMapper _mapper;
+    private readonly UserManager<User> _userManager;
 
-    public UserController(IUnitOfWork unitOfWork, ILogger<UserController> logger, IMapper mapper) {
+    public UserController(IUnitOfWork unitOfWork, ILogger<UserController> logger, IMapper mapper,
+        UserManager<User> userManager) {
         _unitOfWork = unitOfWork;
         _logger = logger;
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     [Authorize(Roles = "Admin")]
@@ -55,7 +59,9 @@ public class UserController : ControllerBase {
                 return BadRequest("Invalid data");
             }
 
+
             var user = await _unitOfWork.Users.Get(u => u.Id == id);
+
 
             if (user == null) {
                 return BadRequest("Invalid data");
@@ -65,6 +71,10 @@ public class UserController : ControllerBase {
             user.UserName = userDto.Email;
             user.NormalizedEmail = userDto.Email.ToUpper();
             user.NormalizedUserName = userDto.Email.ToUpper();
+
+            if (User.IsInRole("Admin")) {
+                await _userManager.AddToRolesAsync(user, userDto.Roles);
+            }
 
             _mapper.Map(userDto, user);
             _unitOfWork.Users.Update(user);
@@ -94,7 +104,11 @@ public class UserController : ControllerBase {
             user.NormalizedEmail = userDto.Email.ToUpper();
             user.NormalizedUserName = userDto.Email.ToUpper();
 
+
             await _unitOfWork.Users.Insert(user);
+            await _userManager.AddToRolesAsync(user, userDto.Roles);
+
+
             await _unitOfWork.Save();
 
             var userDao = _mapper.Map<UserDAO>(user);

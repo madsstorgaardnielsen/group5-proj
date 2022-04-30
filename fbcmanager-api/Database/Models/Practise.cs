@@ -9,7 +9,7 @@ public class Practise {
     public DateOnly Date{ get; set; }
     public TimeOnly From{ get; set; }
     public TimeOnly To { get; set; }
-    public List<User> Participants{ get; set; }
+    public List<User> Participants{ get; set; } = new();
 
     public string Id { get; set; }
 }
