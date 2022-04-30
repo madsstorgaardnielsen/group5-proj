@@ -38,7 +38,7 @@ public class NewsController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPut(Name = "UpdateNews")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -62,7 +62,7 @@ public class NewsController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost]
+    [HttpPost(Name = "CreateNews")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -105,7 +105,7 @@ public class NewsController : ControllerBase {
     // }
 
    
-    [HttpGet]
+    [HttpGet(Name = "GetAllNews")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetNews() {

@@ -12,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddMemoryCache();
@@ -63,10 +61,6 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
 
-
-
-
-
 builder.Services
     .AddControllers(config => {
         config
@@ -76,8 +70,6 @@ builder.Services
     .AddNewtonsoftJson(options => {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
-
-
 
 
 var app = builder.Build();

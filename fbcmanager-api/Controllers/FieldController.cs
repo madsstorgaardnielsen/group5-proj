@@ -39,7 +39,7 @@ public class FieldController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPut(Name = "UpdateField")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -63,7 +63,7 @@ public class FieldController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost]
+    [HttpPost(Name = "CreateField")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -97,7 +97,7 @@ public class FieldController : ControllerBase {
 
 
     [Authorize]
-    [HttpGet]
+    [HttpGet(Name = "GetAllFields")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetFields() {

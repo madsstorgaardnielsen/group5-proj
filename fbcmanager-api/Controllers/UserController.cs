@@ -41,7 +41,7 @@ public class UserController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin, User")]
-    [HttpPut]
+    [HttpPut(Name = "UpdateUser")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -49,9 +49,10 @@ public class UserController : ControllerBase {
         if (ModelState.IsValid) {
             var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
             var tokenUtils = new TokenUtils();
-            var idFromToken = tokenUtils.GetUserIdFromToken(token);
+            var userName = tokenUtils.GetUserNameFromToken(token);
 
-            if (id != idFromToken && User.IsInRole("Admin") != true) {
+            
+            if (User.Identity.Name != userName && User.IsInRole("Admin") != true) {
                 return BadRequest("Invalid data");
             }
 

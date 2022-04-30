@@ -23,11 +23,11 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize]
-    [HttpDelete]
+    [HttpGet("{userId}/all",Name = "GetAllJoinedPractises")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllJoinedPractises([FromBody] string userId) {
+    public async Task<IActionResult> GetAllJoinedPractises(string userId) {
         var user = await _unitOfWork.Users.Get(u => u.Id == userId);
         if (user != null) {
             return Ok(user.Practises);
@@ -37,7 +37,7 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize]
-    [HttpDelete]
+    [HttpPost("join",Name = "JoinPractise")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -71,7 +71,7 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPut(Name = "UpdatePractise")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -95,7 +95,7 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost]
+    [HttpPost(Name = "CreatePractise")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -114,11 +114,11 @@ public class PractiseController : ControllerBase {
     }
 
     [Authorize]
-    [HttpGet("{id}", Name = "GetPractise")]
+    [HttpGet("{practiseId}", Name = "GetPractise")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetPractise(string id) {
-        var practise = await _unitOfWork.Practises.Get(u => u.Id == id);
+    public async Task<IActionResult> GetPractise(string practiseId) {
+        var practise = await _unitOfWork.Practises.Get(u => u.Id == practiseId);
         if (practise != null) {
             var result = _mapper.Map<PractiseDAO>(practise);
             return Ok(result);
@@ -138,7 +138,7 @@ public class PractiseController : ControllerBase {
     // }
 
     [Authorize]
-    [HttpGet]
+    [HttpGet(Name = "GetAllPractises")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractises() {
