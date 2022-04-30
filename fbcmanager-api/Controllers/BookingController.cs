@@ -26,30 +26,36 @@ public class BookingController : ControllerBase {
     
     
 
-    //
-    // [Authorize]
-    // [HttpDelete]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(StatusCodes.Status204NoContent)]
-    // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    // public async Task<IActionResult> DeleteBooking(string bookingId) {
-    //     var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
-    //     var tokenUtils = new TokenUtils();
-    //     var idFromToken = tokenUtils.GetUserIdFromToken(token);
-    //
-    //     if (User.Identity. != idFromToken && User.IsInRole("Admin") != true) {
-    //         return BadRequest("Invalid data");
-    //     }
-    //     
-    //     var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
-    //     if (booking != null) {
-    //         await _unitOfWork.Bookings.Delete(bookingId);
-    //         await _unitOfWork.Save();
-    //         return NoContent();
-    //     }
-    //
-    //     return BadRequest();
-    // }
+    
+    [Authorize]
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteBooking(string bookingId) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var tokenUtils = new TokenUtils();
+        var nameFromToken = tokenUtils.GetUserNameFromToken(token);
+
+        if (User.Identity == null) {
+            _logger.LogInformation($"Identity error in {nameof(DeleteBooking)}");
+            return BadRequest();
+        }
+
+        if (User.Identity.Name != nameFromToken && User.IsInRole("Admin") != true) {
+            _logger.LogInformation($"Identity error in {nameof(DeleteBooking)}");
+            return BadRequest();
+        }
+        
+        var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
+        if (booking != null) {
+            await _unitOfWork.Bookings.Delete(bookingId);
+            await _unitOfWork.Save();
+            return NoContent();
+        }
+    
+        return BadRequest();
+    }
 
     [Authorize]
     [HttpPut(Name = "UpdateBooking")]

@@ -2,7 +2,6 @@ using AutoMapper;
 using fbcmanager_api.Database.Models;
 using fbcmanager_api.Models.DTOs;
 using fbcmanager_api.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +28,7 @@ public class AuthController : ControllerBase {
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDto) {
-
+        _logger.LogInformation($"Init login attempt: {loginUserDto.Email}");
         if (!ModelState.IsValid) {
             return BadRequest(ModelState);
         }
@@ -56,15 +55,17 @@ public class AuthController : ControllerBase {
 
         var result = await _userManager.CreateAsync(user, userDto.Password);
 
-        if (!result.Succeeded) {
-            foreach (var error in result.Errors) {
-                ModelState.AddModelError(error.Code, error.Description);
-            }
-
-            return BadRequest(ModelState);
+        if (result.Succeeded) {
+            await _userManager.AddToRolesAsync(user, userDto.Roles);
+            return Accepted();
         }
 
-        await _userManager.AddToRolesAsync(user, userDto.Roles);
-        return Accepted();
+        foreach (var error in result.Errors) {
+            ModelState.AddModelError(error.Code, error.Description);
+            _logger.LogInformation($"Error code: {error.Code}");
+            _logger.LogInformation($"Error description: {error.Description}");
+        }
+
+        return BadRequest(ModelState);
     }
 }

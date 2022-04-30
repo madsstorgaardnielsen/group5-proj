@@ -1,4 +1,3 @@
-using fbcmanager_api.Database.Configuration;
 using fbcmanager_api.Database.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +32,9 @@ public class DatabaseContext : IdentityDbContext<User> {
 
     protected override void OnModelCreating(ModelBuilder builder) {
         base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new RoleConfiguration());
-        builder.ApplyConfiguration(new AdminConfiguration());
-        builder.ApplyConfiguration(new AssignAdminRoleConfig());
+        builder.ApplyConfiguration(new SeedRoles());
+        builder.ApplyConfiguration(new SeedAdminUser());
+        builder.ApplyConfiguration(new SeedAdminRole());
 
         builder.Entity<User>()
             .Ignore(u => u.EmailConfirmed)
