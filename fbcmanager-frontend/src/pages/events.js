@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import RightColumn from "../components/RightColumn";
+import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,36 +20,41 @@ import eventPic from "../res/img/events/event-pic.jpg";
 
 export default function BasicGrid() {
     return (
-        <Box sx={{flexGrow: 1}}>
-            <Grid container spacing={6}>
-                <Hidden mdDown>
-                    <Grid item lg={3}>
-                        <Navbar />
-                    </Grid>
-                </Hidden>
-
-
-                <Grid item xs={12} md={8} lg={6}>
-                    <div className="content">
-                        <Helmet>
-                            <title>Events | NemSport</title>
-                        </Helmet>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Grid container spacing={1}>
-                                <Grid container item spacing={3}>
-                                    <FormRow />
-                                </Grid>
+    <div>
+      <Navbar />
+      <div className="body">
+        <div className="main-grid-container">
+          {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
+          <div className="main-grid-item">
+            <Helmet>
+                <title>Events | NemSport</title>
+            </Helmet>
+            <Grid item xs={12}>
+                <div className="">
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={1}>
+                            <Grid container item spacing={3}>
+                                <FormRow />
                             </Grid>
-                        </Box>
-                    </div>
-                </Grid>
-
-
-                <Grid item xs={12} sm={4} md={3}>
-                    <RightColumn />
-                </Grid>
+                        </Grid>
+                    </Box>
+                </div>
             </Grid>
-        </Box>
+          </div>
+          {/* XXXXXX MIDDLE COLLUMN END XXXXXX*/}
+
+
+          {/* XXXXXX RIGHT COLLUMN START XXXXXX*/}
+          <div className="main-grid-item">
+            {/* Profile */}
+            <ProfileColumn />
+          </div>
+          {/* XXXXXX MIDDLE COLLUMN END XXXXXX*/}
+        
+        </div>
+      </div>
+    </div>
+        
     );
 }
 
