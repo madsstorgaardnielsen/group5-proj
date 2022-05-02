@@ -30,7 +30,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class {
             query = orderBy(query);
         }
 
-        return await query.AsNoTracking().ToListAsync();
+        return await query.ToListAsync();
     }
 
     public async Task<IPagedList<T>> GetAll(HttpRequestParams httpRequestParams, List<string> includes = null) {
@@ -41,7 +41,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class {
                 .Aggregate(query, (current, property) => current.Include(property));
         }
 
-        return await query.AsNoTracking().ToPagedListAsync(httpRequestParams.PageNumber, httpRequestParams.PageSize);
+        return await query.ToPagedListAsync(httpRequestParams.PageNumber, httpRequestParams.PageSize);
     }
 
 
@@ -52,7 +52,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class {
                 .Aggregate(query, (current, property) => current.Include(property));
         }
 
-        return await query.AsNoTracking().FirstOrDefaultAsync(expression);
+        return await query.SingleOrDefaultAsync(expression);
     }
 
     public async Task Insert(T entity) {

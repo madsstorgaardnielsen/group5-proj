@@ -14,7 +14,13 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
     public DatabaseContext() {
     }
 
-
+    public DbSet<Event> Events { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Field> Fields { get; set; }
+    public DbSet<News> News { get; set; }
+    public DbSet<Practise> Practises { get; set; }
+    public DbSet<Team> Teams  { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         if (optionsBuilder.IsConfigured) return;
 
@@ -48,6 +54,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<User>()
             .HasMany(x => x.Practises)
             .WithMany(x => x.Participants);
+        
         builder.Entity<User>()
             .HasMany(x => x.Events)
             .WithMany(x => x.Participants);

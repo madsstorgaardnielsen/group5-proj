@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace fbcmanager_api.Models.DTOs;
 
 public class EventDTO {
-    [Required] public string Id { get; set; }
+public string EventId { get; set; }
     [Required] public string Description { get; set; }
     [Required] public string Location { get; set; }
     [Required] public string Header { get; set; }
