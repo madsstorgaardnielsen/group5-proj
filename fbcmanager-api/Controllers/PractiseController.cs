@@ -1,4 +1,5 @@
 using AutoMapper;
+using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
 using fbcmanager_api.Database.UnitOfWork;
 using fbcmanager_api.Models.DAOs;
@@ -7,6 +8,7 @@ using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -17,11 +19,14 @@ public class PractiseController : ControllerBase {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<PractiseController> _logger;
     private readonly IMapper _mapper;
+    private readonly DatabaseContext _dbCon;
 
-    public PractiseController(IUnitOfWork unitOfWork, ILogger<PractiseController> logger, IMapper mapper) {
+    public PractiseController(IUnitOfWork unitOfWork, ILogger<PractiseController> logger, IMapper mapper,
+        DatabaseContext dbCon) {
         _unitOfWork = unitOfWork;
         _logger = logger;
         _mapper = mapper;
+        _dbCon = dbCon;
     }
 
     [Authorize]
@@ -30,9 +35,10 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllJoinedPractises(string userId) {
-        var user = await _unitOfWork.Users.Get(u => u.Id == userId);
-        if (user != null) {
-            return Ok(user.Practises);
+        // var user = await _unitOfWork.Users.Get(u => u.Id == userId);
+        var userPractises = await _dbCon.Users.Where(x => x.Id == userId).Include(x => x.Practises).SingleOrDefaultAsync();
+        if (userPractises != null) {
+            return Ok(userPractises);
         }
 
         return BadRequest();
@@ -48,17 +54,26 @@ public class PractiseController : ControllerBase {
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-        if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
-            return BadRequest("Invalid data");
-        }
-        
-        var practise = await _unitOfWork.Practises.Get(p => p.PractiseId == practiseId);
-        var user = await _unitOfWork.Users.Get(u => u.Id == userId);
-        if (practise != null && user != null) {
+        var user = await _dbCon.Users.FindAsync(userIdFromToken);
+        var practise = await _dbCon.Practises.Include(x => x.Participants).SingleOrDefaultAsync();
+
+        if (user != null && practise != null) {
             practise.Participants.Add(user);
-            await _unitOfWork.Save();
+            await _dbCon.SaveChangesAsync();
             return NoContent();
         }
+
+        // if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
+        //     return BadRequest("Invalid data");
+        // }
+        //
+        // var practise = await _unitOfWork.Practises.Get(p => p.PractiseId == practiseId);
+        // var user = await _unitOfWork.Users.Get(u => u.Id == userId);
+        // if (practise != null && user != null) {
+        //     practise.Participants.Add(user);
+        //     await _unitOfWork.Save();
+        //     return NoContent();
+        // }
 
         return BadRequest();
     }
@@ -73,17 +88,26 @@ public class PractiseController : ControllerBase {
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-        if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
-            return BadRequest("Invalid data");
-        }
-        
-        var user = await _unitOfWork.Users.Get(user => user.Id == userId);
-        var team = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
-        if (team != null && user != null && team.Participants.Contains(user)) {
-            team.Participants.Remove(user);
-            await _unitOfWork.Save();
+        var user = await _dbCon.Users.FindAsync(userIdFromToken);
+        var practise = await _dbCon.Practises.Include(x => x.Participants).SingleOrDefaultAsync();
+
+        if (user != null && practise != null) {
+            practise.Participants.Remove(user);
+            await _dbCon.SaveChangesAsync();
             return NoContent();
         }
+
+        // if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
+        //     return BadRequest("Invalid data");
+        // }
+        //
+        // var user = await _unitOfWork.Users.Get(user => user.Id == userId);
+        // var team = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
+        // if (team != null && user != null && team.Participants.Contains(user)) {
+        //     team.Participants.Remove(user);
+        //     await _unitOfWork.Save();
+        //     return NoContent();
+        // }
 
         return BadRequest();
     }
@@ -95,12 +119,20 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeletePractise(string id) {
-        var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
+        var practise = await _dbCon.Practises.FindAsync(id);
+
         if (practise != null) {
-            await _unitOfWork.Practises.Delete(id);
-            await _unitOfWork.Save();
+            _dbCon.Practises.Remove(practise);
+            await _dbCon.SaveChangesAsync();
             return NoContent();
         }
+
+        // var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
+        // if (practise != null) {
+        //     await _unitOfWork.Practises.Delete(id);
+        //     await _unitOfWork.Save();
+        //     return NoContent();
+        // }
 
         return BadRequest();
     }
@@ -112,17 +144,27 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdatePractise(string id, [FromBody] PractiseDTO practiseDTO) {
         if (ModelState.IsValid) {
-            var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
+            var practise = await _dbCon.Practises.FindAsync(practiseDTO.PractiseId);
+            _mapper.Map(practiseDTO, practise);
 
-            if (practise == null) {
-                return BadRequest("Invalid data");
+            if (practise != null) {
+                _dbCon.Practises.Update(practise);
+                await _dbCon.SaveChangesAsync();
+                return NoContent();
             }
 
-            _mapper.Map(practiseDTO, practise);
-            _unitOfWork.Practises.Update(practise);
-            await _unitOfWork.Save();
 
-            return NoContent();
+            // var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
+            //
+            // if (practise == null) {
+            //     return BadRequest("Invalid data");
+            // }
+            //
+            // _mapper.Map(practiseDTO, practise);
+            // _unitOfWork.Practises.Update(practise);
+            // await _unitOfWork.Save();
+            //
+            // return NoContent();
         }
 
         _logger.LogError($"Error validating data in {nameof(UpdatePractise)}");
@@ -137,8 +179,12 @@ public class PractiseController : ControllerBase {
     public async Task<IActionResult> CreatePractise([FromBody] PractiseDTO practiseDTO) {
         if (ModelState.IsValid) {
             var practise = _mapper.Map<Practise>(practiseDTO);
-            await _unitOfWork.Practises.Insert(practise);
-            await _unitOfWork.Save();
+
+            await _dbCon.Practises.AddAsync(practise);
+            await _dbCon.SaveChangesAsync();
+
+            // await _unitOfWork.Practises.Insert(practise);
+            // await _unitOfWork.Save();
 
             var practiseDAO = _mapper.Map<PractiseDAO>(practise);
             return CreatedAtRoute("GetPractise", new {id = practise.PractiseId}, practiseDAO);
@@ -153,7 +199,10 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId) {
-        var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
+        // var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
+        var practise = await _dbCon.Practises.Where(x => x.PractiseId == practiseId).Include(x => x.Participants)
+            .SingleOrDefaultAsync();
+        
         if (practise != null) {
             var result = _mapper.Map<PractiseDAO>(practise);
             return Ok(result);
@@ -162,15 +211,6 @@ public class PractiseController : ControllerBase {
         return NotFound();
     }
 
-    // [Authorize]
-    // [HttpGet("practises/paging")]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    // public async Task<IActionResult> GetPractises([FromQuery] HttpRequestParams httpRequestParams) {
-    //     var practises = await _unitOfWork.Practises.GetAll(httpRequestParams);
-    //     var results = _mapper.Map<IList<PractiseDAO>>(practises);
-    //     return Ok(results);
-    // }
 
     [Authorize]
     [HttpGet(Name = "GetAllPractises")]
