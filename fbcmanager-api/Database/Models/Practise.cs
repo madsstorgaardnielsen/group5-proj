@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fbcmanager_api.Database.Models; 
-[Table("Practises")]
 public class Practise {
 
     public Team Team{ get; set; }
@@ -11,5 +10,5 @@ public class Practise {
     public TimeOnly To { get; set; }
     public List<User> Participants{ get; set; } = new();
 
-    public string Id { get; set; }
+    public string PractiseId { get; set; }
 }

@@ -52,7 +52,7 @@ public class PractiseController : ControllerBase {
             return BadRequest("Invalid data");
         }
         
-        var practise = await _unitOfWork.Practises.Get(p => p.Id == practiseId);
+        var practise = await _unitOfWork.Practises.Get(p => p.PractiseId == practiseId);
         var user = await _unitOfWork.Users.Get(u => u.Id == userId);
         if (practise != null && user != null) {
             practise.Participants.Add(user);
@@ -78,7 +78,7 @@ public class PractiseController : ControllerBase {
         }
         
         var user = await _unitOfWork.Users.Get(user => user.Id == userId);
-        var team = await _unitOfWork.Practises.Get(u => u.Id == practiseId);
+        var team = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
         if (team != null && user != null && team.Participants.Contains(user)) {
             team.Participants.Remove(user);
             await _unitOfWork.Save();
@@ -95,7 +95,7 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeletePractise(string id) {
-        var practise = await _unitOfWork.Practises.Get(u => u.Id == id);
+        var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
         if (practise != null) {
             await _unitOfWork.Practises.Delete(id);
             await _unitOfWork.Save();
@@ -112,7 +112,7 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdatePractise(string id, [FromBody] PractiseDTO practiseDTO) {
         if (ModelState.IsValid) {
-            var practise = await _unitOfWork.Practises.Get(u => u.Id == id);
+            var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == id);
 
             if (practise == null) {
                 return BadRequest("Invalid data");
@@ -141,7 +141,7 @@ public class PractiseController : ControllerBase {
             await _unitOfWork.Save();
 
             var practiseDAO = _mapper.Map<PractiseDAO>(practise);
-            return CreatedAtRoute("GetPractise", new {id = practise.Id}, practiseDAO);
+            return CreatedAtRoute("GetPractise", new {id = practise.PractiseId}, practiseDAO);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreatePractise)}");
@@ -153,7 +153,7 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId) {
-        var practise = await _unitOfWork.Practises.Get(u => u.Id == practiseId);
+        var practise = await _unitOfWork.Practises.Get(u => u.PractiseId == practiseId);
         if (practise != null) {
             var result = _mapper.Map<PractiseDAO>(practise);
             return Ok(result);

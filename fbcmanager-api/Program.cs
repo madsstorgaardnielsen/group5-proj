@@ -69,6 +69,7 @@ builder.Services
     })
     .AddNewtonsoftJson(options => {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+      
     });
 
 

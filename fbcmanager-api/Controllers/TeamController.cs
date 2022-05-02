@@ -1,7 +1,6 @@
 using AutoMapper;
 using fbcmanager_api.Database.Models;
 using fbcmanager_api.Database.UnitOfWork;
-using fbcmanager_api.Models;
 using fbcmanager_api.Models.DAOs;
 using fbcmanager_api.Models.DTOs;
 using fbcmanager_api.Utils;
@@ -34,16 +33,13 @@ public class TeamController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> JoinTeam(string teamId) {
-        
-        
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
         var user = await _unitOfWork.Users.Get(user => user.Id == userIdFromToken);
-        var team = await _unitOfWork.Teams.Get(u => u.Id == teamId);
-        
-            
+        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
+
         if (team != null && user != null) {
             user.Team = team;
             _unitOfWork.Users.Update(user);
@@ -66,14 +62,12 @@ public class TeamController : ControllerBase {
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
         var user = await _unitOfWork.Users.Get(user => user.Id == userIdFromToken);
-        var team = await _unitOfWork.Teams.Get(u => u.Id == teamId);
+        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
 
         if (team != null && user != null) {
             user.TeamId = null;
-
-
             _unitOfWork.Users.Update(user);
-
+                
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -98,7 +92,7 @@ public class TeamController : ControllerBase {
             return BadRequest();
         }
 
-        var team = await _unitOfWork.Teams.Get(u => u.Id == teamId);
+        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
         if (team != null) {
             await _unitOfWork.Teams.Delete(teamId);
             await _unitOfWork.Save();
@@ -116,7 +110,7 @@ public class TeamController : ControllerBase {
     public async Task<IActionResult> UpdateTeam(string teamId, [FromBody] TeamDTO teamDTO) {
         _logger.LogInformation("attempting UpdateTeam");
         if (ModelState.IsValid) {
-            var team = await _unitOfWork.Teams.Get(u => u.Id == teamId);
+            var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
 
             if (team == null) {
                 return BadRequest("Invalid team data");
@@ -146,7 +140,7 @@ public class TeamController : ControllerBase {
 
             var teamDAO = _mapper.Map<TeamDAO>(team);
             // return CreatedAtRoute("GetTeam", new {id = team.Id}, teamDAO);
-            return Ok(new {team.Id});
+            return Ok(new {team.TeamId});
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateTeam)}");
@@ -158,7 +152,7 @@ public class TeamController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetTeam(string teamId) {
-        var team = await _unitOfWork.Teams.Get(u => u.Id == teamId, new List<string> {"TeamMembers", "Bookings"});
+        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId, new List<string> {"TeamMembers", "Bookings"});
         if (team != null) {
             var result = _mapper.Map<TeamDAO>(team);
             return Ok(result);

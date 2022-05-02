@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fbcmanager_api.Database.Models; 
-[Table("Fields")]
 public class Field {
 
     public string FieldName{ get; set; }
@@ -12,5 +11,5 @@ public class Field {
     // public DateTime BookedTo{ get; set; }
     // public Team BookedBy{ get; set; }
 
-    public string Id { get; set; }
+    public string FieldId { get; set; }
 }

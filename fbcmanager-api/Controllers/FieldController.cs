@@ -28,7 +28,7 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteField(string id) {
-        var field = await _unitOfWork.Fields.Get(u => u.Id == id);
+        var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
         if (field != null) {
             await _unitOfWork.Fields.Delete(id);
             await _unitOfWork.Save();
@@ -45,7 +45,7 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateField(string id, [FromBody] FieldDTO fieldDTO) {
         if (ModelState.IsValid) {
-            var field = await _unitOfWork.Fields.Get(u => u.Id == id);
+            var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
 
             if (field == null) {
                 return BadRequest("Invalid data");
@@ -74,7 +74,7 @@ public class FieldController : ControllerBase {
             await _unitOfWork.Save();
 
             var fieldDAO = _mapper.Map<FieldDTO>(field);
-            return CreatedAtRoute("GetField", new {id = field.Id}, fieldDAO);
+            return CreatedAtRoute("GetField", new {id = field.FieldId}, fieldDAO);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateField)}");
@@ -86,7 +86,7 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetField(string id) {
-        var field = await _unitOfWork.Fields.Get(u => u.Id == id);
+        var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
         if (field != null) {
             var result = _mapper.Map<FieldDTO>(field);
             return Ok(result);

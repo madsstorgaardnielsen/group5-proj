@@ -25,23 +25,25 @@ public class EventController : ControllerBase {
     }
 
     [Authorize]
-    [HttpPost("join", Name = "JoinEvent")]
+    [HttpPost("join/{eventId}", Name = "JoinEvent")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> JoinEvent([FromBody] string eventId, string userId) {
+    public async Task<IActionResult> JoinEvent(string eventId) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-        if (userIdFromToken != userId && User.IsInRole("Admin") != true) {
-            return BadRequest("Invalid data");
-        }
+        var eventEntity = await _unitOfWork.Events.Get(p => p.EventId == eventId);
+        var user = await _unitOfWork.Users.Get(u => u.Id == userIdFromToken);
 
-        var eventEntity = await _unitOfWork.Events.Get(p => p.Id == eventId);
-        var user = await _unitOfWork.Users.Get(u => u.Id == userId);
         if (eventEntity != null && user != null) {
             eventEntity.Participants.Add(user);
+            user.Events.Add(eventEntity);
+
+            _unitOfWork.Users.Update(user);
+            _unitOfWork.Events.Update(eventEntity);
+
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -64,7 +66,7 @@ public class EventController : ControllerBase {
         }
 
         var user = await _unitOfWork.Users.Get(user => user.Id == userId);
-        var eventEntity = await _unitOfWork.Events.Get(u => u.Id == eventId);
+        var eventEntity = await _unitOfWork.Events.Get(u => u.EventId == eventId);
         if (eventEntity != null && user != null && eventEntity.Participants.Contains(user)) {
             eventEntity.Participants.Remove(user);
             await _unitOfWork.Save();
@@ -75,12 +77,12 @@ public class EventController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteEvent(string id) {
-        var eventEntity = await _unitOfWork.Events.Get(u => u.Id == id);
+        var eventEntity = await _unitOfWork.Events.Get(u => u.EventId == id);
         if (eventEntity != null) {
             await _unitOfWork.Events.Delete(id);
             await _unitOfWork.Save();
@@ -95,9 +97,9 @@ public class EventController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateEvent(string id, [FromBody] UpdateEventDTO eventDTO) {
+    public async Task<IActionResult> UpdateEvent([FromBody] UpdateEventDTO eventDTO) {
         if (ModelState.IsValid) {
-            var eventEntity = await _unitOfWork.Events.Get(u => u.Id == id);
+            var eventEntity = await _unitOfWork.Events.Get(u => u.EventId == eventDTO.Id);
 
             if (eventEntity == null) {
                 return BadRequest("Invalid data");
@@ -127,18 +129,18 @@ public class EventController : ControllerBase {
             await _unitOfWork.Save();
 
             var eventDAO = _mapper.Map<EventDAO>(eventEntity);
-            return CreatedAtRoute("GetEvent", new {id = eventEntity.Id}, eventDAO);
+            return CreatedAtRoute("GetEvent", new {id = eventEntity.EventId}, eventDAO);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateEvent)}");
         return BadRequest(ModelState);
     }
 
-    [HttpGet("events/{id}", Name = "GetEvent")]
+    [HttpGet("{id}", Name = "GetEvent")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetEvent(string id) {
-        var eventEntity = await _unitOfWork.Events.Get(u => u.Id == id);
+        var eventEntity = await _unitOfWork.Events.Get(u => u.EventId == id, new List<string> {"Participants"});
         if (eventEntity != null) {
             var result = _mapper.Map<EventDAO>(eventEntity);
             return Ok(result);

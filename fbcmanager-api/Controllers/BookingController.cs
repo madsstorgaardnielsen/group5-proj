@@ -41,7 +41,7 @@ public class BookingController : ControllerBase {
             return BadRequest();
         }
 
-        var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
+        var booking = await _unitOfWork.Bookings.Get(u => u.BookingId == bookingId);
         if (booking != null) {
             await _unitOfWork.Bookings.Delete(bookingId);
             await _unitOfWork.Save();
@@ -58,7 +58,7 @@ public class BookingController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateBooking(string bookingId, [FromBody] BookingDTO bookingDTO) {
         if (ModelState.IsValid) {
-            var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
+            var booking = await _unitOfWork.Bookings.Get(u => u.BookingId == bookingId);
 
             if (booking == null) {
                 return BadRequest("Invalid data");
@@ -87,7 +87,7 @@ public class BookingController : ControllerBase {
             await _unitOfWork.Save();
 
             var bookingDAO = _mapper.Map<BookingDTO>(booking);
-            return CreatedAtRoute("GetBooking", new {id = booking.Id}, bookingDAO);
+            return CreatedAtRoute("GetBooking", new {id = booking.BookingId}, bookingDAO);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateBooking)}");
@@ -99,7 +99,7 @@ public class BookingController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetBooking(string bookingId) {
-        var booking = await _unitOfWork.Bookings.Get(u => u.Id == bookingId);
+        var booking = await _unitOfWork.Bookings.Get(u => u.BookingId == bookingId);
         if (booking != null) {
             var result = _mapper.Map<BookingDTO>(booking);
             return Ok(result);
@@ -114,7 +114,7 @@ public class BookingController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetBookings(string teamId) {
-        var bookings = await _unitOfWork.Bookings.GetAll(b => b.Team.Id == teamId);
+        var bookings = await _unitOfWork.Bookings.GetAll(b => b.Team.TeamId == teamId);
         var results = _mapper.Map<IList<BookingDTO>>(bookings);
         return Ok(results);
     }
