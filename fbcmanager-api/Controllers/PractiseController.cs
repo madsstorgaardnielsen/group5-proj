@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
@@ -89,7 +90,7 @@ public class PractiseController : ControllerBase {
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
         var user = await _dbCon.Users.FindAsync(userIdFromToken);
-        var practise = await _dbCon.Practises.Include(x => x.Participants).SingleOrDefaultAsync();
+        var practise = await _dbCon.Practises.Where(x=>x.PractiseId == practiseId).SingleOrDefaultAsync();
 
         if (user != null && practise != null) {
             practise.Participants.Remove(user);
