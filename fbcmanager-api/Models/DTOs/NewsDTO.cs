@@ -5,7 +5,7 @@ namespace fbcmanager_api.Models.DTOs;
 
 public class NewsDTO {
     [Required]
-    public DateOnly Date{ get; set; }
+    public DateTime Date{ get; set; }
     [Required]
     public string Header{ get; set; }
     [Required]

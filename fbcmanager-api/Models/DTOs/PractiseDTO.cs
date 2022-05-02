@@ -7,7 +7,6 @@ public class PractiseDTO {
     public string PractiseId { get; set; } 
     [Required] public Team Team { get; set; }
     [Required] public Field Location { get; set; }
-    [Required] public DateOnly Date { get; set; }
-    [Required] public TimeOnly From { get; set; }
-    [Required] public TimeOnly To { get; set; }
+    [Required] public DateTime Date { get; set; }
+
 }

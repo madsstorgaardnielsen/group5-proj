@@ -6,9 +6,8 @@ public class PractiseDAO {
         public string PractiseId { get; set; }
         public Team Team{ get; set; }
         public Field Location { get; set; }
-        public DateOnly Date{ get; set; }
-        public TimeOnly From{ get; set; }
-        public TimeOnly To { get; set; }
+        public DateTime Date{ get; set; }
+
         public List<User> Participants{ get; set; }
 
 }
