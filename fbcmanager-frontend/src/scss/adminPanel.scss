@@ -1,0 +1,22 @@
+@import 'variables.scss';
+
+.adminPanel-content{
+    margin-left: 20px;
+}
+.addItem{
+    margin-top: 40px;
+}
+
+
+.addBox{
+    background-color: $light-grey;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.itemSelect{
+    margin-bottom: 50px;
+    display: block;
+}
