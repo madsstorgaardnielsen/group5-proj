@@ -27,7 +27,7 @@ public class NewsController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteNews(string id) {
-        var news = await _unitOfWork.News.Get(u => u.Id == id);
+        var news = await _unitOfWork.News.Get(u => u.NewsId == id);
         if (news != null) {
             await _unitOfWork.News.Delete(id);
             await _unitOfWork.Save();
@@ -44,7 +44,7 @@ public class NewsController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateNews(string id, [FromBody] NewsDTO newsDTO) {
         if (ModelState.IsValid) {
-            var news = await _unitOfWork.News.Get(u => u.Id == id);
+            var news = await _unitOfWork.News.Get(u => u.NewsId == id);
 
             if (news == null) {
                 return BadRequest("Invalid data");
@@ -73,7 +73,7 @@ public class NewsController : ControllerBase {
             await _unitOfWork.Save();
 
             var newsDAO = _mapper.Map<NewsDTO>(news);
-            return CreatedAtRoute("GetNews", new {id = news.Id}, newsDAO);
+            return CreatedAtRoute("GetNews", new {id = news.NewsId}, newsDAO);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateNews)}");
@@ -85,7 +85,7 @@ public class NewsController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetNews(string id) {
-        var news = await _unitOfWork.News.Get(u => u.Id == id);
+        var news = await _unitOfWork.News.Get(u => u.NewsId == id);
         if (news != null) {
             var result = _mapper.Map<NewsDTO>(news);
             return Ok(result);

@@ -1,4 +1,5 @@
 using fbcmanager_api.Database.Models;
+using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +53,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .WithMany(x => x.Participants);
 
         builder.Entity<Team>()
-            .Property(e => e.Id)
+            .Property(e => e.TeamId)
             .ValueGeneratedOnAdd();
         builder.Entity<Team>()
             .HasMany(x => x.TeamMembers)
@@ -61,36 +62,39 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<Team>()
             .HasMany(x => x.Bookings)
             .WithOne(x => x.Team)
-            .OnDelete(DeleteBehavior.SetNull);;
+            .OnDelete(DeleteBehavior.SetNull);
+        
 
         builder.Entity<Booking>()
-            .Property(e => e.Id)
+            .Property(e => e.BookingId)
             .ValueGeneratedOnAdd();
         builder.Entity<Booking>()
             .HasOne(x => x.Team)
             .WithMany(x => x.Bookings)
-            .OnDelete(DeleteBehavior.Cascade);;
+            .OnDelete(DeleteBehavior.Cascade);
+        
 
         builder.Entity<Event>()
-            .Property(e => e.Id)
+            .Property(e => e.EventId)
             .ValueGeneratedOnAdd();
         builder.Entity<Event>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Events);
 
+
         builder.Entity<News>()
-            .Property(e => e.Id)
+            .Property(e => e.NewsId)
             .ValueGeneratedOnAdd();
         builder.Entity<News>()
             .HasOne(x => x.Author);
 
-        builder.Entity<Field>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Field>().Property(e => e.FieldId).ValueGeneratedOnAdd();
         builder.Entity<Field>()
             .HasMany(x => x.Bookings)
             .WithOne(x => x.Field)
-            .OnDelete(DeleteBehavior.SetNull);;
+            .OnDelete(DeleteBehavior.SetNull);
 
-        builder.Entity<Practise>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Practise>().Property(e => e.PractiseId).ValueGeneratedOnAdd();
         builder.Entity<Practise>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Practises);
