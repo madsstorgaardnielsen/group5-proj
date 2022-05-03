@@ -4,8 +4,10 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/newsPage.scss"
-import NewsCard from "../components/newsCard"
+import NewsCard from "../components/newsCardd"
 import { Grid } from "@mui/material"
+import axios from "axios"
+
 
 
 function NewsPage() {
@@ -24,6 +26,14 @@ function NewsPage() {
     navigate('/events')
   }
 
+
+
+
+  React.useEffect(() => {
+    axios.get("https://localhost:7285/api/News").then((response) => {
+      setNews(response.data)
+    })})
+
   return (
     <div>
       <Navbar />
@@ -32,10 +42,15 @@ function NewsPage() {
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
           <div className="news-grid">
             <Grid container spacing={4}>
+              {news.map(newss =>
+                  <NewsCard key={newss.NewsId} news={newss} />
+              )}
+            </Grid>
+           {/* <Grid container spacing={4}>
                 {news.map(news =>
                   <NewsCard key={news.id} news={news} />
               )}
-            </Grid>
+            </Grid>*/}
           </div>
           {/* XXXXXX MIDDLE COLLUMN END XXXXXX*/}
 

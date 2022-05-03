@@ -5,7 +5,7 @@ const NewsCard = ({ news }) => {
     return (
         <Grid item sm={12} md={6}>
             <Card className="newscard">
-                <CardHeader title={news.title} subheader={`${news.day}/${news.month}/${news.year}`}/>
+                <CardHeader title={news.header} subheader={`${news.day}/${news.month}/${news.year}`}/>
                 <CardContent>
                     {news.text}
                 </CardContent>
@@ -13,5 +13,7 @@ const NewsCard = ({ news }) => {
         </Grid>  
         )
   }
+
+  
 
 export default NewsCard
