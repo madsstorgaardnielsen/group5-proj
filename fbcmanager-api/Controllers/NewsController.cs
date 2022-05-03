@@ -1,9 +1,10 @@
 using AutoMapper;
+using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
-using fbcmanager_api.Database.UnitOfWork;
 using fbcmanager_api.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -11,26 +12,28 @@ namespace fbcmanager_api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class NewsController : ControllerBase {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<NewsController> _logger;
     private readonly IMapper _mapper;
+    private readonly DatabaseContext _dbContext;
 
-    public NewsController(IUnitOfWork unitOfWork, ILogger<NewsController> logger, IMapper mapper) {
-        _unitOfWork = unitOfWork;
+    public NewsController(ILogger<NewsController> logger, IMapper mapper,
+        DatabaseContext dbContext) {
         _logger = logger;
         _mapper = mapper;
+        _dbContext = dbContext;
     }
-    
+
     [Authorize(Roles = "Admin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteNews(string id) {
-        var news = await _unitOfWork.News.Get(u => u.NewsId == id);
+    public async Task<IActionResult> DeleteNews([FromBody]NewsDTO newsDTO, CancellationToken ct) {
+        var news = await _dbContext.News.SingleOrDefaultAsync(x => x.NewsId == newsDTO.NewsId, ct);
+
         if (news != null) {
-            await _unitOfWork.News.Delete(id);
-            await _unitOfWork.Save();
+            _dbContext.News.Remove(news);
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
@@ -42,17 +45,17 @@ public class NewsController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateNews(string id, [FromBody] NewsDTO newsDTO) {
+    public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsDTO newsDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
-            var news = await _unitOfWork.News.Get(u => u.NewsId == id);
+            var news = await _dbContext.News.SingleOrDefaultAsync(x => x.NewsId == newsDTO.NewsId, ct);
 
             if (news == null) {
                 return BadRequest("Invalid data");
             }
 
             _mapper.Map(newsDTO, news);
-            _unitOfWork.News.Update(news);
-            await _unitOfWork.Save();
+            _dbContext.News.Update(news);
+            await _dbContext.SaveChangesAsync(ct);
 
             return NoContent();
         }
@@ -66,26 +69,26 @@ public class NewsController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateNews([FromBody] NewsDTO newsDTO) {
+    public async Task<IActionResult> CreateNews([FromBody] CreateNewsDTO newsDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
             var news = _mapper.Map<News>(newsDTO);
-            await _unitOfWork.News.Insert(news);
-            await _unitOfWork.Save();
+            _dbContext.News.Add(news);
+            await _dbContext.SaveChangesAsync(ct);
 
-            var newsDAO = _mapper.Map<NewsDTO>(news);
-            return CreatedAtRoute("GetNews", new {id = news.NewsId}, newsDAO);
+            var result = _mapper.Map<NewsDTO>(news);
+            return Ok(result);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateNews)}");
         return BadRequest(ModelState);
     }
 
-   
-    [HttpGet("{id}", Name = "GetNews")]
+
+    [HttpGet("{newsId}", Name = "GetNews")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetNews(string id) {
-        var news = await _unitOfWork.News.Get(u => u.NewsId == id);
+    public async Task<IActionResult> GetNews(string newsId, CancellationToken ct) {
+        var news = await _dbContext.News.SingleOrDefaultAsync(x => x.NewsId == newsId, ct);
         if (news != null) {
             var result = _mapper.Map<NewsDTO>(news);
             return Ok(result);
@@ -104,12 +107,12 @@ public class NewsController : ControllerBase {
     //     return Ok(results);
     // }
 
-   
+
     [HttpGet(Name = "GetAllNews")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetNews() {
-        var news = await _unitOfWork.News.GetAll();
+    public async Task<IActionResult> GetNews(CancellationToken ct) {
+        var news = await _dbContext.News.OrderBy(x => x.Date).ToListAsync(ct);
         var results = _mapper.Map<IList<NewsDTO>>(news);
         return Ok(results);
     }

@@ -1,5 +1,4 @@
 using fbcmanager_api.Database.Models;
-using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +18,8 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
     public DbSet<Field> Fields { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<Practise> Practises { get; set; }
-    public DbSet<Team> Teams  { get; set; }
-    
+    public DbSet<Team> Teams { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         if (optionsBuilder.IsConfigured) return;
 
@@ -43,6 +42,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.ApplyConfiguration(new SeedAdminUser());
         builder.ApplyConfiguration(new SeedAdminRole());
 
+
         builder.Entity<User>()
             .Ignore(u => u.EmailConfirmed)
             .Ignore(u => u.PhoneNumberConfirmed)
@@ -54,7 +54,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<User>()
             .HasMany(x => x.Practises)
             .WithMany(x => x.Participants);
-        
+
         builder.Entity<User>()
             .HasMany(x => x.Events)
             .WithMany(x => x.Participants);
@@ -70,7 +70,10 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .HasMany(x => x.Bookings)
             .WithOne(x => x.Team)
             .OnDelete(DeleteBehavior.SetNull);
-        
+
+        builder.Entity<News>()
+            .Property(e => e.NewsId)
+            .ValueGeneratedOnAdd();
 
         builder.Entity<Booking>()
             .Property(e => e.BookingId)
@@ -79,7 +82,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .HasOne(x => x.Team)
             .WithMany(x => x.Bookings)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
 
         builder.Entity<Event>()
             .Property(e => e.EventId)
@@ -88,12 +91,6 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .HasMany(x => x.Participants)
             .WithMany(x => x.Events);
 
-
-        builder.Entity<News>()
-            .Property(e => e.NewsId)
-            .ValueGeneratedOnAdd();
-        builder.Entity<News>()
-            .HasOne(x => x.Author);
 
         builder.Entity<Field>().Property(e => e.FieldId).ValueGeneratedOnAdd();
         builder.Entity<Field>()

@@ -1,13 +1,13 @@
 using AutoMapper;
+using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
-using fbcmanager_api.Database.UnitOfWork;
-using fbcmanager_api.Models.DAOs;
 using fbcmanager_api.Models.DTOs;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -15,17 +15,17 @@ namespace fbcmanager_api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<UserController> _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
+    private readonly DatabaseContext _dbContext;
 
-    public UserController(IUnitOfWork unitOfWork, ILogger<UserController> logger, IMapper mapper,
-        UserManager<User> userManager) {
-        _unitOfWork = unitOfWork;
+    public UserController(ILogger<UserController> logger, IMapper mapper,
+        UserManager<User> userManager, DatabaseContext dbContext) {
         _logger = logger;
         _mapper = mapper;
         _userManager = userManager;
+        _dbContext = dbContext;
     }
 
     [Authorize(Roles = "Admin")]
@@ -33,11 +33,11 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteUser(string id) {
-        var user = await _unitOfWork.Users.Get(u => u.Id == id);
+    public async Task<IActionResult> DeleteUser([FromBody] string id, CancellationToken ct) {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id, ct);
         if (user != null) {
-            await _unitOfWork.Users.Delete(id);
-            await _unitOfWork.Save();
+            _dbContext.Users.Remove(user);
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
@@ -49,24 +49,21 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserDTO userDto) {
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO userDto, CancellationToken ct) {
         if (ModelState.IsValid) {
             var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
             var tokenUtils = new TokenUtils();
             var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-            if (userIdFromToken != id && User.IsInRole("Admin") != true) {
+            if (userIdFromToken != userDto.Id && User.IsInRole("Admin") != true) {
                 return BadRequest("Invalid data");
             }
 
-
-            var user = await _unitOfWork.Users.Get(u => u.Id == id);
-
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == userDto.Id, ct);
 
             if (user == null) {
                 return BadRequest("Invalid data");
             }
-
 
             user.UserName = userDto.Email;
             user.NormalizedEmail = userDto.Email.ToUpper();
@@ -77,9 +74,10 @@ public class UserController : ControllerBase {
             }
 
             _mapper.Map(userDto, user);
-            _unitOfWork.Users.Update(user);
 
-            await _unitOfWork.Save();
+            _dbContext.Users.Update(user);
+
+            await _dbContext.SaveChangesAsync(ct);
 
             return NoContent();
         }
@@ -93,7 +91,7 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateUser([FromBody] UserDTO userDto) {
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO userDto, CancellationToken ct) {
         if (ModelState.IsValid) {
             var user = _mapper.Map<User>(userDto);
 
@@ -104,16 +102,13 @@ public class UserController : ControllerBase {
             user.NormalizedEmail = userDto.Email.ToUpper();
             user.NormalizedUserName = userDto.Email.ToUpper();
 
-
-            await _unitOfWork.Users.Insert(user);
+            _dbContext.Users.Add(user);
             await _userManager.AddToRolesAsync(user, userDto.Roles);
 
+            await _dbContext.SaveChangesAsync(ct);
 
-            await _unitOfWork.Save();
-
-            var userDao = _mapper.Map<UserDAO>(user);
-            // return CreatedAtRoute("GetUser", new {id = user.Id}, userDao);
-            return NoContent();
+            var result = _mapper.Map<UserDTO>(user);
+            return CreatedAtRoute("GetUser", new {id = user.Id}, result);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateUser)}");
@@ -124,10 +119,10 @@ public class UserController : ControllerBase {
     [HttpGet("{id}", Name = "GetUser")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetUser(string id) {
-        var user = await _unitOfWork.Users.Get(u => u.Id == id);
+    public async Task<IActionResult> GetUser(string id, CancellationToken ct) {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id, ct);
         if (user != null) {
-            var result = _mapper.Map<UserDAO>(user);
+            var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
 
@@ -135,13 +130,17 @@ public class UserController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpGet("search/{query}", Name = "GetUserByName")]
+    [HttpGet("search", Name = "GetUserByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetUserByName(string query) {
-        var user = await _unitOfWork.Users.Get(u => u.Firstname.Contains(query) || u.Lastname.Contains(query));
+    public async Task<IActionResult> GetUserByName([FromBody] string namelike, CancellationToken ct) {
+        var user = await _dbContext
+            .Users
+            .Where(x => x.Firstname.Contains(namelike) || x.Lastname.Contains(namelike))
+            .SingleOrDefaultAsync(ct);
+
         if (user != null) {
-            var result = _mapper.Map<UserDAO>(user);
+            var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
 
@@ -162,9 +161,10 @@ public class UserController : ControllerBase {
     [HttpGet(Name = "GetAllUsers")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetUsers() {
-        var users = await _unitOfWork.Users.GetAll();
-        var results = _mapper.Map<IList<UserDAO>>(users);
+    public async Task<IActionResult> GetUsers(CancellationToken ct) {
+        var users = await _dbContext.Users.ToListAsync(ct);
+        var orderedUsers = users.OrderBy(x => x.Firstname);
+        var results = _mapper.Map<IList<UserDTO>>(orderedUsers);
         return Ok(results);
     }
 }

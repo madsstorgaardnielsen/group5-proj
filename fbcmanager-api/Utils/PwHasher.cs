@@ -6,7 +6,7 @@ namespace fbcmanager_api.Utils;
 
 public class PwHasher {
 
-    public string GetPasswordHash(User user, UserDTO userDto) {
+    public string GetPasswordHash(User user, CreateUserDTO userDto) {
         var hasher = new PasswordHasher<User>();
         return hasher.HashPassword(user, userDto.Password);
     }

@@ -1,13 +1,13 @@
 using AutoMapper;
+using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
-using fbcmanager_api.Database.UnitOfWork;
-using fbcmanager_api.Models.DAOs;
 using fbcmanager_api.Models.DTOs;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -15,36 +15,37 @@ namespace fbcmanager_api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class TeamController : ControllerBase {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<TeamController> _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
+    private readonly DatabaseContext _dbContext;
 
-    public TeamController(IUnitOfWork unitOfWork, ILogger<TeamController> logger, IMapper mapper,UserManager<User> userManager) {
-        _unitOfWork = unitOfWork;
+    public TeamController(ILogger<TeamController> logger, IMapper mapper, UserManager<User> userManager,
+        DatabaseContext dbContext) {
         _logger = logger;
         _mapper = mapper;
         _userManager = userManager;
+        _dbContext = dbContext;
     }
 
     [Authorize]
-    [HttpPost("join/{teamId}")]
+    [HttpPost("join")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> JoinTeam(string teamId) {
+    public async Task<IActionResult> JoinTeam([FromBody] TeamDTO teamDTO, CancellationToken ct) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
-
-        var user = await _unitOfWork.Users.Get(user => user.Id == userIdFromToken);
-        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
+        
+        
+        var user = await _dbContext.Users.Where(x => x.Id == userIdFromToken).Include(x => x.Team)
+            .SingleOrDefaultAsync(ct);
+        var team = await _dbContext.Teams.SingleOrDefaultAsync(x => x.TeamId == teamDTO.TeamId, ct);
 
         if (team != null && user != null) {
             user.Team = team;
-            _unitOfWork.Users.Update(user);
-            await _unitOfWork.Save();
-
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
@@ -52,50 +53,39 @@ public class TeamController : ControllerBase {
     }
 
     [Authorize]
-    [HttpPost("leave/{teamId}")]
+    [HttpPost("leave")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> LeaveTeam(string teamId) {
+    public async Task<IActionResult> LeaveTeam([FromBody] string teamId, CancellationToken ct) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var tokenUtils = new TokenUtils();
         var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
 
-        var user = await _unitOfWork.Users.Get(user => user.Id == userIdFromToken);
-        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
+        var user = await _dbContext.Users.Where(x => x.Id == userIdFromToken).Include(x => x.Team)
+            .SingleOrDefaultAsync(ct);
+        var team = await _dbContext.Teams.SingleOrDefaultAsync(x => x.TeamId == teamId, ct);
 
         if (team != null && user != null) {
-            user.TeamId = null;
-            _unitOfWork.Users.Update(user);
-                
-            await _unitOfWork.Save();
+            user.Team = null;
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
         return BadRequest();
     }
 
-    [Authorize]
-    [HttpDelete("{teamId}")]
+    [Authorize(Roles = "Admin")]
+    [HttpDelete]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteTeam(string teamId) {
-        // var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
-        // var tokenUtils = new TokenUtils();
-        // var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
-        //
-        // var user = await _unitOfWork.Users.Get(user => user.Id == userIdFromToken);
+    public async Task<IActionResult> DeleteTeam([FromBody] TeamDTO teamDTO, CancellationToken ct) {
+        var team = await _dbContext.Teams.SingleOrDefaultAsync(x => x.TeamId == teamDTO.TeamId, ct);
 
-        if (User.IsInRole("Admin") != true) {
-            _logger.LogInformation($"Identity error in {nameof(DeleteTeam)}");
-            return BadRequest();
-        }
-
-        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
         if (team != null) {
-            await _unitOfWork.Teams.Delete(teamId);
-            await _unitOfWork.Save();
+            _dbContext.Teams.Remove(team);
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
@@ -103,24 +93,20 @@ public class TeamController : ControllerBase {
     }
 
     [Authorize]
-    [HttpPut("{teamId}", Name = "UpdateTeam")]
+    [HttpPut(Name = "UpdateTeam")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateTeam(string teamId, [FromBody] TeamDTO teamDTO) {
-        _logger.LogInformation("attempting UpdateTeam");
+    public async Task<IActionResult> UpdateTeam([FromBody] UpdateTeamDTO teamDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
-            var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId);
-
-            if (team == null) {
-                return BadRequest("Invalid team data");
-            }
-
+            var team = await _dbContext.Teams.SingleOrDefaultAsync(x => x.TeamId == teamDTO.TeamId, ct);
             _mapper.Map(teamDTO, team);
-            _unitOfWork.Teams.Update(team);
-            await _unitOfWork.Save();
-            var result = _mapper.Map<TeamDAO>(team);
-            return Ok(new {result.TeamName});
+
+            if (team != null) {
+                _dbContext.Teams.Update(team);
+                await _dbContext.SaveChangesAsync(ct);
+                return NoContent();
+            }
         }
 
         _logger.LogError($"Error validating data in {nameof(UpdateTeam)}");
@@ -132,14 +118,13 @@ public class TeamController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateTeam([FromBody] TeamDTO teamDTO) {
+    public async Task<IActionResult> CreateTeam([FromBody] TeamDTO teamDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
             var team = _mapper.Map<Team>(teamDTO);
-            await _unitOfWork.Teams.Insert(team);
-            await _unitOfWork.Save();
 
-            var teamDAO = _mapper.Map<TeamDAO>(team);
-            // return CreatedAtRoute("GetTeam", new {id = team.Id}, teamDAO);
+            _dbContext.Teams.Add(team);
+            await _dbContext.SaveChangesAsync(ct);
+
             return Ok(new {team.TeamId});
         }
 
@@ -151,10 +136,16 @@ public class TeamController : ControllerBase {
     [HttpGet("{teamId}", Name = "GetTeam")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetTeam(string teamId) {
-        var team = await _unitOfWork.Teams.Get(u => u.TeamId == teamId, new List<string> {"TeamMembers", "Bookings"});
+    public async Task<IActionResult> GetTeam(string teamId, CancellationToken ct) {
+        var team = await _dbContext
+            .Teams
+            .Where(x => x.TeamId == teamId)
+            .Include(x => x.TeamMembers)
+            .Include(x => x.Bookings)
+            .SingleOrDefaultAsync(ct);
+
         if (team != null) {
-            var result = _mapper.Map<TeamDAO>(team);
+            var result = _mapper.Map<TeamDTO>(team);
             return Ok(result);
         }
 
@@ -166,9 +157,10 @@ public class TeamController : ControllerBase {
     [HttpGet(Name = "GetAllTeams")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetTeams() {
-        var teams = await _unitOfWork.Teams.GetAll();
-        var results = _mapper.Map<IList<TeamDAO>>(teams);
+    public async Task<IActionResult> GetTeams(CancellationToken ct) {
+        var teams = await _dbContext.Teams.OrderBy(x => x.TeamName).ToListAsync(ct);
+        // var orderedList = teams.OrderBy(x => x.TeamName);
+        var results = _mapper.Map<IList<TeamDTO>>(teams);
         return Ok(new {results});
     }
 }
