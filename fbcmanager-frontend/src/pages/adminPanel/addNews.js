@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import "../scss/style.scss"
+import Navbar from "../../components/Navbar";
+import "../../scss/style.scss"
 import {Helmet} from 'react-helmet';
-import ProfileColumn from "../components/ProfileColumn";
+import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import "../scss/adminPanel.scss";
+import "../../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import axios from "axios";
@@ -18,16 +18,23 @@ function AdminPanel () {
     const navBack = () => {
         navigate('/adminPanel')
     }
+    const config = {
+        headers: { Authorization: `bearer-token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTIxMDEwNDEsImlzcyI6ImVtcy1hcGkifQ.XnBakFRmWDgtXJQR6Ri2nAAs2ufB7ZuUphj6MWE3wMY` }
+    };
 
     function addToDB(e, header, description) {
         e.preventDefault();
         const object = {
-            "Date": "",
+            "Date": "2022-05-02T11:00:00",
             "Header": header,
-            "Subheader": "",
+            "Subheader": "bb",
             "Content": description,
         };
-        axios.post("http://localhost:7285/api/News", object).then((response) => console.log(response.data));
+        axios.post(
+            "http://localhost:7285/api/News",
+            object,
+            config
+        ).then((response) => console.log(response.data));
     }
 
 

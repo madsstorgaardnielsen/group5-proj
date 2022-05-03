@@ -13,11 +13,12 @@ import Traening from './pages/traening';
 import Home from './pages/home';
 import Registration from './pages/registration';
 import Profil from './pages/profil';
-import AdminPanel from './pages/adminPanel';
+import AdminPanel from './pages/adminPanel/adminPanel';
 
-import AddNews from './pages/addNews';
-import AddTraining from './pages/addTraining';
-import AddEvent from './pages/addEvent';
+import AddNews from './pages/adminPanel/addNews';
+import AddTraining from './pages/adminPanel/addTraining';
+import AddEvent from './pages/adminPanel/addEvent';
+import EditTraining from './pages/adminPanel/editTraining';
 
 
 
@@ -37,6 +38,7 @@ ReactDOM.render(
             <Route path="/addNews" element={<AddNews/>}/>
             <Route path="/addTraining" element={<AddTraining/>}/>
             <Route path="/addEvent" element={<AddEvent/>}/>
+            <Route path="/editTraining" element={<EditTraining/>}/>
         </Routes>
         <TopScroll/>
     </Router>,

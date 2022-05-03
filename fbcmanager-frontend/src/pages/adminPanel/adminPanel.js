@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import "../scss/style.scss"
+import Navbar from "../../components/Navbar";
+import "../../scss/style.scss"
 import { Helmet } from 'react-helmet';
-import ProfileColumn from "../components/ProfileColumn";
+import ProfileColumn from "../../components/ProfileColumn";
 import Button from '@mui/material/Button';
-import  "../scss/adminPanel.scss";
+import  "../../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 
 function AdminPanel () {
@@ -18,6 +18,10 @@ function AdminPanel () {
     const toAddNews = () => {
         navigate('/addNews')
     }
+    const toEditTraining = () => {
+        navigate('/editTraining')
+    }
+
 
     return (
         <div>
@@ -31,18 +35,21 @@ function AdminPanel () {
                         <h1>Admin Panel</h1>
 
                         <h5 className="addItem">Opret ny træning</h5>
-                        <Button variant="contained" size="large" onClick={toAddTraining}>
-                            +
+                        <Button sx={{ mr: 2 }} className="addButton" variant="contained" size="large" onClick={toAddTraining}>
+                            Add
+                        </Button>
+                        <Button className="addButton" variant="contained" size="large" color="warning" onClick={toEditTraining}>
+                            Edit
                         </Button>
 
                         <h5 className="addItem">Opret ny begivenhed</h5>
-                        <Button variant="contained" size="large" onClick={toAddEvent}>
-                            +
+                        <Button sx={{ mr: 2 }} variant="contained" size="large" onClick={toAddEvent}>
+                            Add
                         </Button>
 
                         <h5 className="addItem">Opret Nyhed</h5>
-                        <Button variant="contained" size="large" onClick={toAddNews}>
-                            +
+                        <Button sx={{ mr: 2 }} variant="contained" size="large" onClick={toAddNews}>
+                            Add
                         </Button>
                     </div>
 

@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import "../scss/style.scss"
+import Navbar from "../../components/Navbar";
+import "../../scss/style.scss"
 import {Helmet} from 'react-helmet';
-import ProfileColumn from "../components/ProfileColumn";
+import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import "../scss/adminPanel.scss";
+import "../../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
