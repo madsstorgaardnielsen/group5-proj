@@ -17,14 +17,11 @@ import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {TimePicker} from '@mui/x-date-pickers/TimePicker';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
 import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
 
 {/* You need to run these command:
 npm install @mui/x-date-pickers
@@ -33,16 +30,22 @@ npm i date-fns
 
 function AdminPanel () {
     const navigate = useNavigate()
-    const Add = () => {
+    const navBack = () => {
         navigate('/adminPanel')
     }
 
+    const [Header, setHeaderInput] = React.useState('');
+    const handleHeaderInputChange = event => {
+        setHeaderInput(event.target.value);
+    };
+    const [Description, setTextInput] = React.useState('');
+    const handleTextInputChange = event => {
+        setTextInput(event.target.value);
+    };
     const [Location, setLocation] = React.useState('');
     const handleChangeField = (event) => {
         setLocation(event.target.value);
     };
-
-
     const [StartDate, setStartDate] = React.useState(new Date());
     const handleChangeStartDate = (newValue) => {
         setStartDate(newValue);
@@ -51,24 +54,34 @@ function AdminPanel () {
     const handleChangeEndDate = (newValue) => {
         setEndDate(newValue);
     };
-
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-
+    const [Price, setPrice] = React.useState({amount: ''});
     const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+        setPrice({ ...Price, [prop]: event.target.value });
     };
 
+    function addToDB(e, startDate, endDate, location, header, description, price) {
+        e.preventDefault();
+        let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
+        let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
 
-    {/*IMPORTANT: EndDate should take same DAY/Month/Year as StartDate!
-    TODO Sikkerhed ift slut skal være efter start og at alt skal være udfyldt før der kan trykkes OPRET
-    TODO Undersøg lige om der ifg db skal være sluttidspunkt på
-    */}
+        const object = {
+            "Header": header,
+            "Description": description,
+            "Location": location,
+            "Date": startDate,
+            "From": startTime,
+            "To": endTime,
+            "Price": price
+        };
+        axios.post("http://localhost:7285/api/Events", object).then((response) => console.log(response.data));
+    }
+
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+    const [submitPressed,setSubmitPressed]=React.useState(false)
+    const [waiting,setWaiting]=React.useState(false)
 
     return (
         <div>
@@ -95,6 +108,7 @@ function AdminPanel () {
                                     rows={1}
                                     label="Overskrift"
                                     id="Headline"
+                                    onChange={handleHeaderInputChange}
                                     variant="outlined"
                                     style={{backgroundColor: "white"}}
                                 />
@@ -104,11 +118,12 @@ function AdminPanel () {
                                     rows={10}
                                     label="Beskrivelse"
                                     id="Body"
+                                    onChange={handleTextInputChange}
                                     variant="outlined"
                                     style={{borderRadius:'50',
                                         backgroundColor: "white"}}
                                 />
-                                {/* Sted */}
+                                {/* Location */}
                                 <FormControl className="itemSelect" variant="filled">
                                     <InputLabel>Sted</InputLabel>
                                     <Select
@@ -125,7 +140,7 @@ function AdminPanel () {
                                     </Select>
                                 </FormControl>
 
-                                {/* Tid */}
+                                {/* Time */}
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DesktopDatePicker
                                         label="Dato"
@@ -151,22 +166,40 @@ function AdminPanel () {
                                     />
                                 </LocalizationProvider>
 
+                                {/* Price */}
                                 <FormControl fullWidth sx={{ m: 1 }} variant="filled">
                                     <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
                                     <FilledInput
                                         id="filled-adornment-amount"
-                                        value={values.amount}
+                                        value={Price.amount}
                                         onChange={handleChange('amount')}
                                         startAdornment={<InputAdornment position="start">DKK</InputAdornment>}
                                         style={{backgroundColor: "white"}}
                                     />
                                 </FormControl>
 
-
-
                             </Stack>
                         </Box>
-                        <Button variant="contained" size="large" onClick={Add}>
+
+                        {
+                            waiting?<CircularProgress color="primary" />:null //Simple feedback for when submit button is pressed
+                        }
+                        {
+                            submitPressed?<Alert severity="success" sx={{ maxWidth: 600 }}>Added successfully</Alert>:null
+                        }
+
+                        <Button variant="contained"
+                                size="large"
+                                hidden={submitPressed || waiting}
+                                disabled={!StartDate || !EndDate || !Header || !Description || !Location}
+                                onClick={(e) => {
+                                    setWaiting(true)
+                                    addToDB(e, StartDate, EndDate, Location, Header, Description, Price);
+                                    delay(1000).then(() => setWaiting(false));
+                                    delay(1000).then(() => setSubmitPressed(true));
+                                    delay(2500).then(() => navBack());
+                                }}
+                        >
                             Opret
                         </Button>
                     </div>

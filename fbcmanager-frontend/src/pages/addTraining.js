@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss"
 import {Helmet} from 'react-helmet';
@@ -79,7 +79,7 @@ function AdminPanel () {
             "timeEnd": endTime,
             "max_participants": 21
         };
-        axios.post("http://localhost:8080/training", object).then((response) => console.log(response.data));
+        axios.post("http://localhost:7285/api/Practise", object).then((response) => console.log(response.data));
     }
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -191,7 +191,7 @@ function AdminPanel () {
                             waiting?<CircularProgress color="primary" />:null //Simple feedback for when submit button is pressed
                         }
                         {
-                            submitPressed?<Alert severity="success">Added successfully</Alert>:null
+                            submitPressed?<Alert severity="success" sx={{ maxWidth: 600 }}>Added successfully</Alert>:null
                         }
 
                         <Button variant="contained"
