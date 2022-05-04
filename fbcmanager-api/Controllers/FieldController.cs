@@ -1,10 +1,10 @@
 using AutoMapper;
+using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
-using fbcmanager_api.Database.UnitOfWork;
-using fbcmanager_api.Models;
 using fbcmanager_api.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -12,14 +12,15 @@ namespace fbcmanager_api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class FieldController : ControllerBase {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<FieldController> _logger;
     private readonly IMapper _mapper;
+    private readonly DatabaseContext _dbContext;
 
-    public FieldController(IUnitOfWork unitOfWork, ILogger<FieldController> logger, IMapper mapper) {
-        _unitOfWork = unitOfWork;
+    public FieldController(ILogger<FieldController> logger, IMapper mapper,
+        DatabaseContext dbContext) {
         _logger = logger;
         _mapper = mapper;
+        _dbContext = dbContext;
     }
 
     [Authorize(Roles = "Admin")]
@@ -27,11 +28,11 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteField(string id) {
-        var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
+    public async Task<IActionResult> DeleteField([FromBody] FieldDTO fieldDTO, CancellationToken ct) {
+        var field = await _dbContext.Fields.SingleOrDefaultAsync(x => x.FieldId == fieldDTO.FieldId, ct);
         if (field != null) {
-            await _unitOfWork.Fields.Delete(id);
-            await _unitOfWork.Save();
+            _dbContext.Fields.Remove(field);
+            await _dbContext.SaveChangesAsync(ct);
             return NoContent();
         }
 
@@ -43,19 +44,17 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateField(string id, [FromBody] FieldDTO fieldDTO) {
+    public async Task<IActionResult> UpdateField([FromBody] UpdateFieldDTO fieldDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
-            var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
-
-            if (field == null) {
-                return BadRequest("Invalid data");
+            var field = await _dbContext.Fields.SingleOrDefaultAsync(x => x.FieldId == fieldDTO.FieldId, ct);
+            if (field != null) {
+                _mapper.Map(fieldDTO, field);
+                _dbContext.Fields.Update(field);
+                await _dbContext.SaveChangesAsync(ct);
+                return Accepted(fieldDTO);
             }
 
-            _mapper.Map(fieldDTO, field);
-            _unitOfWork.Fields.Update(field);
-            await _unitOfWork.Save();
-
-            return NoContent();
+            return BadRequest("Invalid data");
         }
 
         _logger.LogError($"Error validating data in {nameof(UpdateField)}");
@@ -67,14 +66,14 @@ public class FieldController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateField([FromBody] FieldDTO fieldDTO) {
+    public async Task<IActionResult> CreateField([FromBody] CreateFieldDTO fieldDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
             var field = _mapper.Map<Field>(fieldDTO);
-            await _unitOfWork.Fields.Insert(field);
-            await _unitOfWork.Save();
+            _dbContext.Fields.Add(field);
+            await _dbContext.SaveChangesAsync(ct);
 
-            var fieldDAO = _mapper.Map<FieldDTO>(field);
-            return CreatedAtRoute("GetField", new {id = field.FieldId}, fieldDAO);
+            var result = _mapper.Map<FieldDTO>(field);
+            return Ok(result);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateField)}");
@@ -82,11 +81,11 @@ public class FieldController : ControllerBase {
     }
 
     [Authorize]
-    [HttpGet("{id}", Name = "GetField")]
+    [HttpGet("{fieldId}", Name = "GetField")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetField(string id) {
-        var field = await _unitOfWork.Fields.Get(u => u.FieldId == id);
+    public async Task<IActionResult> GetField(string fieldId, CancellationToken ct) {
+        var field = await _dbContext.Fields.SingleOrDefaultAsync(x => x.FieldId == fieldId, ct);
         if (field != null) {
             var result = _mapper.Map<FieldDTO>(field);
             return Ok(result);
@@ -100,9 +99,9 @@ public class FieldController : ControllerBase {
     [HttpGet(Name = "GetAllFields")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetFields() {
-        var field = await _unitOfWork.Fields.GetAll();
-        var results = _mapper.Map<IList<FieldDTO>>(field);
+    public async Task<IActionResult> GetFields(CancellationToken ct) {
+        var fields = await _dbContext.Fields.OrderBy(x => x.FieldName).ToListAsync(ct);
+        var results = _mapper.Map<IList<FieldDTO>>(fields);
         return Ok(results);
     }
 }

@@ -1,7 +1,7 @@
+using System.Net;
 using AspNetCoreRateLimit;
 using fbcmanager_api.Configuration;
 using fbcmanager_api.Database;
-using fbcmanager_api.Database.UnitOfWork;
 using fbcmanager_api.Services;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimit();
@@ -25,6 +24,10 @@ builder.Services.AddAuthorization();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJwt(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(ObjectMapper));
+// builder.Services.AddHttpsRedirection(options => {
+//     options.RedirectStatusCode = (int) HttpStatusCode.TemporaryRedirect;
+//     options.HttpsPort = 5001;
+// });
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("Bearer token", new OpenApiSecurityScheme {
         Description = "JWT Auth using Bearer scheme, type: Bearer [space] token, below to authenticate",
@@ -82,11 +85,14 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.ConfigureExceptionHandler();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseCors("CorsPolicyAllowAll");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 app.UseIpRateLimiting();
+
+// app.UseExceptionHandler();
+app.UseHsts();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -3,12 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace fbcmanager_api.Database.Models; 
 public class Practise {
 
-    public Team Team{ get; set; }
-    public Field Location { get; set; }
-    public DateOnly Date{ get; set; }
-    public TimeOnly From{ get; set; }
-    public TimeOnly To { get; set; }
+    public string PractiseId { get; set; }
+    public string TeamId{ get; set; }
+    public string FieldId { get; set; }
+    public DateTime Date{ get; set; }
     public List<User> Participants{ get; set; } = new();
 
-    public string PractiseId { get; set; }
 }

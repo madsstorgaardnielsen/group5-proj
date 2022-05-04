@@ -6,6 +6,8 @@ public class Booking {
     public string BookingId { get; set; }
     public Field Field { get; set; }
     public Team Team { get; set; }
+    public string FieldId { get; set; }
+    public string TeamId { get; set; }
     public DateTime BookedFrom { get; set; }
     public DateTime BookedTo { get; set; }
 }
