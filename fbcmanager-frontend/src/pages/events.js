@@ -58,7 +58,6 @@ export default function BasicGrid() {
     );
 }
 
-/*TODO Get number of cards or set maximum. Odd numbers are removed. */
 const numberOfCards = 10;
 function FormRow() {
     return (
@@ -81,8 +80,6 @@ function FormRow() {
     );
 }
 
-/*TODO Eventually load this database
-*      And create navigation to page of specific event - Not a priority. */
 function EventCard() {
     const navigate = useNavigate()
     const toHome = () => {

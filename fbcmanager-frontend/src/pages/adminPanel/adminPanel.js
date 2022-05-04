@@ -21,6 +21,9 @@ function AdminPanel () {
     const toEditTraining = () => {
         navigate('/editTraining')
     }
+    const toEditNews = () => {
+        navigate('/editNews')
+    }
 
 
     return (
@@ -50,6 +53,9 @@ function AdminPanel () {
                         <h5 className="addItem">Opret Nyhed</h5>
                         <Button sx={{ mr: 2 }} variant="contained" size="large" onClick={toAddNews}>
                             Add
+                        </Button>
+                        <Button className="addButton" variant="contained" size="large" color="warning" onClick={toEditNews}>
+                            Edit
                         </Button>
                     </div>
 
