@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fbcmanager_api.Database;
 
@@ -10,9 +11,10 @@ using fbcmanager_api.Database;
 namespace fbcmanager_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220504080407_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,25 +240,15 @@ namespace fbcmanager_api.Migrations
                             Id = "-1",
                             Birthdate = new DateOnly(1, 1, 1),
                             City = "ADMIN",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "2c251164-6167-402a-bc04-652bb442b71b",
-=======
                             ConcurrencyStamp = "f5eb023b-a423-44d7-b9b4-f7856a497245",
->>>>>>> a466ef59f3ddcb4e270bc48b29ad5cc9c0e9e424
                             Email = "ADMIN",
                             Firstname = "ADMIN",
                             Lastname = "ADMIN",
                             NormalizedEmail = "ADMIN",
                             NormalizedUserName = "ADMIN",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEJGy5Iqgz9U3e18yQwHC2Rt/2657v95lMFGnZC5mDzn1bQvv+shTxBmWoyXt1oib2Q==",
-                            PhoneNumber = "ADMIN",
-                            SecurityStamp = "05df8ffe-d7ba-4b59-89f4-48140b7f10aa",
-=======
                             PasswordHash = "AQAAAAEAACcQAAAAEIaHH1I58zHMp2xpdHry9okH5xhXVfrIm7eYvV/syjqBSylw/Fror9qpX0irMPJfSw==",
                             PhoneNumber = "ADMIN",
                             SecurityStamp = "49b956ea-ebf9-4f6c-bc1c-e59471dadaef",
->>>>>>> a466ef59f3ddcb4e270bc48b29ad5cc9c0e9e424
                             Street = "ADMIN",
                             UserName = "admin",
                             Zip = "ADMIN"
@@ -292,22 +284,14 @@ namespace fbcmanager_api.Migrations
                         new
                         {
                             Id = "-2",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "68f47d16-b8fe-4b06-89d7-4bdd4e32aa54",
-=======
                             ConcurrencyStamp = "f6faa1c2-ddae-4e8a-b8dd-564bbc80e2be",
->>>>>>> a466ef59f3ddcb4e270bc48b29ad5cc9c0e9e424
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "-1",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "71f12bcb-d395-413b-9e0d-1cd084ee0a8d",
-=======
                             ConcurrencyStamp = "b25fda6e-75e3-4376-94ca-13fb3b7bb81a",
->>>>>>> a466ef59f3ddcb4e270bc48b29ad5cc9c0e9e424
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -9,6 +9,7 @@ public class ObjectMapper : Profile {
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<User, CreateUserDTO>().ReverseMap();
         CreateMap<User, UpdateUserDTO>().ReverseMap();
+        CreateMap<User, ParticipantUserDTO>().ReverseMap();
 
         CreateMap<Event, EventDTO>().ReverseMap();
         CreateMap<Event, CreateEventDTO>().ReverseMap();

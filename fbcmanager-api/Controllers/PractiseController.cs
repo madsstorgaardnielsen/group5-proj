@@ -1,12 +1,11 @@
 using AutoMapper;
-using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
 using fbcmanager_api.Models.DTOs;
+using fbcmanager_api.Repositories;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -16,14 +15,17 @@ namespace fbcmanager_api.Controllers;
 public class PractiseController : ControllerBase {
     private readonly ILogger<PractiseController> _logger;
     private readonly IMapper _mapper;
-    private readonly DatabaseContext _dbCon;
+    private readonly PractiseRepository _practiseRepository;
+    private readonly TokenUtils _tokenUtils;
 
-    public PractiseController(ILogger<PractiseController> logger, IMapper mapper,
-        DatabaseContext dbCon) {
+    public PractiseController(IMapper mapper, PractiseRepository practiseRepository, TokenUtils tokenUtils,
+        ILogger<PractiseController> logger) {
         _logger = logger;
         _mapper = mapper;
-        _dbCon = dbCon;
+        _practiseRepository = practiseRepository;
+        _tokenUtils = tokenUtils;
     }
+
 
     [Authorize]
     [HttpGet("joined", Name = "GetAllJoinedPractises")]
@@ -31,14 +33,14 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllJoinedPractises([FromBody] UserDTO userDTO, CancellationToken ct) {
-        var userPractises =
-            await _dbCon.Users.Where(x => x.Id == userDTO.Id).Include(x => x.Practises).SingleOrDefaultAsync(ct);
+        var joinedPractises = await _practiseRepository.GetAllJoinedPractises(userDTO.Id, ct);
 
-        if (userPractises != null) {
-            return Ok(userPractises);
+        if (joinedPractises != null) {
+            var mappedPractises = _mapper.Map<PractiseDTO>(joinedPractises);
+            return Ok(mappedPractises);
         }
 
-        return BadRequest();
+        return NotFound("User has no joined practises");
     }
 
     [Authorize]
@@ -48,24 +50,9 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> JoinPractise([FromBody] PractiseDTO practiseDTO, CancellationToken ct) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
-        var tokenUtils = new TokenUtils();
-        var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
-        
-        var user = await _dbCon
-            .Users
-            .SingleOrDefaultAsync(x => x.Id == userIdFromToken, ct);
-        
-        var practise = await _dbCon.Practises.Where(x => x.PractiseId == practiseDTO.PractiseId)
-            .Include(x => x.Participants)
-            .SingleOrDefaultAsync(ct);
-        
-        if (user != null && practise != null) {
-            practise.Participants.Add(user);
-            await _dbCon.SaveChangesAsync(ct);
-            return NoContent();
-        }
-
-        return BadRequest();
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+        var result = await _practiseRepository.JoinPractise(practiseDTO.Id, userIdFromToken, ct);
+        return result ? NoContent() : NotFound($"practise with id: {practiseDTO.Id} not found");
     }
 
     [Authorize]
@@ -75,24 +62,9 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> LeavePractise([FromBody] PractiseDTO practiseDTO, CancellationToken ct) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
-        var tokenUtils = new TokenUtils();
-        var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
-
-        var user = await _dbCon
-            .Users
-            .SingleOrDefaultAsync(x => x.Id == userIdFromToken, ct);
-        
-        var practise = await _dbCon.Practises.Where(x => x.PractiseId == practiseDTO.PractiseId)
-            .Include(x => x.Participants)
-            .SingleOrDefaultAsync(ct);
-        
-        if (user != null && practise != null) {
-            practise.Participants.Remove(user);
-            await _dbCon.SaveChangesAsync(ct);
-            return NoContent();
-        }
-
-        return BadRequest();
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+        var result = await _practiseRepository.LeavePractise(practiseDTO.Id, userIdFromToken, ct);
+        return result ? NoContent() : NotFound($"practise with id: {practiseDTO.Id} not found");
     }
 
 
@@ -102,15 +74,8 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeletePractise([FromBody] PractiseDTO practiseDTO, CancellationToken ct) {
-        var practise = await _dbCon.Practises.SingleOrDefaultAsync(x => x.PractiseId == practiseDTO.PractiseId, ct);
-
-        if (practise != null) {
-            _dbCon.Practises.Remove(practise);
-            await _dbCon.SaveChangesAsync(ct);
-            return NoContent();
-        }
-
-        return BadRequest();
+        var result = await _practiseRepository.Delete(practiseDTO.Id, ct);
+        return result ? NoContent() : BadRequest();
     }
 
     [Authorize(Roles = "Admin")]
@@ -121,13 +86,12 @@ public class PractiseController : ControllerBase {
     public async Task<IActionResult> UpdatePractise([FromBody] UpdatePractiseDTO practiseDTO,
         CancellationToken ct) {
         if (ModelState.IsValid) {
-            var practise = await _dbCon.Practises.SingleOrDefaultAsync(x => x.PractiseId == practiseDTO.PractiseId, ct);
-            _mapper.Map(practiseDTO, practise);
+            var practice = _mapper.Map<Practise>(practiseDTO);
+            var result = await _practiseRepository.Update(practice, ct);
 
-            if (practise != null) {
-                _dbCon.Practises.Update(practise);
-                await _dbCon.SaveChangesAsync(ct);
-                return NoContent();
+            if (result != null) {
+                var updatedPractise = _mapper.Map<PractiseDTO>(result);
+                return Ok(updatedPractise);
             }
         }
 
@@ -143,13 +107,9 @@ public class PractiseController : ControllerBase {
     public async Task<IActionResult> CreatePractise([FromBody] CreatePractiseDTO practiseDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
             var practise = _mapper.Map<Practise>(practiseDTO);
-
-            _dbCon.Practises.Add(practise);
-            await _dbCon.SaveChangesAsync(ct);
-
-            var result = _mapper.Map<PractiseDTO>(practise);
-            // return CreatedAtRoute("GetPractise", new {id = practise.PractiseId}, practiseDAO);
-            return Ok(result);
+            var result = await _practiseRepository.Create(practise, ct);
+            var mappedResult = _mapper.Map<PractiseDTO>(result);
+            return Ok(mappedResult);
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreatePractise)}");
@@ -161,15 +121,14 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId, CancellationToken ct) {
-        var practise = await _dbCon.Practises.Where(x => x.PractiseId == practiseId).Include(x => x.Participants)
-            .SingleOrDefaultAsync(ct);
-
+        var practise = await _practiseRepository.GetIncludeParticipants(practiseId, ct);
+        
         if (practise != null) {
             var result = _mapper.Map<PractiseDTO>(practise);
             return Ok(result);
         }
-
-        return NotFound();
+        
+        return NotFound($"practise with id: {practiseId} not found");
     }
 
 
@@ -178,8 +137,12 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractises(CancellationToken ct) {
-        var practises = await _dbCon.Practises.OrderBy(x => x.Date).ToListAsync(ct);
-        var results = _mapper.Map<IList<PractiseDTO>>(practises);
-        return Ok(results);
+        var practises = await _practiseRepository.GetAll(ct);
+        var results = _mapper.Map<IList<PractiseDTO>>(practises).OrderBy(x => x.Date).ToList();
+        if (results.Count > 0) {
+            return Ok(results);
+        }
+
+        return NotFound("No practises found");
     }
 }
