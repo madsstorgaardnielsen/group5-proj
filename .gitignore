@@ -6,6 +6,7 @@
 .vscode
 .idea
 fbcmanager-frontend/node_modules
+fbcmanager-api/bin/Debug/net6.0/fbcmanager-api.dll
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij
 
