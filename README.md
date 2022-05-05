@@ -15,3 +15,25 @@ Project is made by Group 05:
 * Victor Kongsbak - S205363
 * Frederik Lundsbjerg - S205472
 
+
+Opsætning af C# backend
+
+1. Download og installer .net 6
+2. Hent IDE(Jeg bruger selv Rider, så kan ikke hjælpe med Visual Stuido problemer)
+	- Mac/Windows->JetBrains Rider
+	- Windows->Visual Studio (det er ikke det samme som visual studio code)
+
+3. Kør database i docker (FBCManager)
+
+4. Connect til DB i mysqlworkbench
+
+5. Kør følgende
+	DROP SCHEMA `FBCManager`;
+	CREATE SCHEMA `FBCManager`;
+	use FBCManager;
+
+6. Når backend er åbnet i IDE, kør følgende i terminalen
+	1. dotnet ef migrations add init
+	2. dotnet ef database update
+
+7. Hvis der ikke kommer fejlmeddelelser når ovenstående kommandoer køres, burde man kunne se tables i mysqlworkbench
