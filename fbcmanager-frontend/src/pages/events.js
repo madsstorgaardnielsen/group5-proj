@@ -18,7 +18,7 @@ import "../scss/eventPage.scss";
 import eventPic from "../res/img/events/event-pic.jpg";
 
 
-export default function BasicGrid() {
+export default function EventPage() {
     return (
     <div>
       <Navbar />

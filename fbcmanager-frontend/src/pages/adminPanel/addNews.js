@@ -6,7 +6,7 @@ import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../scss/adminPanel.scss";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,34 +18,67 @@ function AdminPanel () {
     const navBack = () => {
         navigate('/adminPanel')
     }
-    const config = {
-        headers: { Authorization: `bearer-token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTIxMDEwNDEsImlzcyI6ImVtcy1hcGkifQ.XnBakFRmWDgtXJQR6Ri2nAAs2ufB7ZuUphj6MWE3wMY` }
-    };
 
-    function addToDB(e, header, description) {
+    function addToDB(e, header, subheader, description, id) {
         e.preventDefault();
-        const object = {
-            "Date": "2022-05-02T11:00:00",
-            "Header": header,
-            "Subheader": "bb",
-            "Content": description,
-        };
-        axios.post(
-            "http://localhost:7285/api/News",
-            object,
-            config
-        ).then((response) => console.log(response.data));
+        if (id === ""){ // if purpose is to add new
+            const object = {
+                "Date": "2022-05-02T11:00:00",
+                "Header": header,
+                "Subheader": subheader,
+                "Content": description,
+            };
+            axios.post(
+                "http://localhost:7285/api/News",
+                object
+            ).then((response) => console.log(response.data));
+        } else { // if purpose is to edit existing
+            const object = {
+                "id" : id,
+                "Date": "2022-05-02T11:00:00",
+                "Header": header,
+                "Subheader": subheader,
+                "Content": description,
+            };
+            axios.put(
+                "http://localhost:7285/api/News",
+                object
+            ).then((response) => console.log(response.data));
+        }
     }
 
-
+    let pageHeader = "Opret nyhed";
+    let pageButton = "OPRET";
+    let helper = "All fields must be filled out";
+    let defaultHeader, defaultSubHeader, defaultBody, id;
+    defaultHeader = defaultSubHeader = defaultBody = id = "";
     const [Header, setHeaderInput] = React.useState('');
     const handleHeaderInputChange = event => {
         setHeaderInput(event.target.value);
+    };
+    const [SubHeader, setSubHeaderInput] = React.useState('');
+    const handleSubHeaderInputChange = event => {
+        setSubHeaderInput(event.target.value);
     };
     const [Description, setTextInput] = React.useState('');
     const handleTextInputChange = event => {
         setTextInput(event.target.value);
     };
+
+    const location = useLocation();
+    try {
+        if (location.state.news != null) {
+            let news = location.state.news
+            helper = "OBS: All fields must be changed before save"
+            defaultHeader =  news.header;
+            defaultSubHeader =  news.subheader;
+            defaultBody = news.content;
+            id = news.newsId;
+            pageHeader = "Rediger din nyhed";
+            pageButton = "Opdater";
+        }
+    } catch  {}
+
 
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -62,7 +95,7 @@ function AdminPanel () {
             <div className="body">
                 <div className="main-grid-container">
                     <div className="adminPanel-content">
-                        <h1>Opret nyhed</h1>
+                        <h1>{pageHeader}</h1>
                         <Box
                             className="addBox"
                             sx={{
@@ -76,6 +109,21 @@ function AdminPanel () {
                                 rows={1}
                                 label="Overskrift"
                                 onChange={handleHeaderInputChange}
+                                defaultValue={defaultHeader}
+                                id="Headline"
+                                variant="outlined"
+                                style={{marginBottom: 20,
+                                    backgroundColor: "white"}}
+                            />
+
+                            <h6 className="adminAdd">Skriv en passende underoverskrift</h6>
+                            <TextField
+                                fullWidth
+                                multiline
+                                rows={1}
+                                label="Underoverskrift"
+                                onChange={handleSubHeaderInputChange}
+                                defaultValue={defaultSubHeader}
                                 id="Headline"
                                 variant="outlined"
                                 style={{marginBottom: 20,
@@ -89,11 +137,14 @@ function AdminPanel () {
                                 rows={10}
                                 label="Nyhed"
                                 onChange={handleTextInputChange}
+                                defaultValue={defaultBody}
                                 id="Body"
                                 variant="outlined"
                                 style={{backgroundColor: "white"}}
                             />
+                            <p className="helper" >{helper}</p>
                         </Box>
+
                         {
                             waiting?<CircularProgress color="primary" />:null //Simple feedback for when submit button is pressed
                         }
@@ -103,16 +154,16 @@ function AdminPanel () {
                         <Button variant="contained"
                                 size="large"
                                 hidden={submitPressed || waiting}
-                                disabled={!Header || !Description}
+                                disabled={!Header || !SubHeader || !Description}
                                 onClick={(e) => {
                                     setWaiting(true)
-                                    addToDB(e, Header, Description);
+                                    addToDB(e, Header, SubHeader, Description, id);
                                     delay(1000).then(() => setWaiting(false));
                                     delay(1000).then(() => setSubmitPressed(true));
                                     delay(2500).then(() => navBack());
                                 }}
                         >
-                            Opret
+                            {pageButton}
                         </Button>
                     </div>
                     <div className="main-grid-item">

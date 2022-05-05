@@ -18,8 +18,7 @@ import AdminPanel from './pages/adminPanel/adminPanel';
 import AddNews from './pages/adminPanel/addNews';
 import AddTraining from './pages/adminPanel/addTraining';
 import AddEvent from './pages/adminPanel/addEvent';
-import EditTraining from './pages/adminPanel/editTraining';
-import EditNews from './pages/adminPanel/editNews';
+import EditNewsPage from './pages/adminPanel/editNewsPage';
 
 
 
@@ -39,8 +38,7 @@ ReactDOM.render(
             <Route path="/addNews" element={<AddNews/>}/>
             <Route path="/addTraining" element={<AddTraining/>}/>
             <Route path="/addEvent" element={<AddEvent/>}/>
-            <Route path="/editTraining" element={<EditTraining/>}/>
-            <Route path="/editNews" element={<EditNews/>}/>
+            <Route path="/editNews" element={<EditNewsPage/>}/>
         </Routes>
         <TopScroll/>
     </Router>,

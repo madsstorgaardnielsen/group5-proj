@@ -18,13 +18,10 @@ function AdminPanel () {
     const toAddNews = () => {
         navigate('/addNews')
     }
-    const toEditTraining = () => {
-        navigate('/editTraining')
-    }
+
     const toEditNews = () => {
         navigate('/editNews')
     }
-
 
     return (
         <div>
@@ -40,9 +37,6 @@ function AdminPanel () {
                         <h5 className="addItem">Opret ny træning</h5>
                         <Button sx={{ mr: 2 }} className="addButton" variant="contained" size="large" onClick={toAddTraining}>
                             Add
-                        </Button>
-                        <Button className="addButton" variant="contained" size="large" color="warning" onClick={toEditTraining}>
-                            Edit
                         </Button>
 
                         <h5 className="addItem">Opret ny begivenhed</h5>
