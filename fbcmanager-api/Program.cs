@@ -1,7 +1,10 @@
 using System.Net;
 using AspNetCoreRateLimit;
 using fbcmanager_api.Configuration;
+using fbcmanager_api.Controllers;
 using fbcmanager_api.Database;
+using fbcmanager_api.Database.Models;
+using fbcmanager_api.Repositories;
 using fbcmanager_api.Services;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +13,17 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddDbContext<DatabaseContext>(options => { options.EnableSensitiveDataLogging();});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<TeamRepository>();
+builder.Services.AddScoped<PractiseRepository>();
+builder.Services.AddScoped<NewsRepository>();
+builder.Services.AddScoped<FieldRepository>();
+builder.Services.AddScoped<EventRepository>();
+builder.Services.AddScoped<BookingRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<TokenUtils>();
 builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimit();
 builder.Services.AddHttpContextAccessor();
@@ -72,7 +83,6 @@ builder.Services
     })
     .AddNewtonsoftJson(options => {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-      
     });
 
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace fbcmanager_api.Database.Models; 
 
 [Table("Events")]
-public class Event {
+public class Event : IEntity {
 
     public string Description{ get; set; }
     public string Location{ get; set; }
@@ -13,6 +13,7 @@ public class Event {
     public double Price { get; set; }
     public List<User> Participants{ get; set; } = new();
 
-    public string EventId { get; set; }
+    // public string EventId { get; set; }
+    public string Id { get; set; }
 }
 

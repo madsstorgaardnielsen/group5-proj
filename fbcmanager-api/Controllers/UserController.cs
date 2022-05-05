@@ -1,13 +1,12 @@
 using AutoMapper;
-using fbcmanager_api.Database;
 using fbcmanager_api.Database.Models;
 using fbcmanager_api.Models.DTOs;
+using fbcmanager_api.Repositories;
 using fbcmanager_api.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace fbcmanager_api.Controllers;
 
@@ -18,14 +17,16 @@ public class UserController : ControllerBase {
     private readonly ILogger<UserController> _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
-    private readonly DatabaseContext _dbContext;
+    private readonly UserRepository _userRepository;
+    private readonly TokenUtils _tokenUtils;
 
     public UserController(ILogger<UserController> logger, IMapper mapper,
-        UserManager<User> userManager, DatabaseContext dbContext) {
+        UserManager<User> userManager, UserRepository userRepository, TokenUtils tokenUtils) {
         _logger = logger;
         _mapper = mapper;
         _userManager = userManager;
-        _dbContext = dbContext;
+        _userRepository = userRepository;
+        _tokenUtils = tokenUtils;
     }
 
     [Authorize(Roles = "Admin")]
@@ -33,15 +34,9 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteUser([FromBody] string id, CancellationToken ct) {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id, ct);
-        if (user != null) {
-            _dbContext.Users.Remove(user);
-            await _dbContext.SaveChangesAsync(ct);
-            return NoContent();
-        }
-
-        return BadRequest();
+    public async Task<IActionResult> DeleteUser([FromBody] UserDTO userDTO, CancellationToken ct) {
+        var result = await _userRepository.Delete(userDTO.Id, ct);
+        return result ? NoContent() : BadRequest();
     }
 
     [Authorize(Roles = "Admin, User")]
@@ -49,37 +44,28 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO userDto, CancellationToken ct) {
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO userDTO, CancellationToken ct) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+
+        if (userIdFromToken != userDTO.Id && User.IsInRole("Admin") != true) {
+            return BadRequest("Invalid data");
+        }
+
         if (ModelState.IsValid) {
-            var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
-            var tokenUtils = new TokenUtils();
-            var userIdFromToken = tokenUtils.GetUserIdFromToken(token);
-
-            if (userIdFromToken != userDto.Id && User.IsInRole("Admin") != true) {
-                return BadRequest("Invalid data");
-            }
-
-            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == userDto.Id, ct);
-
-            if (user == null) {
-                return BadRequest("Invalid data");
-            }
-
-            user.UserName = userDto.Email;
-            user.NormalizedEmail = userDto.Email.ToUpper();
-            user.NormalizedUserName = userDto.Email.ToUpper();
-
+            var user = _mapper.Map<User>(userDTO);
+            user.UserName = userDTO.Email;
+            user.NormalizedEmail = userDTO.Email.ToUpper();
+            user.NormalizedUserName = userDTO.Email.ToUpper();
             if (User.IsInRole("Admin")) {
-                await _userManager.AddToRolesAsync(user, userDto.Roles);
+                await _userManager.AddToRolesAsync(user, userDTO.Roles);
             }
 
-            _mapper.Map(userDto, user);
-
-            _dbContext.Users.Update(user);
-
-            await _dbContext.SaveChangesAsync(ct);
-
-            return NoContent();
+            var result = await _userRepository.Update(user, ct);
+            if (result != null) {
+                var mappedResult = _mapper.Map<UserDTO>(result);
+                return Ok(mappedResult);
+            }
         }
 
         _logger.LogError($"Error validating data in {nameof(UpdateUser)}");
@@ -91,24 +77,22 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO userDto, CancellationToken ct) {
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO userDTO, CancellationToken ct) {
         if (ModelState.IsValid) {
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<User>(userDTO);
+            user.PasswordHash = new PwHasher().GetPasswordHash(user, userDTO);
+            user.UserName = userDTO.Email;
+            user.NormalizedEmail = userDTO.Email.ToUpper();
+            user.NormalizedUserName = userDTO.Email.ToUpper();
+            await _userManager.AddToRolesAsync(user, userDTO.Roles);
 
-            user.PasswordHash = new PwHasher().GetPasswordHash(user, userDto);
-            user.UserName = userDto.Email;
+            _mapper.Map(userDTO, user);
 
-            user.UserName = userDto.Email;
-            user.NormalizedEmail = userDto.Email.ToUpper();
-            user.NormalizedUserName = userDto.Email.ToUpper();
-
-            _dbContext.Users.Add(user);
-            await _userManager.AddToRolesAsync(user, userDto.Roles);
-
-            await _dbContext.SaveChangesAsync(ct);
-
-            var result = _mapper.Map<UserDTO>(user);
-            return CreatedAtRoute("GetUser", new {id = user.Id}, result);
+            var result = await _userRepository.Create(user, ct);
+            if (result != null) {
+                var mappedResult = _mapper.Map<UserDTO>(result);
+                return Ok(mappedResult);
+            }
         }
 
         _logger.LogInformation($"Invalid POST in {nameof(CreateUser)}");
@@ -116,55 +100,48 @@ public class UserController : ControllerBase {
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpGet("{id}", Name = "GetUser")]
+    [HttpGet("{userId}", Name = "GetUser")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetUser(string id, CancellationToken ct) {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id, ct);
+    public async Task<IActionResult> GetUser(string userId, CancellationToken ct) {
+        var user = await _userRepository.Get(userId, ct);
+
+
         if (user != null) {
             var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
 
-        return NotFound();
+        return NotFound($"user with id: {userId} not found");
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpGet("search", Name = "GetUserByName")]
+    [HttpGet("search/{namelike}", Name = "GetUserByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetUserByName([FromBody] string namelike, CancellationToken ct) {
-        var user = await _dbContext
-            .Users
-            .Where(x => x.Firstname.Contains(namelike) || x.Lastname.Contains(namelike))
-            .SingleOrDefaultAsync(ct);
+    public async Task<IActionResult> GetUserByName(string namelike, CancellationToken ct) {
+        var user = await _userRepository.GetUserByName(namelike, ct);
 
         if (user != null) {
             var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
 
-        return NotFound();
+        return NotFound($"user with firstname or lastname containing: {namelike} not found.");
     }
 
-    // [Authorize]
-    // [HttpGet("users/paging")]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    // public async Task<IActionResult> GetUsers([FromQuery] HttpRequestParams httpRequestParams) {
-    //     var users = await _unitOfWork.Users.GetAll(httpRequestParams);
-    //     var results = _mapper.Map<IList<UserDAO>>(users);
-    //     return Ok(results);
-    // }
 
     [Authorize(Roles = "Admin")]
     [HttpGet(Name = "GetAllUsers")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUsers(CancellationToken ct) {
-        var users = await _dbContext.Users.ToListAsync(ct);
-        var orderedUsers = users.OrderBy(x => x.Firstname);
-        var results = _mapper.Map<IList<UserDTO>>(orderedUsers);
-        return Ok(results);
+        var users = await _userRepository.GetAll(ct);
+        var results = _mapper.Map<IList<UserDTO>>(users).OrderBy(x => x.Firstname).ToList();
+        if (results.Count > 0) {
+            return Ok(results);
+        }
+
+        return NotFound("No users found");
     }
 }
