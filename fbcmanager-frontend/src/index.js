@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import TopScroll from "./components/topScroll";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Medlemmer from './pages/medlemmer';
@@ -19,8 +18,6 @@ import AddNews from './pages/adminPanel/addNews';
 import AddTraining from './pages/adminPanel/addTraining';
 import AddEvent from './pages/adminPanel/addEvent';
 import EditNewsPage from './pages/adminPanel/editNewsPage';
-
-
 
 
 ReactDOM.render(

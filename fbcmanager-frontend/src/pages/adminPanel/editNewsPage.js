@@ -4,16 +4,15 @@ import "../../scss/style.scss"
 import {Helmet} from 'react-helmet';
 import ProfileColumn from "../../components/ProfileColumn";
 import "../../scss/adminPanel.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {Card, CardHeader, CardContent, CardAction, Typography, Grid} from '@mui/material';
+import {Card, CardContent, Grid} from '@mui/material';
 import Button from "@mui/material/Button";
 import "../../scss/eventPage.scss";
 
 
 export default function EditNewsPage () {
     const [news, setNews] = React.useState([])
-    const [newsToEdit, setNewsToEdit] = React.useState([])
 
     const navigate = useNavigate()
     const navToEditEvent = (news) => {
@@ -34,7 +33,7 @@ export default function EditNewsPage () {
     function deleteNews(e, id){
         e.preventDefault();
         const object = {
-            "newsId": id
+            "Id": id
         };
         axios.delete("https://localhost:7285/api/News", object).then((response) => console.log(response.data))
     }
@@ -58,7 +57,7 @@ export default function EditNewsPage () {
                         </Button>
                         <Button sx={{ p: 0 }}
                                 className="addButton" variant="contained" size="large" color="error"
-                                onClick={(e) => {deleteNews(e,news.newsId)}}
+                                onClick={(e) => {deleteNews(e,news.Id)}}
                         >
                             Delete
                         </Button>

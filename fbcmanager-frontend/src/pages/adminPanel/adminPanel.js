@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import "../../scss/style.scss"
-import { Helmet } from 'react-helmet';
+import {Helmet} from 'react-helmet';
 import ProfileColumn from "../../components/ProfileColumn";
 import Button from '@mui/material/Button';
-import  "../../scss/adminPanel.scss";
+import "../../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 
 function AdminPanel () {

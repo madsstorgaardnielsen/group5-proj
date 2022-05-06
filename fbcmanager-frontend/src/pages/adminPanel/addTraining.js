@@ -32,8 +32,6 @@ function AdminPanel () {
         navigate('/adminPanel')
     }
 
-
-
     //Handle changes to the input fields
     const [Team, setTeam] = React.useState('');
     const handleChangeEvent = (event) => {
@@ -61,19 +59,10 @@ function AdminPanel () {
         e.preventDefault();
         let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
         let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
-        /* debug
-        let date = startDate.getFullYear() + '-0' + startDate.getMonth() + '-' + startDate.getDate();
-        console.log(date);
-        console.log(startTime);
-        console.log(endTime);
-        console.log(location);
-        console.log(team);
-        console.log(description);*/
-
 
         const object = {
             "date": startDate,
-            "team": Team,
+            "team": team,
             "location": location,
             "timeStart": startTime,
             "timeEnd": endTime,

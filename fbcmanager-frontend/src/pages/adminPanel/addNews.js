@@ -6,7 +6,7 @@ import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../scss/adminPanel.scss";
-import {useNavigate, useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -73,7 +73,7 @@ function AdminPanel () {
             defaultHeader =  news.header;
             defaultSubHeader =  news.subheader;
             defaultBody = news.content;
-            id = news.newsId;
+            id = news.Id;
             pageHeader = "Rediger din nyhed";
             pageButton = "Opdater";
         }
