@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using fbcmanager_api.Database.Models;
 
 namespace fbcmanager_api.Models.DTOs;
 
-//TODO add validation 
 public class NewsDTO : IDTO {
     public string Id { get; set; }
     public DateTime Date { get; set; }
@@ -14,15 +12,29 @@ public class NewsDTO : IDTO {
 
 public class CreateNewsDTO {
     [Required] public DateTime Date { get; set; }
-    [Required] public string Header { get; set; }
-    [Required] public string Subheader { get; set; }
+
+    [Required]
+    [StringLength(200, MinimumLength = 2)]
+    public string Header { get; set; }
+
+    [Required]
+    [StringLength(200, MinimumLength = 2)]
+    public string Subheader { get; set; }
+
     [Required] public string Content { get; set; }
 }
 
 public class UpdateNewsDTO : IDTO {
     [Required] public string Id { get; set; }
     [Required] public DateTime Date { get; set; }
-    [Required] public string Header { get; set; }
-    [Required] public string Subheader { get; set; }
+
+    [Required]
+    [StringLength(200, MinimumLength = 2)]
+    public string Header { get; set; }
+
+    [Required]
+    [StringLength(200, MinimumLength = 2)]
+    public string Subheader { get; set; }
+
     [Required] public string Content { get; set; }
 }

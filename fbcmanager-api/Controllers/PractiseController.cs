@@ -122,12 +122,12 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId, CancellationToken ct) {
         var practise = await _practiseRepository.GetIncludeParticipants(practiseId, ct);
-        
+
         if (practise != null) {
             var result = _mapper.Map<PractiseDTO>(practise);
             return Ok(result);
         }
-        
+
         return NotFound($"practise with id: {practiseId} not found");
     }
 

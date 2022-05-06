@@ -29,7 +29,7 @@ public class EventRepository : GenericRepository<Event, DatabaseContext> {
 
         return false;
     }
-    
+
     public async Task<bool> LeaveEvent(string eventId, string userId, CancellationToken ct) {
         var user = await _dbContext
             .Users
@@ -48,7 +48,7 @@ public class EventRepository : GenericRepository<Event, DatabaseContext> {
 
         return false;
     }
-    
+
     public async Task<Event> GetIncludeParticipants(string teamId, CancellationToken ct) {
         var eEvent = await _dbContext
             .Events

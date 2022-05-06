@@ -1,4 +1,3 @@
-using fbcmanager_api.Controllers;
 using fbcmanager_api.Database.Models;
 using Microsoft.EntityFrameworkCore;
 

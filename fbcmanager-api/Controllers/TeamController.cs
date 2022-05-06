@@ -17,7 +17,7 @@ public class TeamController : ControllerBase {
     private readonly ILogger<TeamController> _logger;
     private readonly TeamRepository _teamRepository;
     private readonly TokenUtils _tokenUtils;
-    
+
     public TeamController(IMapper mapper, TeamRepository teamRepository, TokenUtils tokenUtils,
         ILogger<TeamController> logger) {
         _logger = logger;

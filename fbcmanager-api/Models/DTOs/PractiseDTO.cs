@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using fbcmanager_api.Database.Models;
 
 namespace fbcmanager_api.Models.DTOs;
 
-//TODO add validation 
 public class PractiseDTO : IDTO {
     public string Id { get; set; }
     public string TeamId { get; set; }

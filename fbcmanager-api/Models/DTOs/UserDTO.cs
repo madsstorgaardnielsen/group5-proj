@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using fbcmanager_api.Database.Models;
 
 namespace fbcmanager_api.Models.DTOs;
-//TODO add validation 
-public class UserDTO : IDTO  {
+
+public class UserDTO : IDTO {
     [Required] public string Id { get; set; }
-    
+
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Firstname { get; set; }
@@ -13,13 +12,11 @@ public class UserDTO : IDTO  {
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Lastname { get; set; }
-    
+
     [Required]
     [DataType(DataType.EmailAddress)]
     [StringLength(200, MinimumLength = 2)]
     public string Email { get; set; }
-    
-  
     
     [Required]
     [StringLength(200, MinimumLength = 2)]
@@ -37,7 +34,6 @@ public class UserDTO : IDTO  {
     [DataType(DataType.PhoneNumber)]
     [StringLength(11, MinimumLength = 8)]
     public string PhoneNumber { get; set; }
-    
 }
 
 public class ParticipantUserDTO {
@@ -47,6 +43,7 @@ public class ParticipantUserDTO {
 
 public class UpdateUserDTO : IDTO {
     [Required] public string Id { get; set; }
+
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Firstname { get; set; }
@@ -56,9 +53,8 @@ public class UpdateUserDTO : IDTO {
     public string Lastname { get; set; }
 
     [Required] public ICollection<string> Roles { get; set; }
-    
 
-    
+
     [Required]
     [DataType(DataType.EmailAddress)]
     [StringLength(200, MinimumLength = 2)]
@@ -97,9 +93,7 @@ public class CreateUserDTO {
     public string Lastname { get; set; }
 
     [Required] public ICollection<string> Roles { get; set; }
-    
 
-    
     [Required]
     [DataType(DataType.EmailAddress)]
     [StringLength(200, MinimumLength = 2)]

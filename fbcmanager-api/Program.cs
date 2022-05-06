@@ -1,23 +1,14 @@
-using System.Net;
 using AspNetCoreRateLimit;
 using fbcmanager_api.Configuration;
-using fbcmanager_api.Controllers;
 using fbcmanager_api.Database;
-using fbcmanager_api.Database.Models;
 using fbcmanager_api.Repositories;
 using fbcmanager_api.Services;
 using fbcmanager_api.Utils;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-// var builder = WebApplication.CreateBuilder(new WebApplicationOptions {
-//     ContentRootPath = Directory.GetCurrentDirectory(),
-//     EnvironmentName = Environments.Production,
-//     WebRootPath = "http://*:7285"
-// });
 
 builder.Services.AddDbContext<DatabaseContext>(options => { options.EnableSensitiveDataLogging(); });
 builder.Services.AddEndpointsApiExplorer();
@@ -41,13 +32,6 @@ builder.Services.AddAuthorization();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJwt(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(ObjectMapper));
-builder.Services.Configure<ForwardedHeadersOptions>(options => {
-    options.KnownProxies.Add(IPAddress.Parse("130.225.170.74"));
-});
-builder.Services.AddHttpsRedirection(options => {
-    options.RedirectStatusCode = (int) HttpStatusCode.TemporaryRedirect;
-    options.HttpsPort = 5001;
-});
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("Bearer token", new OpenApiSecurityScheme {
         Description = "JWT Auth using Bearer scheme, type: Bearer [space] token, below to authenticate",
@@ -104,14 +88,11 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.ConfigureExceptionHandler();
-// app.UseHttpsRedirection();
-// app.UseForwardedHeaders(new ForwardedHeadersOptions {ForwardedHeaders = ForwardedHeaders.XForwardedProto});
 app.UseCors("CorsPolicyAllowAll");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 app.UseIpRateLimiting();
 
-// app.UseExceptionHandler();
 app.UseHsts();
 app.UseRouting();
 app.UseAuthentication();

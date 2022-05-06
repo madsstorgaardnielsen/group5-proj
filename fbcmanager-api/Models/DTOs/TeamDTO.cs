@@ -3,7 +3,6 @@ using fbcmanager_api.Database.Models;
 
 namespace fbcmanager_api.Models.DTOs;
 
-//TODO add validation 
 public class TeamDTO : IDTO {
     public string Id { get; set; }
     public string TeamName { get; set; }
@@ -22,5 +21,8 @@ public class CreateTeamDTO {
 
 public class UpdateTeamDTO : IDTO {
     [Required] public string Id { get; set; }
-    [Required] public string TeamName { get; set; }
+
+    [Required]
+    [StringLength(200, MinimumLength = 2)]
+    public string TeamName { get; set; }
 }
