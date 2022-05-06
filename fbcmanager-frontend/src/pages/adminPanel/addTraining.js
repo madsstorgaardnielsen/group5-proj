@@ -1,11 +1,11 @@
-import React, {useRef} from "react";
-import Navbar from "../components/Navbar";
-import "../scss/style.scss"
+import React from "react";
+import Navbar from "../../components/Navbar";
+import "../../scss/style.scss"
 import {Helmet} from 'react-helmet';
-import ProfileColumn from "../components/ProfileColumn";
+import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import "../scss/adminPanel.scss";
+import "../../scss/adminPanel.scss";
 import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -31,8 +31,6 @@ function AdminPanel () {
     const navBack = () => {
         navigate('/adminPanel')
     }
-
-
 
     //Handle changes to the input fields
     const [Team, setTeam] = React.useState('');
@@ -61,25 +59,16 @@ function AdminPanel () {
         e.preventDefault();
         let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
         let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
-        /* debug
-        let date = startDate.getFullYear() + '-0' + startDate.getMonth() + '-' + startDate.getDate();
-        console.log(date);
-        console.log(startTime);
-        console.log(endTime);
-        console.log(location);
-        console.log(team);
-        console.log(description);*/
-
 
         const object = {
             "date": startDate,
-            "team": Team,
+            "team": team,
             "location": location,
             "timeStart": startTime,
             "timeEnd": endTime,
             "max_participants": 21
         };
-        axios.post("http://localhost:8080/training", object).then((response) => console.log(response.data));
+        axios.post("http://localhost:7285/api/Practise", object).then((response) => console.log(response.data));
     }
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -191,7 +180,7 @@ function AdminPanel () {
                             waiting?<CircularProgress color="primary" />:null //Simple feedback for when submit button is pressed
                         }
                         {
-                            submitPressed?<Alert severity="success">Added successfully</Alert>:null
+                            submitPressed?<Alert severity="success" sx={{ maxWidth: 600 }}>Added successfully</Alert>:null
                         }
 
                         <Button variant="contained"

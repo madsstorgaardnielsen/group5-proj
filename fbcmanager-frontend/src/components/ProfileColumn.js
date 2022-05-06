@@ -5,7 +5,8 @@ import "../scss/profileColumn.scss"
 import React, {Fragment, PureComponent} from "react";
 
 
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 
 
 
@@ -33,10 +34,13 @@ export default function ProfileColumn() {
 
     function profileMenu(){
         var x = document.getElementById("profile-dropdown");
+        var arrow = document.getElementById("profileArrow")
         if (x.style.display === "flex") {
             x.style.display = "none";
-        } else { 
+            arrow.style.transform = "rotate(0turn)";
+        } else {
             x.style.display = "flex";
+            arrow.style.transform = "rotate(0.5turn)";
         }
 
       }
@@ -45,7 +49,7 @@ export default function ProfileColumn() {
     return (
         <div className="">
             <section className="profile-pic-section" >
-                <a onClick={profileMenu}><img src={arrow}/></a>
+                <a onClick={profileMenu} id="profileArrow"><img src={arrow}/></a>
                 <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
             </section>
             <div className="profile-dropdown" id="profile-dropdown">
