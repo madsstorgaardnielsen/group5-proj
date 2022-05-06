@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj": {}
+    "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj": {
+    "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
+        "projectUniqueName": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
         "projectName": "fbcmanager-api",
-        "projectPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
-        "packagesPath": "C:\\Users\\victo_k58v34i\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\obj\\",
+        "projectPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
+        "packagesPath": "/Users/madsstorgaard-nielsen/.nuget/packages/",
+        "outputPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\victo_k58v34i\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/madsstorgaard-nielsen/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -147,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
         }
       }
     }

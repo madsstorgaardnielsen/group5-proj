@@ -39,30 +39,30 @@ builder.Services.AddAutoMapper(typeof(ObjectMapper));
 //     options.RedirectStatusCode = (int) HttpStatusCode.TemporaryRedirect;
 //     options.HttpsPort = 5001;
 // });
-builder.Services.AddSwaggerGen(options => {
-    options.AddSecurityDefinition("Bearer token", new OpenApiSecurityScheme {
-        Description = "JWT Auth using Bearer scheme, type: Bearer [space] token, below to authenticate",
-        Name = "Auth",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "0auth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header
-            },
-            new List<string>()
-        }
-    });
-    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Employee Management System API", Version = "v1"});
-});
+// builder.Services.AddSwaggerGen(options => {
+//     options.AddSecurityDefinition("Bearer token", new OpenApiSecurityScheme {
+//         Description = "JWT Auth using Bearer scheme, type: Bearer [space] token, below to authenticate",
+//         Name = "Auth",
+//         In = ParameterLocation.Header,
+//         Type = SecuritySchemeType.ApiKey,
+//         Scheme = "Bearer"
+//     });
+//     options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+//         {
+//             new OpenApiSecurityScheme {
+//                 Reference = new OpenApiReference {
+//                     Type = ReferenceType.SecurityScheme,
+//                     Id = "Bearer"
+//                 },
+//                 Scheme = "0auth2",
+//                 Name = "Bearer",
+//                 In = ParameterLocation.Header
+//             },
+//             new List<string>()
+//         }
+//     });
+//     options.SwaggerDoc("v1", new OpenApiInfo {Title = "Employee Management System API", Version = "v1"});
+// });
 
 var logger = new LoggerConfiguration()
     .ReadFrom
@@ -89,10 +89,10 @@ builder.Services
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment()) {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
 
 app.ConfigureExceptionHandler();
 // app.UseHttpsRedirection();
