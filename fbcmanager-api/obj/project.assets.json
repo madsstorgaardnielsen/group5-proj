@@ -3831,19 +3831,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\victo_k58v34i\\.nuget\\packages\\": {}
+    "/Users/victorkongsbak/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
+      "projectUniqueName": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v2/fbcmanager-api/fbcmanager-api.csproj",
       "projectName": "fbcmanager-api",
-      "projectPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
-      "packagesPath": "C:\\Users\\victo_k58v34i\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\obj\\",
+      "projectPath": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v2/fbcmanager-api/fbcmanager-api.csproj",
+      "packagesPath": "/Users/victorkongsbak/.nuget/packages/",
+      "outputPath": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v2/fbcmanager-api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\victo_k58v34i\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/victorkongsbak/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -3976,7 +3976,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
       }
     }
   }
