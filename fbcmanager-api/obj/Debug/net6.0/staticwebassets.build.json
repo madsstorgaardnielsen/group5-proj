@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IZnpfXA+fEKkFKprzBQbv6SbTEtuuSrUyMgNZIamj5g=",
+  "Source": "fbcmanager-api",
+  "BasePath": "_content/fbcmanager-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

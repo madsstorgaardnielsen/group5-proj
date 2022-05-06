@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 import "../scss/forside.scss";
 import "../scss/style.scss";
@@ -27,6 +28,9 @@ function Forside() {
   
   return (
     <div>
+      <Helmet>
+        <title>NemSport</title>
+      </Helmet>
       <Navbar />
       <div className="body">
         <header className="frontPageHeader">

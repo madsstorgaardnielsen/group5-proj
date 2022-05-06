@@ -3,11 +3,14 @@ import Navbar from "../components/Navbar";
 import "../scss/style.scss"
 import Table from '@mui/material/Table';
 import CollapsibleTable from "../components/TrainingsTable"
-
+import { Helmet } from 'react-helmet';
 
 function Traening () {
   return (
     <div>
+        <Helmet>
+            <title>Trainings | NemSport</title>
+        </Helmet>
       <Navbar />
       <div className="body">
         <h1>Træning</h1>

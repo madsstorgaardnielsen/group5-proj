@@ -42,6 +42,7 @@ export default function profileColumn() {
             <div className="profile-dropdown" id="profile-dropdown">
                 <a>Profil</a>
                 <a>Indstillinger</a>
+                <a>Admin</a>
             </div>
             <div className="profile-column-body" id="profile-column">
                 <div className="profile-column-profile-container">
