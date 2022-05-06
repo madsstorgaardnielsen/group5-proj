@@ -70,7 +70,7 @@ builder.Services.AddSwaggerGen(options => {
             new List<string>()
         }
     });
-    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Employee Management System API", Version = "v1"});
+    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Nemsport API", Version = "v1"});
 });
 
 var logger = new LoggerConfiguration()
