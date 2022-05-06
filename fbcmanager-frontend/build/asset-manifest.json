@@ -1,26 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.f41cb69b.css",
-    "main.js": "/static/js/main.2b76baaf.js",
+    "main.css": "/static/css/main.9689779d.css",
+    "main.js": "/static/js/main.6747bbf9.js",
     "static/media/landingPageBackground.jpg": "/static/media/landingPageBackground.23eb1b3da2d1253ed429.jpg",
     "static/media/event-pic.jpg": "/static/media/event-pic.beba869519e26d049248.jpg",
     "static/media/noimg.png": "/static/media/noimg.9366f197969584778398.png",
-    "static/media/soccer-ball.svg": "/static/media/soccer-ball.6a7090bddca6002e8998.svg",
-    "static/media/coach.svg": "/static/media/coach.8fdbbe118b2083db5513e296f44e1423.svg",
-    "static/media/practices.svg": "/static/media/practices.b433f2d153527b89f09beebee1a241db.svg",
-    "static/media/team.svg": "/static/media/team.22a4a17b0b096a2290d9dedd0ee5fbcf.svg",
-    "static/media/members.svg": "/static/media/members.54b3f05d88ce5d755ba93462c9327e6f.svg",
-    "static/media/events.svg": "/static/media/events.73646f360537fd0903288b32a2c53133.svg",
-    "static/media/news.svg": "/static/media/news.45aaabc42dc225ee3e47b189908548d3.svg",
-    "static/media/participants.svg": "/static/media/participants.a777e098a62db41161770d2d112c9611.svg",
-    "static/media/location.svg": "/static/media/location.81cbce8c28a637b84189564b3b9297ff.svg",
-    "static/media/home.svg": "/static/media/home.097bf58bbfe6520b8eb849ef40ceee8f.svg",
+    "static/media/soccer-ball.svg": "/static/media/soccer-ball.1c022148754bb61970f7.svg",
+    "static/media/coach.svg": "/static/media/coach.137dddfa383b1924f3904097d1ac83ed.svg",
+    "static/media/practices.svg": "/static/media/practices.9f5a3d691c11de8ea1b49f301437c3d4.svg",
+    "static/media/team.svg": "/static/media/team.82b29f9a9cbe1e7b44f528f980a8b2ce.svg",
+    "static/media/members.svg": "/static/media/members.c62e3079afecb05e1b02547a2fc7cec6.svg",
+    "static/media/events.svg": "/static/media/events.8ea1e432e44b3acea78a1a3a250a2bf3.svg",
+    "static/media/down-arrow.svg": "/static/media/down-arrow.3f7dba8476375c20c570d9e521f01e7a.svg",
+    "static/media/news.svg": "/static/media/news.0f968034b2484df401f86d07839412a7.svg",
+    "static/media/participants.svg": "/static/media/participants.1fd3577ccb4996475435009421c31054.svg",
+    "static/media/location.svg": "/static/media/location.838f787fcca63e4a818cad8dc344a1c7.svg",
+    "static/media/burger-menu.svg": "/static/media/burger-menu.bce70391b7e48e497ffd9533c1bd18d3.svg",
+    "static/media/home.svg": "/static/media/home.9f3e5f35f211afdd4aab510c9ca0755d.svg",
     "index.html": "/index.html",
-    "main.f41cb69b.css.map": "/static/css/main.f41cb69b.css.map",
-    "main.2b76baaf.js.map": "/static/js/main.2b76baaf.js.map"
+    "static/media/account.svg": "/static/media/account.1065c8dde8b451c3919e504872c05448.svg",
+    "main.9689779d.css.map": "/static/css/main.9689779d.css.map",
+    "main.6747bbf9.js.map": "/static/js/main.6747bbf9.js.map"
   },
   "entrypoints": [
-    "static/css/main.f41cb69b.css",
-    "static/js/main.2b76baaf.js"
+    "static/css/main.9689779d.css",
+    "static/js/main.6747bbf9.js"
   ]
 }
