@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj": {}
+    "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v3/fbcmanager-api/fbcmanager-api.csproj": {}
   },
   "projects": {
-    "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj": {
+    "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v3/fbcmanager-api/fbcmanager-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
+        "projectUniqueName": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v3/fbcmanager-api/fbcmanager-api.csproj",
         "projectName": "fbcmanager-api",
-        "projectPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/fbcmanager-api.csproj",
-        "packagesPath": "/Users/madsstorgaard-nielsen/.nuget/packages/",
-        "outputPath": "/Users/madsstorgaard-nielsen/Desktop/backend-project-final/group5-proj/fbcmanager-api/obj/",
+        "projectPath": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v3/fbcmanager-api/fbcmanager-api.csproj",
+        "packagesPath": "/Users/victorkongsbak/.nuget/packages/",
+        "outputPath": "/Users/victorkongsbak/Library/CloudStorage/OneDrive-Personal/ITO/4. semester/Project-backend-frontend/project-v3/fbcmanager-api/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/Users/madsstorgaard-nielsen/.nuget/NuGet/NuGet.Config"
+          "/Users/victorkongsbak/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -150,7 +147,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }
