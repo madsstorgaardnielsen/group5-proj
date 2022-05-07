@@ -9,6 +9,7 @@ import {styled} from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
+import {getFullDate, getTime} from "./DateFormatter";
 
 
 const ExpandMore = styled((props) => {
@@ -51,11 +52,7 @@ export default function EventCard({ event }) {
                         }
                         title={event.header}
                     />
-
                     <CardContent>
-{/*                        <Typography gutterBottom variant="h5" component="div">
-                            {event.header}
-                        </Typography>*/}
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <CardContent>
                                 <Typography color="text.secondary"> {event.description} </Typography>
@@ -67,7 +64,7 @@ export default function EventCard({ event }) {
                         <div className="grid-container">
                             <div>
                                 <Typography variant="subtitle2" color="text.secondary">
-                                    <p className="cardDate">{event.from}</p>
+                                    <p className="cardDate">{getFullDate(event.from)} - {getTime(event.from)}</p>
                                 </Typography></div>
                             <div className="cardLocation">
                                 <Typography variant="subtitle2" color="text.secondary" >

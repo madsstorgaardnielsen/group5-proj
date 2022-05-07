@@ -20,29 +20,29 @@ export default function EventPage() {
         })})
 
     return (
-    <div>
-      <Navbar />
-      <div className="body">
-        <div className="main-grid-container">
-          <div className="main-grid-item">
-            <Helmet>
-                <title>Events | NemSport</title>
-            </Helmet>
-              <Grid container spacing={4}>
-                  {events.map(event =>
-                      <EventCard key={event.id} event={event}/>
-                  )}
-              </Grid>
-          </div>
+        <div>
+            <Navbar />
+            <div className="body">
+                <div className="main-grid-container">
+                    <div className="main-grid-item">
+                        <Helmet>
+                            <title>Events | NemSport</title>
+                        </Helmet>
+                        <Grid container spacing={4}>
+                            {events.map(event =>
+                                <EventCard key={event.id} event={event}/>
+                            )}
+                        </Grid>
+                    </div>
 
-          <div className="main-grid-item">
-            {/* Profile */}
-            <ProfileColumn />
-          </div>
+                    <div className="main-grid-item">
+                        {/* Profile */}
+                        <ProfileColumn />
+                    </div>
 
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     );
 }
 
