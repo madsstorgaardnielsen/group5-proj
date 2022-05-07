@@ -42,8 +42,8 @@ function NewsPage() {
           {/* XXXXXX MIDDLE COLLUMN START XXXXXX*/}
           <div className="news-grid">
             <Grid container spacing={4}>
-              {news.map(newss =>
-                  <NewsCard key={newss.NewsId} news={newss} />
+              {news.map(news =>
+                  <NewsCard key={news.id} news={news} />
               )}
             </Grid>
            {/* <Grid container spacing={4}>

@@ -34,6 +34,10 @@ export default function NewsCard({ news }) {
         setExpanded(!expanded);
     };
 
+    const date = news.date;
+    //const readable_date = date.split("0");
+
+
     return (
         <Grid item sm={12} md={6}>
             <Card sx={{ maxWidth: 345 }} className="newscard" onClick={handleExpandClick}>
@@ -48,7 +52,7 @@ export default function NewsCard({ news }) {
                         </ExpandMore>
                     }
                     title={news.header}
-                    subheader={`1/1/2022 • ${news.author}`}
+                    subheader={`1/1/2022 • ${date}`}
                 />
                 <CardContent>
                     <Typography>
