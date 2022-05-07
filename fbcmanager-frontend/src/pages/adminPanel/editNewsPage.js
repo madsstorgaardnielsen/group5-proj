@@ -9,6 +9,7 @@ import axios from "axios";
 import {Card, CardContent, Grid} from '@mui/material';
 import Button from "@mui/material/Button";
 import "../../scss/eventPage.scss";
+import {getFullDate, getTime} from "../../model/DateFormatter";
 
 
 export default function EditNewsPage () {
@@ -61,7 +62,7 @@ export default function EditNewsPage () {
                         >
                             Delete
                         </Button>
-                        {` ${news.header} | ${news.subheader} | ${news.content} | ${news.date}`}
+                        {` ${news.header} | ${news.subheader} | ${getFullDate(news.date)} - ${getTime(news.date)}`}
                     </CardContent>
                 </Card>
             </Grid>

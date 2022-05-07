@@ -9,7 +9,7 @@ import {styled} from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import {getFullDate, getTime} from "./DateFormatter";
+import {getFullDate, getTime} from "../model/DateFormatter";
 
 
 const ExpandMore = styled((props) => {
