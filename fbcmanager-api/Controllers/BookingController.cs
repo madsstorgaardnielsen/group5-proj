@@ -17,7 +17,6 @@ public class BookingController : ControllerBase {
     private readonly IMapper _mapper;
     private readonly BookingRepository _bookingRepository;
     private readonly TeamRepository _teamRepository;
-
     private readonly TokenUtils _tokenUtils;
 
     public BookingController(ILogger<BookingController> logger, IMapper mapper, BookingRepository bookingRepository,
@@ -81,7 +80,6 @@ public class BookingController : ControllerBase {
                              b.BookedTo >= booking.BookedFrom
                              && b.BookedFrom < booking.BookedTo
                              && booking.FieldId == b.FieldId)) {
-                
                 hasOverlap = true;
             }
 

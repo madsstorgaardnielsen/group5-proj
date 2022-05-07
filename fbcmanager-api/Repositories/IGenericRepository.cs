@@ -1,6 +1,6 @@
 using fbcmanager_api.Database.Models;
 
-namespace fbcmanager_api.Repositories; 
+namespace fbcmanager_api.Repositories;
 
 public interface IGenericRepository<T> where T : class, IEntity {
     Task<List<T>> GetAll(CancellationToken ct);

@@ -36,7 +36,7 @@ public class AuthService : IAuthService {
 
         var expiration = DateTime
             .Now
-            .AddMinutes(9999); //TODO sæt ned når det skal i prod
+            .AddMinutes(15);
 
         var issuer = jwtSettings.GetSection("Issuer").Value;
 
@@ -51,7 +51,6 @@ public class AuthService : IAuthService {
     }
 
     private async Task<List<Claim>> GetClaims() {
-        
         var claims = new List<Claim> {
             new(ClaimTypes.Name, _user.UserName),
             new("id", _user.Id)

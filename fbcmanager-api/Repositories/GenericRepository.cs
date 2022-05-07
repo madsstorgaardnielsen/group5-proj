@@ -1,4 +1,3 @@
-using fbcmanager_api.Controllers;
 using fbcmanager_api.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +38,7 @@ public abstract class GenericRepository<TEntity, TContext> : IGenericRepository<
     }
 
     public async Task<TEntity> Update(TEntity entity, CancellationToken ct) {
-        _context.Entry(entity).State = EntityState.Modified;
+        _context.Set<TEntity>().Update(entity);
         await _context.SaveChangesAsync(ct);
         return entity;
     }

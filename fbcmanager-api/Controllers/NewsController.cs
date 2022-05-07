@@ -80,7 +80,7 @@ public class NewsController : ControllerBase {
 
         return NotFound($"news with id: {newsId} not found");
     }
-    
+
     [HttpGet(Name = "GetAllNews")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

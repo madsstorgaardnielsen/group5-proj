@@ -1,9 +1,6 @@
-using System.Net;
 using AspNetCoreRateLimit;
 using fbcmanager_api.Configuration;
-using fbcmanager_api.Controllers;
 using fbcmanager_api.Database;
-using fbcmanager_api.Database.Models;
 using fbcmanager_api.Repositories;
 using fbcmanager_api.Services;
 using fbcmanager_api.Utils;
@@ -13,7 +10,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DatabaseContext>(options => { options.EnableSensitiveDataLogging();});
+builder.Services.AddDbContext<DatabaseContext>(options => { options.EnableSensitiveDataLogging(); });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<TeamRepository>();
@@ -35,10 +32,6 @@ builder.Services.AddAuthorization();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJwt(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(ObjectMapper));
-// builder.Services.AddHttpsRedirection(options => {
-//     options.RedirectStatusCode = (int) HttpStatusCode.TemporaryRedirect;
-//     options.HttpsPort = 5001;
-// });
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("Bearer token", new OpenApiSecurityScheme {
         Description = "JWT Auth using Bearer scheme, type: Bearer [space] token, below to authenticate",
@@ -61,7 +54,7 @@ builder.Services.AddSwaggerGen(options => {
             new List<string>()
         }
     });
-    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Employee Management System API", Version = "v1"});
+    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Nemsport API", Version = "v1"});
 });
 
 var logger = new LoggerConfiguration()
@@ -95,13 +88,11 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.ConfigureExceptionHandler();
-// app.UseHttpsRedirection();
 app.UseCors("CorsPolicyAllowAll");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 app.UseIpRateLimiting();
 
-// app.UseExceptionHandler();
 app.UseHsts();
 app.UseRouting();
 app.UseAuthentication();

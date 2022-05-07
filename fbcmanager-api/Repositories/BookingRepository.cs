@@ -15,7 +15,7 @@ public class BookingRepository : GenericRepository<Booking, DatabaseContext> {
         var bookings = await _dbContext
             .Bookings
             .Include(x => x.Field)
-            .Include(x=>x.Team)
+            .Include(x => x.Team)
             .ToListAsync(ct);
         return bookings;
     }

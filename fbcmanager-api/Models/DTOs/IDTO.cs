@@ -1,4 +1,4 @@
-namespace fbcmanager_api.Models.DTOs; 
+namespace fbcmanager_api.Models.DTOs;
 
 public interface IDTO {
     string Id { get; set; }

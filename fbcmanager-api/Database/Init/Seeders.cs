@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace fbcmanager_api.Database; 
+namespace fbcmanager_api.Database;
 
 public class Seeders {
-    
 }
 
 public class SeedRoles : IEntityTypeConfiguration<IdentityRole> {
@@ -26,7 +25,6 @@ public class SeedRoles : IEntityTypeConfiguration<IdentityRole> {
     }
 }
 
-
 public class SeedAdminRole : IEntityTypeConfiguration<IdentityUserRole<string>> {
     public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder) {
         var assignRole = new IdentityUserRole<string> {
@@ -45,14 +43,13 @@ public class SeedAdminUser : IEntityTypeConfiguration<User> {
             UserName = "admin",
             NormalizedUserName = "ADMIN",
             Firstname = "ADMIN",
-            Lastname =  "ADMIN",
-            NormalizedEmail =  "ADMIN",
-            Email =  "ADMIN",
+            Lastname = "ADMIN",
+            NormalizedEmail = "ADMIN",
+            Email = "ADMIN",
             City = "ADMIN",
             Zip = "ADMIN",
             Street = "ADMIN",
-            PhoneNumber =  "ADMIN",
-            
+            PhoneNumber = "ADMIN",
         };
         admin.PasswordHash = PwGenerator(admin);
         builder.HasData(admin);
