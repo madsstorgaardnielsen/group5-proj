@@ -25,7 +25,7 @@ export default function EditNewsPage () {
 
 
     React.useEffect(() => {
-        axios.get("https://localhost:7285/api/News").then((response) => {
+        axios.get("http://130.225.170.74:80/api/News").then((response) => {
             setNews(response.data)
         })})
 
