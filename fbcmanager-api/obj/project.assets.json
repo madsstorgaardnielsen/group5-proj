@@ -3831,19 +3831,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\victo_k58v34i\\.nuget\\packages\\": {}
+    "C:\\Users\\marie\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
+      "projectUniqueName": "C:\\Users\\marie\\Documents\\dtu6\\BackFrontProject\\group5-proj\\fbcmanager-api\\fbcmanager-api.csproj",
       "projectName": "fbcmanager-api",
-      "projectPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\fbcmanager-api.csproj",
-      "packagesPath": "C:\\Users\\victo_k58v34i\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victo_k58v34i\\OneDrive\\ITO\\4. semester\\Project-backend-frontend\\project-home-office-v2\\fbcmanager-api\\obj\\",
+      "projectPath": "C:\\Users\\marie\\Documents\\dtu6\\BackFrontProject\\group5-proj\\fbcmanager-api\\fbcmanager-api.csproj",
+      "packagesPath": "C:\\Users\\marie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marie\\Documents\\dtu6\\BackFrontProject\\group5-proj\\fbcmanager-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\victo_k58v34i\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\marie\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
