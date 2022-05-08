@@ -20,6 +20,7 @@ import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import {datePickerToDB} from "../../model/DateFormatter";
 
 {/* You need to run these command:
 npm install @mui/x-date-pickers
@@ -45,30 +46,33 @@ function AdminPanel () {
     const handleChangeStartDate = (newValue) => {
         setStartDate(newValue);
     };
-    const [EndDate, setEndDate] = React.useState(new Date());
-    const handleChangeEndDate = (newValue) => {
-        setEndDate(newValue);
-    };
     const [Description, setTextInput] = React.useState('');
     const handleTextInputChange = event => {
         setTextInput(event.target.value);
     };
 
     //When submit button is pressed, create object and add to DB
-    function addToDB(e, startDate, endDate, location, team, description) {
+    function addToDB(e, date, location, team) {
         e.preventDefault();
-        let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
-        let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
+        const token = localStorage.getItem("token");
+        date = datePickerToDB(date)
 
         const object = {
-            "date": startDate,
-            "team": team,
-            "location": location,
-            "timeStart": startTime,
-            "timeEnd": endTime,
-            "max_participants": 21
+            "teamid":team,
+            "fieldid":location,
+            "date":date
         };
-        axios.post("http://localhost:7285/api/Practise", object).then((response) => console.log(response.data));
+        axios.post(
+            "http://130.225.170.74:80/api/Practise", object,
+            {headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => console.log(response.data)).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data.title);
+                console.log(error.response.status);
+                console.log(error.response.data);
+            }
+        });
     }
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -151,13 +155,6 @@ function AdminPanel () {
                                         renderInput={(params) => <TextField {...params}
                                                                             style={{backgroundColor: "white"}}/>}
                                     />
-                                    <TimePicker
-                                        label="Sluttidspunkt"
-                                        value={EndDate}
-                                        onChange={handleChangeEndDate}
-                                        renderInput={(params) => <TextField {...params}
-                                                                            style={{backgroundColor: "white"}}/>}
-                                    />
                                 </LocalizationProvider>
 
                                 <TextField
@@ -186,10 +183,10 @@ function AdminPanel () {
                         <Button variant="contained"
                                 size="large"
                                 hidden={submitPressed || waiting}
-                                disabled={!StartDate || !EndDate || !Field || !Team || !Description}
+                                disabled={!StartDate || !Field || !Team}
                                 onClick={(e) => {
                                     setWaiting(true)
-                                    addToDB(e, StartDate, EndDate, Field, Team, Description);
+                                    addToDB(e, StartDate, Field, Team);
                                     delay(1000).then(() => setWaiting(false));
                                     delay(1000).then(() => setSubmitPressed(true));
                                     delay(2500).then(() => navBack());

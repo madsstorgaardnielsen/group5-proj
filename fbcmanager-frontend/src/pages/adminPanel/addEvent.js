@@ -63,17 +63,28 @@ function AdminPanel () {
         e.preventDefault();
         let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
         let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
+        const token = localStorage.getItem("token");
 
         const object = {
-            "Header": header,
-            "Description": description,
-            "Location": location,
-            "Date": startDate,
-            "From": startTime,
-            "To": endTime,
-            "Price": price
+            "header": header,
+            "description": description,
+            "location": location,
+            "from": startTime,
+            "to": endTime,
+            "price": price.amount + ".0",
+            "participants": []
         };
-        axios.post("http://localhost:7285/api/Events", object).then((response) => console.log(response.data));
+        axios.post(
+            "http://130.225.170.74:80/api/Event", object,
+            {headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => console.log(response.data)).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data.title);
+                console.log(error.response.status);
+                console.log(error.response.data);
+            }
+        });
     }
 
     function delay(time) {
