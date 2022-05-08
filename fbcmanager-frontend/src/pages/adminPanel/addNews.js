@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import {datePickerToDB} from "../../model/DateFormatter";
 
 
 function AdminPanel () {
@@ -21,17 +22,27 @@ function AdminPanel () {
 
     function addToDB(e, header, subheader, description, id) {
         e.preventDefault();
+        const today = datePickerToDB(new Date());
+        const token = localStorage.getItem("token");
         if (id === ""){ // if purpose is to add new
             const object = {
-                "Date": "2022-05-02T11:00:00",
+                "Date": today,
                 "Header": header,
                 "Subheader": subheader,
                 "Content": description,
             };
             axios.post(
-                "http://localhost:7285/api/News",
-                object
-            ).then((response) => console.log(response.data));
+                "http://130.225.170.74:80/api/News", object,
+                {headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((response) => console.log(response.data)).catch(function (error) {
+                if (error.response) {
+                    console.log(error.response.data.title);
+                    console.log(error.response.status);
+                    console.log(error.response.data);
+                }
+            });
+
         } else { // if purpose is to edit existing
             const object = {
                 "id" : id,
@@ -41,9 +52,16 @@ function AdminPanel () {
                 "Content": description,
             };
             axios.put(
-                "http://localhost:7285/api/News",
-                object
-            ).then((response) => console.log(response.data));
+                "http://130.225.170.74:80/api/News", object,
+                {headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((response) => console.log(response.data)).catch(function (error) {
+                if (error.response) {
+                    console.log(error.response.data.title);
+                    console.log(error.response.status);
+                    console.log(error.response.data);
+                }
+            });
         }
     }
 

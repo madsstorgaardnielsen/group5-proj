@@ -12,6 +12,7 @@ import "../../scss/eventPage.scss";
 import {getFullDate, getTime} from "../../model/DateFormatter";
 
 
+
 export default function EditNewsPage () {
     const [news, setNews] = React.useState([])
 
@@ -33,14 +34,25 @@ export default function EditNewsPage () {
 
     function deleteNews(e, id){
         e.preventDefault();
+        console.log("!!!!")
+        const token = localStorage.getItem("token");
         const object = {
             "Id": id
         };
-        axios.delete("https://localhost:7285/api/News", object).then((response) => console.log(response.data))
+        console.log(token)
+        axios.delete("https://localhost:7285/api/News", object,
+            {headers: { Authorization: `Bearer ${token}` }}).then((response) => console.log(response.data)).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data.title);
+                console.log(error.response.status);
+                console.log(error.response.data);
+            }
+        });
     }
 
     function editNews(e, news){
         e.preventDefault();
+        console.log("eddiiiiitt")
         navToEditEvent(news)
     }
 
@@ -48,17 +60,22 @@ export default function EditNewsPage () {
     const NewsCard = ({ news }) => {
         return (
             <Grid item sm={12}>
-                <Card className="newscard">
+                <Button variant="outlined"
+                        onClick={() => {console.log("LOGGING")}}
+                >
+                    Outlined</Button>
+                <Card>
                     <CardContent>
-                        <Button sx={{ p: 0, mr: 1}}
-                                className="addButton" variant="contained" size="large" color="warning"
+                        <Button sx={{mr: 1}}
+                                className="addButton" variant="contained" size="small" color="warning"
                                 onClick={(e) => {editNews(e,news)}}
                         >
                             Edit
                         </Button>
-                        <Button sx={{ p: 0 }}
-                                className="addButton" variant="contained" size="large" color="error"
-                                onClick={(e) => {deleteNews(e,news.Id)}}
+                        <Button
+                                className="addButton" variant="contained" size="small" color="error"
+                                onClick={(e) => {console.log("abc")
+                                    deleteNews(e,news.Id)}}
                         >
                             Delete
                         </Button>

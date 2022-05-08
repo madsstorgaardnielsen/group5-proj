@@ -15,3 +15,20 @@ export function getTime(time){
     time = time.slice(-8,-3)
     return time
 }
+
+export function datePickerToDB(date){
+    let day =date.getDate().toString()
+    let month = date.getMonth().toString()
+    let hours = date.getHours().toString()
+    let minutes = date.getMinutes().toString()
+    if (day.length < 2){
+        day = 0 + day}
+    if (month.length < 2){
+        month = 0 + month}
+    if (hours.length < 2){
+        hours = 0 + hours}
+    if (minutes.length < 2){
+        minutes = 0 + minutes}
+    date = date.getFullYear() + "-" + day + "-" + month + "T" + hours + ":" + minutes + ":00";
+    return date
+}
