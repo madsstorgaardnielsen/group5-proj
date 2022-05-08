@@ -34,7 +34,7 @@ export default class Profil extends React.Component {
 
 
     componentDidMount() {
-        authAxios.get(`/api/User/27fb41a0-0445-4ca5-a7cc-f0987f03f3b8`)
+        authAxios.get(`/api/User/` + currentUserId)
             .then(res => {
                 const persons = res.data;
                 this.setState({ persons });
