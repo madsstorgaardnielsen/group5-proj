@@ -28,9 +28,9 @@ The backend has been made in C#. The backend is running on the above IP-address.
 4. Connect to the DB in MySQLWorkbench
 
 5. Run following SQL-commands in order: 
-	DROP SCHEMA `FBCManager`;
-	CREATE SCHEMA `FBCManager`;
-	use FBCManager;
+	1. DROP SCHEMA `FBCManager`;
+	2. CREATE SCHEMA `FBCManager`;
+	3. USE FBCManager;
 
 6. When the backend has been opened in the IDE, in terminal run: 
 	1. dotnet ef migrations add init
