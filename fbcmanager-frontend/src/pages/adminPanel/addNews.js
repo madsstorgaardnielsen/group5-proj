@@ -19,6 +19,24 @@ function AdminPanel () {
     const navBack = () => {
         navigate('/adminPanel')
     }
+    let pageHeader = "Opret nyhed";
+    let pageButton = "OPRET";
+    let helper = "All fields must be filled out";
+    let defaultHeader, defaultSubHeader, defaultBody, id;
+    defaultHeader = defaultSubHeader = defaultBody = id = "";
+
+    const [Header, setHeaderInput] = React.useState('');
+    const handleHeaderInputChange = event => {
+        setHeaderInput(event.target.value);
+    };
+    const [SubHeader, setSubHeaderInput] = React.useState('');
+    const handleSubHeaderInputChange = event => {
+        setSubHeaderInput(event.target.value);
+    };
+    const [Description, setTextInput] = React.useState('');
+    const handleTextInputChange = event => {
+        setTextInput(event.target.value);
+    };
 
     function addToDB(e, header, subheader, description, id) {
         e.preventDefault();
@@ -46,11 +64,12 @@ function AdminPanel () {
         } else { // if purpose is to edit existing
             const object = {
                 "id" : id,
-                "Date": "2022-05-02T11:00:00",
+                "Date": today,
                 "Header": header,
                 "Subheader": subheader,
                 "Content": description,
             };
+            console.log(id)
             axios.put(
                 "http://130.225.170.74:80/api/News", object,
                 {headers: { Authorization: `Bearer ${token}` },
@@ -65,24 +84,6 @@ function AdminPanel () {
         }
     }
 
-    let pageHeader = "Opret nyhed";
-    let pageButton = "OPRET";
-    let helper = "All fields must be filled out";
-    let defaultHeader, defaultSubHeader, defaultBody, id;
-    defaultHeader = defaultSubHeader = defaultBody = id = "";
-    const [Header, setHeaderInput] = React.useState('');
-    const handleHeaderInputChange = event => {
-        setHeaderInput(event.target.value);
-    };
-    const [SubHeader, setSubHeaderInput] = React.useState('');
-    const handleSubHeaderInputChange = event => {
-        setSubHeaderInput(event.target.value);
-    };
-    const [Description, setTextInput] = React.useState('');
-    const handleTextInputChange = event => {
-        setTextInput(event.target.value);
-    };
-
     const location = useLocation();
     try {
         if (location.state.news != null) {
@@ -91,7 +92,7 @@ function AdminPanel () {
             defaultHeader =  news.header;
             defaultSubHeader =  news.subheader;
             defaultBody = news.content;
-            id = news.Id;
+            id = news.id;
             pageHeader = "Rediger din nyhed";
             pageButton = "Opdater";
         }
