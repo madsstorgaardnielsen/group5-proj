@@ -16,24 +16,16 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-
 // Table inspired by MUI. https://mui.com/components/tables/
 
-
-
-function trainingstable(date, timeStart, timeEnd, location, team) {
+function trainingstable(date, fieldid, teamid) {
 
     return {
         date,
-        timeStart,
-        timeEnd,
-        location,
-        team,
-
+        fieldid,
+        teamid
     };
 }
-
-
 
 function Row(props) {
 
@@ -52,10 +44,8 @@ function Row(props) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">{row.date}</TableCell>
-                <TableCell >{row.timeStart}</TableCell>
-                <TableCell >{row.timeEnd}</TableCell>
-                <TableCell >{row.location}</TableCell>
-                <TableCell >{row.team}</TableCell>
+                <TableCell >{row.fieldid}</TableCell>
+                <TableCell >{row.teamid}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -75,23 +65,11 @@ function Row(props) {
 
 Row.propTypes = {
     row: PropTypes.shape({
-        timeStart: PropTypes.string.isRequired,
-        timeEnd: PropTypes.string.isRequired,
-        location: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
+        fieldid: PropTypes.string.isRequired,
+        teamid: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
     }).isRequired,
 };
-
-//const rows = [
-    //trainingstable('15-03-2022', '10:00', '11:00', 'Holte Station', 'U14'), //One traing in a line
-    //trainingstable('15-03-2022', '10:00', '14:00', 'Anker Engelunds Vej nr. 1', 'U23'), //Date, timeS, timeE, Location, Team
-    //trainingstable('17-03-2022', '22:00', '00:00', 'Lyngby svømmehal', 'U40')
-
-    //training.map((t)=>trainingstable(t.team))
-
-
-//];
 
 export default function CollapsibleTable() {
 
@@ -99,12 +77,10 @@ export default function CollapsibleTable() {
 
     useEffect(() => {
         var object = {
-            "date": "2022-04-01",
-            "team": "U13",
-            "location": "Holte station",
-            "timeStart": "10:00:00",
-            "timeEnd": "12:00:00"
-            }
+            "teamid":"4f52548d-4913-4b4b-bd23-c0aa2ac75f5e",
+            "fieldid":"7de82e0e-75fb-43da-928e-7d7bcb27ce39",
+            "date":"2222-12-12T12:00:00"
+          }
         var object2 = {
             "date": "2022-06-03",
             "team": "U19",
@@ -119,10 +95,10 @@ export default function CollapsibleTable() {
             "timeStart": "22:00:00",
             "timeEnd": "00:00:00"
             }
-      axios.post("http://localhost:8080/training", object).then((response)=>console.log(response.data)) //respone contains the data from post
-      axios.post("http://localhost:8080/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
-      axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
-      axios.get("http://localhost:8080/training").then((response)=>setTraining(response.data)) //Setter data i training variable
+      axios.post("http://130.225.170.74:80/api/Practise", object).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://130.225.170.74:80/api/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
+      axios.get("http://130.225.170.74:80/api/Practise").then((response)=>setTraining(response.data)) //Setter data i training variable
     }, [])
 
 
@@ -133,10 +109,8 @@ export default function CollapsibleTable() {
                     <TableRow>
                         <TableCell/>
                         <TableCell>Date</TableCell>
-                        <TableCell >Time Start</TableCell>
-                        <TableCell >Time End&nbsp; </TableCell>
-                        <TableCell >Location&nbsp; </TableCell>
-                        <TableCell >Team&nbsp; </TableCell>
+                        <TableCell >Field</TableCell>
+                        <TableCell >Team</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
