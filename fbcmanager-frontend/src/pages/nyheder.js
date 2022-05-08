@@ -46,11 +46,6 @@ function NewsPage() {
                   <NewsCard key={news.id} news={news} />
               )}
             </Grid>
-           {/* <Grid container spacing={4}>
-                {news.map(news =>
-                  <NewsCard key={news.id} news={news} />
-              )}
-            </Grid>*/}
           </div>
           {/* XXXXXX MIDDLE COLLUMN END XXXXXX*/}
 
