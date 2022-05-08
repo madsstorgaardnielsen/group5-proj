@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/newsPage.scss"
