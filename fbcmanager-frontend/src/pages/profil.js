@@ -183,8 +183,8 @@ export default class Profil extends React.Component {
 
                 this.render()
 
-            }).catch(function (error) {
-            if (error.response) { //respone contains the data from get request
+            }).catch(function (error) { //respone contains the data from get request
+            if (error.response) { //if error occurs, print error info
                 console.log(error.response.data.title);
                 console.log(error.response.status);
                 console.log(error.response.data);
