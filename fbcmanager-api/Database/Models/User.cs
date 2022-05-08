@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace fbcmanager_api.Database.Models;
 
-public class User : IdentityUser {
+public class User : IdentityUser, IEntity {
     public string Firstname { get; set; }
     public string Lastname { get; set; }
     public string City { get; set; }
@@ -13,5 +13,4 @@ public class User : IdentityUser {
     public Team Team { get; set; }
     public List<Practise> Practises { get; set; } = new();
     public List<Event> Events { get; set; } = new();
-
 }

@@ -13,6 +13,27 @@
         margin-left: 20px;
     }
 }
+#profileArrow{
+    transition-duration: 0.5s;
+}
+
+.profile-dropdown{
+    display: none;
+    flex-direction: column;
+    margin: 10px 0 10px auto; 
+    width: fit-content;
+    position: absolute;
+    right: 60px;
+    a{
+        border: 1px solid $light-grey;
+        padding: 5px 15px;
+        border-radius: 3px;
+        margin: 3px;
+        box-shadow: 1px 1px 5px rgb(128, 128, 128, 0.5);
+        background-color: white;
+        cursor: pointer;
+    }
+}
 
 .profile-column-body{
     display: flex;
@@ -60,6 +81,10 @@
         background-color: white;
         box-shadow: 5px 10px 10px rgb(128, 128, 128, 0.5);
         border-radius: 10px;
+    }
+    .profile-dropdown{
+        top: 80px;
+        right: 30px;
     }
     .grid-container-home{
         grid-template-columns: 1fr !important;

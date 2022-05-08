@@ -60,7 +60,7 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .WithMany(x => x.Participants);
 
         builder.Entity<Team>()
-            .Property(e => e.TeamId)
+            .Property(e => e.Id)
             .ValueGeneratedOnAdd();
         builder.Entity<Team>()
             .HasMany(x => x.TeamMembers)
@@ -72,11 +72,11 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.Entity<News>()
-            .Property(e => e.NewsId)
+            .Property(e => e.Id)
             .ValueGeneratedOnAdd();
 
         builder.Entity<Booking>()
-            .Property(e => e.BookingId)
+            .Property(e => e.Id)
             .ValueGeneratedOnAdd();
         builder.Entity<Booking>()
             .HasOne(x => x.Team)
@@ -85,20 +85,20 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
 
 
         builder.Entity<Event>()
-            .Property(e => e.EventId)
+            .Property(e => e.Id)
             .ValueGeneratedOnAdd();
         builder.Entity<Event>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Events);
 
 
-        builder.Entity<Field>().Property(e => e.FieldId).ValueGeneratedOnAdd();
+        builder.Entity<Field>().Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Entity<Field>()
             .HasMany(x => x.Bookings)
             .WithOne(x => x.Field)
             .OnDelete(DeleteBehavior.SetNull);
 
-        builder.Entity<Practise>().Property(e => e.PractiseId).ValueGeneratedOnAdd();
+        builder.Entity<Practise>().Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Entity<Practise>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Practises);
