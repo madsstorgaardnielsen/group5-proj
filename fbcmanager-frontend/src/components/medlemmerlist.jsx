@@ -103,9 +103,9 @@ function Medlemmerlist() {
     fetchData();
   };
 
-  return edit ? (
+  return (
     <div>
-      <div>
+      {/* <div>
         <button className="headerContent" onClick={addRnd}>
           Add Random
         </button>
@@ -129,217 +129,129 @@ function Medlemmerlist() {
         <label className="headerContent" htmlFor="inaktive">
           vis inaktive medlemmer
         </label>
-      </div>
+      </div> */}
 
       <table className="medlemmerTable">
         <thead>
           <tr>
-            <th className="firstCol">id</th>
-            <th className="otherCols">fornavn</th>
-            <th className="otherCols">efternavn</th>
-            <th className="otherCols">hold</th>
-            <th className="dropdownCols">aktiv</th>
-            <th className="dropdownCols">brugertype</th>
+            <th>fornavn</th>
+            <th>efternavn</th>
+            <th>brugernavn</th>
+            <th>by</th>
+            <th>post nummer</th>
+            <th>gade</th>
+            <th>telefon nummer</th>
           </tr>
         </thead>
         <tbody>
           {list.map((user, index) => (
             <tr
               className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
-              key={user.userid}
-            >
-              <td>{user.userid}</td>
-              {user.userid !== key ? (
-                <td>{user.firstname}</td>
-              ) : (
-                <td>
-                  <input
-                    className="tableTextField"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </td>
-              )}
-              {user.userid !== key ? (
-                <td>{user.lastname}</td>
-              ) : (
-                <td>
-                  <input
-                    className="tableTextField"
-                    value={lastname}
-                    onChange={(e) => setLastname(e.target.value)}
-                    required
-                  />
-                </td>
-              )}
-              {user.userid !== key ? (
-                <td>{user.team}</td>
-              ) : (
-                <td>
-                  <input
-                    className="tableTextField"
-                    value={team}
-                    onChange={(e) => setTeam(e.target.value)}
-                    required
-                  />
-                </td>
-              )}
-              {user.userid !== key ? (
-                <td>{user.isactive === "true" ? "ja" : "nej"}</td>
-              ) : (
-                <td>
-                  <select
-                    name="dropdown"
-                    className="dropdown"
-                    value={active}
-                    onChange={(e) => setActive(e.target.value)}
-                  >
-                    <option value={true}>ja</option>
-                    <option value={false}>nej</option>
-                  </select>
-                </td>
-              )}
-              {user.userid !== key ? (
-                <td>{usrtype[user.usertype]}</td>
-              ) : (
-                <td>
-                  <select
-                    name="dropdown"
-                    className="dropdown"
-                    value={usertype}
-                    onChange={(e) => setUsertype(e.target.value)}
-                  >
-                    <option value={0}>Medlem</option>
-                    <option value={1}>Admin</option>
-                    <option value={2}>Super admin</option>
-                  </select>
-                </td>
-              )}
-              <td className="buttons">
-                {user.userid === key ? (
-                  edit ? (
-                    <button
-                      className="button"
-                      onClick={() => {
-                        delUsr(user.userid);
-                      }}
-                    >
-                      delete
-                    </button>
-                  ) : undefined
-                ) : undefined}
-              </td>
-              <td className="buttons">
-                {user.userid !== key ? (
-                  <button onClick={() => handleEdit(user)} className="button">
-                    edit
-                  </button>
-                ) : (
-                  <button
-                    onClick={
-                      user.firstname.length > 0 ? () => updUsr(user) : undefined
-                    }
-                    className="button"
-                  >
-                    save
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  ) : (
-    <div>
-      <div>
-        <button className="headerContent" onClick={addRnd}>
-          Add Random
-        </button>
-
-        <label className="headerContent" htmlFor="aktiv">
-          <input
-            className="headerContent2"
-            id="aktiv"
-            type="checkbox"
-            checked={isUserActive}
-            onChange={handleActiveCheck}
-          />
-          vis aktive medlemmer
-        </label>
-
-        <label className="headerContent" htmlFor="inaktiv">
-          <input
-            id="inaktiv"
-            className="headerContent2"
-            type="checkbox"
-            checked={isInactive}
-            onChange={handleInactiveCheck}
-          />
-          vis inaktive medlemmer
-        </label>
-
-        <input
-        className="searchbar"
-          value={searchQuery}
-          placeholder="søg"
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-        />
-      </div>
-      <table className="medlemmerTable">
-        <thead>
-          <tr>
-            <th className="firstCol">id</th>
-            <th className="otherCols">fornavn</th>
-            <th className="otherCols">efternavn</th>
-            <th className="otherCols">hold</th>
-            <th className="dropdownCols">aktiv</th>
-            <th className="dropdownCols">brugertype</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((user, index) => (
-            <tr
-              className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
-              key={user.userid}
-            >
-              <td>{user.userid}</td>
+              key={user.id}>
               <td>{user.firstname}</td>
               <td>{user.lastname}</td>
-              <td>{user.team}</td>
-              <td>{user.isactive === "true" ? "ja" : "nej"}</td>
-              <td>{usrtype[user.usertype]}</td>
-              <td className="buttons">
-                {edit ? (
-                  <button
-                    className="button"
-                    onClick={() => {
-                      delUsr(user.userid);
-                    }}
-                  >
-                    delete
-                  </button>
-                ) : undefined}
-              </td>
-              <td className="buttons">
-                <button
-                  onClick={() => {
-                    handleEdit(user);
-                  }}
-                  className="button"
-                >
-                  edit
-                </button>
-              </td>
+              <td>{user.email}</td>
+              <td>{user.city}</td>
+              <td>{user.zip}</td>
+              <td>{user.street}</td>
+              <td>{user.phoneNumber}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
+
+  // :
+
+  // (
+  //   <div>
+  //     <div>
+  //       <button className="headerContent" onClick={addRnd}>
+  //         Add Random
+  //       </button>
+
+  //       <label className="headerContent" htmlFor="aktiv">
+  //         <input
+  //           className="headerContent2"
+  //           id="aktiv"
+  //           type="checkbox"
+  //           checked={isUserActive}
+  //           onChange={handleActiveCheck}
+  //         />
+  //         vis aktive medlemmer
+  //       </label>
+
+  //       <label className="headerContent" htmlFor="inaktiv">
+  //         <input
+  //           id="inaktiv"
+  //           className="headerContent2"
+  //           type="checkbox"
+  //           checked={isInactive}
+  //           onChange={handleInactiveCheck}
+  //         />
+  //         vis inaktive medlemmer
+  //       </label>
+
+  //       <input
+  //       className="searchbar"
+  //         value={searchQuery}
+  //         placeholder="søg"
+  //         onChange={(e) => {
+  //           handleSearch(e.target.value);
+  //         }}
+  //       />
+  //     </div>
+  //     <table className="medlemmerTable">
+  //       <thead>
+  //         <tr>
+  //           <th className="firstCol">id</th>
+  //           <th className="otherCols">fornavn</th>
+  //           <th className="otherCols">efternavn</th>
+  //           <th className="otherCols">hold</th>
+  //           <th className="dropdownCols">aktiv</th>
+  //           <th className="dropdownCols">brugertype</th>
+  //         </tr>
+  //       </thead>
+  //       <tbody>
+  //         {list.map((user, index) => (
+  //           <tr
+  //             className={`${index % 2 === 0 ? "alternate" : ""} tableRow`}
+  //             key={user.userid}
+  //           >
+  //             <td>{user.userid}</td>
+  //             <td>{user.firstname}</td>
+  //             <td>{user.lastname}</td>
+  //             <td>{user.team}</td>
+  //             <td>{user.isactive === "true" ? "ja" : "nej"}</td>
+  //             <td>{usrtype[user.usertype]}</td>
+  //             <td className="buttons">
+  //               {edit ? (
+  //                 <button
+  //                   className="button"
+  //                   onClick={() => {
+  //                     delUsr(user.userid);
+  //                   }}
+  //                 >
+  //                   delete
+  //                 </button>
+  //               ) : undefined}
+  //             </td>
+  //             <td className="buttons">
+  //               <button
+  //                 onClick={() => {
+  //                   handleEdit(user);
+  //                 }}
+  //                 className="button"
+  //               >
+  //                 edit
+  //               </button>
+  //             </td>
+  //           </tr>
+  //         ))}
+  //       </tbody>
+  //     </table>
+  //   </div>
+  // );
 }
 export default Medlemmerlist;
