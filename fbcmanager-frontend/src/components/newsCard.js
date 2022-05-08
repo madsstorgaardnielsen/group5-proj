@@ -41,7 +41,7 @@ export default function NewsCard({ news }) {
                         </ExpandMore>
                     }
                     title={news.header}
-                    subheader={`1/1/2022 • ${date}`}
+                    subheader={`${date}`}
                 />
                 <CardContent>
                     <Typography>
