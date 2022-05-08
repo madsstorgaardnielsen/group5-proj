@@ -7,8 +7,55 @@ import profile from "../res/img/profile/tmp-profile.png";
 import {Helmet} from 'react-helmet';
 import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
+import axios from 'axios';
 
-function Profil() {
+const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
+const url = "http://130.225.170.74"
+const currentUserId = "27fb41a0-0445-4ca5-a7cc-f0987f03f3b8"
+var something = "";
+
+const authAxios = axios.create({
+    baseURL: url,
+    headers: {
+        Authorization: 'Bearer ' + current_jwt_token
+    }
+})
+
+function change () {
+    document.getElementById("status").defaultValue = this.state.persons.firstname;
+}
+
+
+export default class Profil extends React.Component {
+    state = {
+        persons: [],
+        name: String
+    }
+
+
+    componentDidMount() {
+        authAxios.get(`/api/User/27fb41a0-0445-4ca5-a7cc-f0987f03f3b8`)
+            .then(res => {
+                const persons = res.data;
+                this.setState({ persons });
+                ////console.log(persons.firstname)
+                ////something = persons.firstname
+                //console.log(something) //(something)
+                document.getElementById("inputFirstName").defaultValue = persons.firstname;
+                document.getElementById("inputSurname").defaultValue = persons.lastname;
+                document.getElementById("inputEmail").defaultValue = persons.email;
+                document.getElementById("inputCity").defaultValue = persons.city;
+                document.getElementById("inputZip").defaultValue = persons.zip;
+                document.getElementById("inputStreet").defaultValue = persons.street;
+                document.getElementById("inputPhone").defaultValue = persons.phoneNumber;
+                //change();
+                this.render()
+
+            })
+    }
+    //change()
+
+    render() {
     return (
         <div>
             <Helmet>
@@ -37,9 +84,9 @@ function Profil() {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress"
+                                        id="inputFirstName"
                                         placeholder="John"
-                                        value={"Mette"}
+                                        //value={"Mette"}
                                     />
                                 </div>
 
@@ -48,9 +95,9 @@ function Profil() {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress"
+                                        id="inputSurname"
                                         placeholder="Doe"
-                                        value={"Frederiksen"}
+                                        //value={"Frederiksen"}
                                     />
                                 </div>
 
@@ -59,9 +106,9 @@ function Profil() {
                                     <input
                                         type="email"
                                         className="form-control"
-                                        id="inputEmail4"
+                                        id="inputEmail"
                                         placeholder="Email"
-                                        value={"mette@frederiksen.dk"}
+                                        //value={"mette@frederiksen.dk"}
                                     />
                                 </div>
 
@@ -71,9 +118,9 @@ function Profil() {
                                     <input
                                         type="number"
                                         className="form-control"
-                                        id="inputAddress"
+                                        id="inputPhone"
                                         placeholder=""
-                                        value={70707070}
+                                        //value={70707070}
                                     />
                                 </div>
 
@@ -82,9 +129,9 @@ function Profil() {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress"
+                                        id="inputStreet"
                                         placeholder="1234 Main St"
-                                        value={"Landemærket 11"}
+                                        //value={"Landemærket 11"}
                                     />
                                 </div>
 
@@ -95,7 +142,7 @@ function Profil() {
                                         className="form-control"
                                         id="inputCity"
                                         placeholder={"City name"}
-                                        value={"København K"}
+                                        //value={"København K"}
                                     />
                                 </div>
 
@@ -106,7 +153,7 @@ function Profil() {
                                         className="form-control"
                                         id="inputZip"
                                         placeholder={"1234"}
-                                        value={"1119"}
+                                        //value={"1119"}
                                     />
                                 </div>
 
@@ -170,6 +217,5 @@ function Profil() {
 
     );
 };
-
-export default Profil;
+}
 
