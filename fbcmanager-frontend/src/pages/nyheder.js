@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/newsPage.scss"
-import NewsCard from "../components/newsCardd"
+import NewsCard from "../components/newsCard"
 import { Grid } from "@mui/material"
 import axios from "axios"
 
