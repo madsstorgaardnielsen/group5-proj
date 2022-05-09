@@ -6,15 +6,35 @@ import axios from "axios";
 
 
 
-
+/*
 var token = localStorage.getItem("token");
 
+export function Practises() {
+    const [training, setTraining] = React.useState([]);
+
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/Practise",{
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((response)=>setTraining(response.data)) //Setter data i training variable
+      }, [])
+
+    //console.log(training.map((row) => (
+    //    [row.id]
+    //))
+    //)
+    training.map((row) => (
+        console.log(row.id)
+    ))
+    //console.log(training[0]['id'])
+    
+    return [training]
+}
+*/
 
 class Calendar extends Component {
 
     constructor(props) {
         super(props);
-
 
         
         
