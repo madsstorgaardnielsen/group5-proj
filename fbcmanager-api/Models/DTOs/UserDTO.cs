@@ -97,7 +97,7 @@ public class CreateUserDTO {
     
     [DataType(DataType.Date)] public DateTime Birthdate { get; set; }
 
-    [Required] public ICollection<string> Roles { get; set; }
+     public ICollection<string> Roles { get; set; }
 
     [Required]
     [DataType(DataType.EmailAddress)]
