@@ -11,8 +11,7 @@ import EventCard from "../components/EventCard";
 
 
 export default function EventPage() {
-    const [events, setEvents] = react.useState([
-    ])
+    const [events, setEvents] = react.useState([])
 
     React.useEffect(() => {
         axios.get("http://130.225.170.74:80/api/Event").then((response) => {
@@ -21,7 +20,7 @@ export default function EventPage() {
 
     return (
         <div>
-            <Navbar />  
+            <Navbar />
             <div className="body">
                 <div className="main-grid-container">
                     <div className="main-grid-item">

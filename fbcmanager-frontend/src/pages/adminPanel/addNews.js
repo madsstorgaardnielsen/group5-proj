@@ -13,7 +13,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import {datePickerToDB} from "../../model/DateFormatter";
 
-
 function AdminPanel () {
     const navigate = useNavigate()
     const navBack = () => {
@@ -191,6 +190,6 @@ function AdminPanel () {
             </div>
         </div>
     );
-};
+}
 
 export default AdminPanel;
