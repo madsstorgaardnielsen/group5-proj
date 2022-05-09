@@ -38,22 +38,48 @@ public class UserController : ControllerBase {
         var result = await _userRepository.Delete(userDTO.Id, ct);
         return result ? NoContent() : BadRequest();
     }
-    
+
     [Authorize]
-    [HttpGet( Name = "GetUserByToken")]
+    [HttpGet(Name = "GetUserByToken")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUser(CancellationToken ct) {
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
         var user = await _userRepository.Get(userIdFromToken, ct);
-        
+
         if (user != null) {
             var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
 
         return NotFound($"user not found");
+    }
+
+    [Authorize]
+    [HttpPost("updatepwd", Name = "ChangePassword")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordDTO userDTO, CancellationToken ct) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+
+        if (userIdFromToken != userDTO.Id) {
+            return BadRequest("Error changing password");
+        }
+
+        if (ModelState.IsValid) {
+            var u = await _userRepository.GetUserNoTracking(userIdFromToken, ct);
+
+            var result = await _userManager.ChangePasswordAsync(u, userDTO.OldPassword, userDTO.NewPassword);
+            
+            if (result.Succeeded) {
+                return NoContent();
+            }
+        }
+
+        return Unauthorized();
     }
 
     [Authorize(Roles = "Admin, User")]
@@ -71,16 +97,15 @@ public class UserController : ControllerBase {
 
         if (ModelState.IsValid) {
             var u = await _userRepository.GetUserNoTracking(userIdFromToken, ct);
-            
-             // u = _mapper.Map<User>(userDTO);
-             u.Firstname = userDTO.Firstname;
-             u.Lastname = userDTO.Lastname;
-             u.City = userDTO.City;
-             u.Zip = userDTO.Zip;
-             u.Street = userDTO.Street;
-             u.Birthdate = userDTO.Birthdate;
-             u.Email = userDTO.Email;
-             u.PhoneNumber = userDTO.PhoneNumber;
+
+            u.Firstname = userDTO.Firstname;
+            u.Lastname = userDTO.Lastname;
+            u.City = userDTO.City;
+            u.Zip = userDTO.Zip;
+            u.Street = userDTO.Street;
+            u.Birthdate = userDTO.Birthdate;
+            u.Email = userDTO.Email;
+            u.PhoneNumber = userDTO.PhoneNumber;
             u.UserName = userDTO.Email;
             u.NormalizedEmail = userDTO.Email.ToUpper();
             u.NormalizedUserName = userDTO.Email.ToUpper();
@@ -106,17 +131,21 @@ public class UserController : ControllerBase {
         if (ModelState.IsValid) {
             var user = _mapper.Map<User>(userDTO);
             user.PasswordHash = new PwHasher().GetPasswordHash(user, userDTO);
-            user.UserName = userDTO.Email;
+            
+            var username = userDTO.Email.Split("@")[0];
+            user.UserName = username;
+            user.NormalizedUserName = username.ToUpper();
+            
             user.NormalizedEmail = userDTO.Email.ToUpper();
-            user.NormalizedUserName = userDTO.Email.ToUpper();
-            await _userManager.AddToRolesAsync(user, userDTO.Roles);
-
-            _mapper.Map(userDTO, user);
-
             var result = await _userRepository.Create(user, ct);
+            
+            await _userManager.AddToRolesAsync(result, userDTO.Roles);
+
+            // _mapper.Map(userDTO, user);
+
             if (result != null) {
                 var mappedResult = _mapper.Map<UserDTO>(result);
-                return Ok(mappedResult);
+                return Accepted();
             }
         }
 
@@ -130,28 +159,28 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUser(string userId, CancellationToken ct) {
         var user = await _userRepository.Get(userId, ct);
-    
-    
+
+
         if (user != null) {
             var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
-    
+
         return NotFound($"user with id: {userId} not found");
     }
-    
+
     [Authorize(Roles = "Admin")]
     [HttpGet("search/{namelike}", Name = "GetUserByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUserByName(string namelike, CancellationToken ct) {
         var user = await _userRepository.GetUserByName(namelike, ct);
-    
+
         if (user != null) {
             var result = _mapper.Map<UserDTO>(user);
             return Ok(result);
         }
-    
+
         return NotFound($"user with firstname or lastname containing: {namelike} not found.");
     }
 
