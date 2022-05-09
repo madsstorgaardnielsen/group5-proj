@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="" />
+    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Team and location now fetched from database in AddEvent &amp; addTraining dropdown menu">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,5 +39,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

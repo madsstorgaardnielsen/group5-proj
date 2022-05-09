@@ -45,6 +45,7 @@ public class SeedAdminUser : IEntityTypeConfiguration<User> {
             Firstname = "ADMIN",
             Lastname = "ADMIN",
             NormalizedEmail = "ADMIN",
+            Birthdate = DateTime.Now,
             Email = "ADMIN",
             City = "ADMIN",
             Zip = "ADMIN",

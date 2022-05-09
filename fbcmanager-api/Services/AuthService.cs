@@ -36,7 +36,7 @@ public class AuthService : IAuthService {
 
         var expiration = DateTime
             .Now
-            .AddMinutes(15);
+            .AddDays(14);
 
         var issuer = jwtSettings.GetSection("Issuer").Value;
 

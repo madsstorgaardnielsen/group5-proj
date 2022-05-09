@@ -33,11 +33,13 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllJoinedPractises([FromBody] UserDTO userDTO, CancellationToken ct) {
-        var joinedPractises = await _practiseRepository.GetAllJoinedPractises(userDTO.Id, ct);
+    public async Task<IActionResult> GetAllJoinedPractises(CancellationToken ct) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+        var joinedPractises = await _practiseRepository.GetAllJoinedPractises(userIdFromToken, ct);
 
         if (joinedPractises != null) {
-            var mappedPractises = _mapper.Map<PractiseDTO>(joinedPractises);
+            var mappedPractises = _mapper.Map<IList<PractiseDTO>>(joinedPractises);
             return Ok(mappedPractises);
         }
 

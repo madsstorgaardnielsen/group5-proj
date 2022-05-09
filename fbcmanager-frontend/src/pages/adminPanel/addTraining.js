@@ -22,16 +22,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import {datePickerToDB} from "../../model/DateFormatter";
 
-{/* You need to run these command:
-npm install @mui/x-date-pickers
-npm i date-fns
-*/}
-
-function AdminPanel () {
+function AddTraining () {
     const navigate = useNavigate()
     const navBack = () => {
         navigate('/adminPanel')
     }
+
+    const [FieldList, setFieldList] = React.useState('');
+    const [TeamList, setTeamList] = React.useState('');
 
     //Handle changes to the input fields
     const [Team, setTeam] = React.useState('');
@@ -51,15 +49,28 @@ function AdminPanel () {
         setTextInput(event.target.value);
     };
 
+    const token = localStorage.getItem("token");
+
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/Team", {headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+            setTeamList(response.data)
+        })},[]);
+
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/Field", {headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+            setFieldList(response.data)
+        })},[]);
+
     //When submit button is pressed, create object and add to DB
-    function addToDB(e, date, location, team) {
+    function addToDB(e, date, fieldid, teamid) {
         e.preventDefault();
-        const token = localStorage.getItem("token");
         date = datePickerToDB(date)
 
         const object = {
-            "teamid":team,
-            "fieldid":location,
+            "teamid":teamid,
+            "fieldid":fieldid,
             "date":date
         };
         axios.post(
@@ -81,6 +92,8 @@ function AdminPanel () {
     const [submitPressed,setSubmitPressed]=React.useState(false)
     const [waiting,setWaiting]=React.useState(false)
 
+    let myTeamList = Array.from(TeamList)
+    let myFieldList = Array.from(FieldList)
 
     return (
         <div>
@@ -113,9 +126,10 @@ function AdminPanel () {
                                             backgroundColor: "white"
                                         }}
                                     >
-                                        <MenuItem value={"U12"}>U12</MenuItem>
-                                        <MenuItem value={"U13"}>U13</MenuItem>
-                                        <MenuItem value={"U14"}>U14</MenuItem>
+                                        {myTeamList.map((team) =>
+                                            <MenuItem value={team.id} > {team.teamName} </MenuItem>
+                                        )}
+
                                     </Select>
                                 </FormControl>
 
@@ -131,10 +145,9 @@ function AdminPanel () {
                                             backgroundColor: "white"
                                         }}
                                     >
-                                        <MenuItem value={"A"}>A</MenuItem>
-                                        <MenuItem value={"B"}>B</MenuItem>
-                                        <MenuItem value={"C2"}>C2</MenuItem>
-                                        <MenuItem value={"Klubhuset"}>Klubhuset</MenuItem>
+                                        {myFieldList.map((field) =>
+                                            <MenuItem value={field.id} > {field.fieldName} </MenuItem>
+                                        )}
                                     </Select>
                                 </FormControl>
 
@@ -207,4 +220,4 @@ function AdminPanel () {
     );
 };
 
-export default AdminPanel;
+export default AddTraining;

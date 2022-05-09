@@ -97,7 +97,7 @@ public class CreateUserDTO {
     
     [DataType(DataType.Date)] public DateTime Birthdate { get; set; }
 
-    [Required] public ICollection<string> Roles { get; set; }
+     public ICollection<string> Roles { get; set; }
 
     [Required]
     [DataType(DataType.EmailAddress)]
@@ -137,4 +137,18 @@ public class LoginUserDTO {
     [DataType(DataType.Password)]
     [StringLength(200, MinimumLength = 2)]
     public string Password { get; set; }
+}
+
+public class UpdatePasswordDTO {
+    [Required] public string Id { get; set; }    
+    
+    [Required]
+    [DataType(DataType.Password)]
+    [StringLength(200, MinimumLength = 2)]
+    public string OldPassword { get; set; }
+
+    [Required]
+    [DataType(DataType.Password)]
+    [StringLength(200, MinimumLength = 2)]
+    public string NewPassword { get; set; }
 }

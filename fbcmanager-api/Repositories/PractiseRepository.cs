@@ -49,10 +49,20 @@ public class PractiseRepository : GenericRepository<Practise, DatabaseContext> {
 
     public async Task<List<Practise>> GetAllJoinedPractises(string userId, CancellationToken ct) {
         var user =
-            await _dbContext.Users.Where(x => x.Id == userId).Include(x => x.Practises).SingleOrDefaultAsync(ct);
+            await _dbContext.Users.Where(x => x.Id == userId)
+                .Include(x => x.Team)
+                .Include(x => x.Practises).SingleOrDefaultAsync(ct);
+
+
+        var practises = await _dbContext
+            .Practises
+            .Where(x => x.Participants.Contains(user))
+            .Include(x => x.Team)
+            .Include(x => x.Field)
+            .ToListAsync(ct);
 
         if (user != null) {
-            return user.Practises;
+            return practises;
         }
 
         return null;
