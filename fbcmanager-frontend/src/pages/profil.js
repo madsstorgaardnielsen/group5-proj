@@ -19,8 +19,8 @@ const tokenizedAxios = axios.create({
     baseURL: url,
     headers: {
         //Authorization: 'Bearer  + ${token}'//token from browser
-        //Authorization: `Bearer ${token}`
-        Authorization: 'Bearer ' + current_jwt_token //variable token
+        Authorization: `Bearer ${token}`
+        //Authorization: 'Bearer ' + current_jwt_token //variable token
     }
 })
 
@@ -103,9 +103,7 @@ function postUser() {
             "Admin"
         ]
     }
-    axios.post("http://130.225.170.74/api/User/", object , {
-        headers: { Authorization: `Bearer ${token}` },
-    }).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request
+    tokenizedAxios.post("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -145,9 +143,7 @@ function editUser() {
         ]
     }
     console.log(object)
-    axios.post("http://130.225.170.74/api/User/", object , {
-        headers: { Authorization: `Bearer ${token}` },
-    }).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request
+    tokenizedAxios.post("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -164,9 +160,7 @@ export default class Profil extends React.Component {
     }
 
     componentDidMount() {
-        axios.get( url + `/api/User/` + currentUserId , {
-            headers: { Authorization: `Bearer ${token}` },
-        })
+        tokenizedAxios.get(`/api/User/` + currentUserId)
             .then(res => {
                 const persons = res.data;
                 this.setState({persons});
