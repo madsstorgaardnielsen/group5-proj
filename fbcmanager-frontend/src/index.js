@@ -18,6 +18,7 @@ import AddNews from './pages/adminPanel/addNews';
 import AddTraining from './pages/adminPanel/addTraining';
 import AddEvent from './pages/adminPanel/addEvent';
 import EditNewsPage from './pages/adminPanel/editNewsPage';
+import Teams from './pages/teams';
 
 
 ReactDOM.render(
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route path="/nyheder" element={<Nyheder/>}/>
             <Route path="/events" element={<Events/>}/>
             <Route path="/traening" element={<Traening/>}/>
+            <Route path="/teams" element={<Teams/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/signup" element={<Registration/>}/>
             <Route path="/adminPanel" element={<AdminPanel/>}/>
