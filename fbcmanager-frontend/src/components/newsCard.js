@@ -27,6 +27,10 @@ export default function NewsCard({ news }) {
         setExpanded(!expanded);
     };
 
+    const date = new Date(news.date)
+    const month_name = ["januar", "februar", "marts", "april", "maj", "juni", "juli",
+        "august", "september", "oktober", "november", "december"]
+
     return (
         <Grid item sm={12} md={6}>
             <Card sx={{ maxWidth: 345 }} className="newscard" onClick={handleExpandClick}>
@@ -41,7 +45,7 @@ export default function NewsCard({ news }) {
                         </ExpandMore>
                     }
                     title={news.header}
-                    subheader={`${date}`}
+                    subheader={`${date.getHours()}:${date.getMinutes()} • ${date.getDay()}. ${month_name[date.getMonth()]} ${date.getFullYear()}`}
                 />
                 <CardContent>
                     <Typography>
