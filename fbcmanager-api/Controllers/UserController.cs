@@ -186,7 +186,7 @@ public class UserController : ControllerBase {
 
 
     [Authorize(Roles = "Admin")]
-    [HttpGet("/all", Name = "GetAllUsers")]
+    [HttpGet("all", Name = "GetAllUsers")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetUsers(CancellationToken ct) {
