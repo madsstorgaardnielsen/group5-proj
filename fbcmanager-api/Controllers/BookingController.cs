@@ -55,6 +55,7 @@ public class BookingController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateBooking([FromBody] UpdateBookingDTO bookingDTO, CancellationToken ct) {
+        
         if (ModelState.IsValid) {
             var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
             var idFromToken = _tokenUtils.GetUserIdFromToken(token);
@@ -64,9 +65,8 @@ public class BookingController : ControllerBase {
             var user = team.TeamMembers.SingleOrDefault(x => x.Id == idFromToken);
 
             if (user == null) {
-                return BadRequest();
+                return BadRequest("user not found");
             }
-
             if (!team.TeamMembers.Contains(user)) {
                 return BadRequest("You cant update a booking for a team you are not part of");
             }
@@ -85,10 +85,10 @@ public class BookingController : ControllerBase {
 
             if (hasOverlap) {
                 return BadRequest(
-                    $"{booking.Field.FieldName} is already booked in period {booking.BookedFrom} to {booking.BookedTo}");
+                    "already booked in period");
             }
 
-            var result = await _bookingRepository.Update(booking, ct);
+            var result = await _bookingRepository.Update(booking,ct);
             if (result != null) {
                 var mappedResult = _mapper.Map<BookingDTO>(result);
                 return Ok(mappedResult);

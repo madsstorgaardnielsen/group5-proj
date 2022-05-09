@@ -19,4 +19,8 @@ public class BookingRepository : GenericRepository<Booking, DatabaseContext> {
             .ToListAsync(ct);
         return bookings;
     }
+
+    public async Task<int> UpdateBooking(CancellationToken ct) {
+        return await _dbContext.SaveChangesAsync(ct);
+    }
 }

@@ -19,4 +19,8 @@ public class UserRepository : GenericRepository<User, DatabaseContext> {
 
         return user;
     }
+    
+    public async Task<User> GetUserNoTracking(string id, CancellationToken ct) {
+        return await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id, ct);
+    }
 }
