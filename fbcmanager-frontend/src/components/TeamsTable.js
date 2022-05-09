@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
 
 // Table inspired by MUI. https://mui.com/components/tables/
 var token = localStorage.getItem("token");
@@ -44,11 +45,28 @@ const btnPress = async (row, bool) => {
 };
 
 function Row(props) {
+  const navigate = useNavigate();
+  const toTeamDetails = (id) => {
+    navigate("/team/details", {
+      state: {
+        id: id,
+      },
+    });
+  };
   const { row } = props;
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>{row.teamName}</TableCell>
+        {/* <TableCell>{row.teamName}</TableCell> */}
+        <TableCell>
+          <Button
+            value="Tilmeld"
+            onClick={() => {
+              toTeamDetails(row.id);
+            }}>
+            {row.teamName}
+          </Button>
+        </TableCell>
         <TableCell>
           <Button
             value="Tilmeld"
