@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTeam.js" afterDir="false" />
+    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Can now add team and field through admin panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/adminPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/adminPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +52,14 @@
       <updated>1652101849598</updated>
       <workItem from="1652101850847" duration="92000" />
     </task>
+    <task id="LOCAL-00001" summary="Can now add team and field through admin panel">
+      <created>1652109538691</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1652109538691</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -67,5 +75,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Can now add team and field through admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Can now add team and field through admin panel" />
   </component>
 </project>
