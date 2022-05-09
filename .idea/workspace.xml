@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="change password should work now" />
+    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Cleanup on admin pages">
+      <change afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/res/img/forside/bkskjold.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/res/img/forside/fieldgras.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/res/img/forside/team.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/forside.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/forside.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +29,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -35,6 +50,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Marcus\OneDrive\dtu\4.semester\Frontend\group5-proj\fbcmanager-frontend\src\res\img\forside" />
+      <recent name="C:\Users\Marcus\OneDrive\dtu\4.semester\Frontend\group5-proj\fbcmanager-frontend\src\pages" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -53,12 +74,12 @@
       <option name="project" value="LOCAL" />
       <updated>1652109538691</updated>
     </task>
-    <task id="LOCAL-00002" summary="change password should work now">
-      <created>1652122053436</created>
+    <task id="LOCAL-00002" summary="Cleanup on admin pages">
+      <created>1652120011857</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1652122053436</updated>
+      <updated>1652120011857</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -76,11 +97,10 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Can now add team and field through admin panel" />
-    <MESSAGE value="change password should work now" />
-    <option name="LAST_COMMIT_MESSAGE" value="change password should work now" />
+    <MESSAGE value="Cleanup on admin pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup on admin pages" />
   </component>
 </project>

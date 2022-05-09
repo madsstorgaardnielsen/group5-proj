@@ -13,7 +13,6 @@ import {getFullDate, getTime} from "../../model/DateFormatter";
 
 export default function EditNewsPage () {
     const [news, setNews] = React.useState([]);
-
     const navigate = useNavigate()
     const navToEditNews = (news) => {
         navigate('/addNews', {
@@ -27,7 +26,6 @@ export default function EditNewsPage () {
         axios.get("http://130.225.170.74:80/api/News").then((response) => {
             setNews(response.data)
         })},[]);
-
 
     function deleteNews(e, id){
         e.preventDefault();
@@ -43,7 +41,6 @@ export default function EditNewsPage () {
         e.preventDefault();
         navToEditNews(news)
     }
-
 
     const AdminNewsCard = ({ news }) => {
         return (
@@ -92,7 +89,6 @@ export default function EditNewsPage () {
             </div>
         </div>
     );
-
 }
 
 
