@@ -5,7 +5,7 @@ import Table from "@mui/material/Table";
 import CollapsibleTable from "../components/TeamsTable";
 import { Helmet } from "react-helmet";
 
-function Teams() {
+export default function Teams() {
   return (
     <div>
       <Helmet>
@@ -20,4 +20,4 @@ function Teams() {
   );
 }
 
-export default Teams;
+
