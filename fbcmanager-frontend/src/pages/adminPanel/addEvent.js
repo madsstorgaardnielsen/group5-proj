@@ -23,11 +23,6 @@ import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 
-{/* You need to run these command:
-npm install @mui/x-date-pickers
-npm i date-fns
-*/}
-
 function AddEvent () {
     const navigate = useNavigate()
     const navBack = () => {
@@ -156,7 +151,7 @@ function AddEvent () {
                                         style={{backgroundColor: "white"}}
                                     >
                                         {myFieldList.map((field) =>
-                                            <MenuItem value={field.id} > {field.fieldName} </MenuItem>
+                                            <MenuItem value={field.fieldName} > {field.fieldName} </MenuItem>
                                         )}
                                     </Select>
                                 </FormControl>

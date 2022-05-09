@@ -7,6 +7,9 @@ import React, {Fragment, PureComponent} from "react";
 
 import { useNavigate } from "react-router";
 import { Link, NavLink } from "react-router-dom";
+import axios from "axios"
+import NewsCard from "../components/newsCard"
+
 
 
 
@@ -30,6 +33,12 @@ export default function ProfileColumn() {
     const toAdmin = () => {
         navigate('/adminPanel')
     }
+
+    const [news, setNews] = React.useState([])
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/News").then((response) => {
+        setNews(response.data)
+        })})
 
 
     function profileMenu(){
@@ -65,31 +74,9 @@ export default function ProfileColumn() {
                     <p>{league}</p>
                 </div>
                 <div className="profile-column-news-container">
-                    <section>
-                        <h4>Ny bane!</h4>
-                        <p>Se den helt nye baner i fælledparken....</p>
-                        <p>03/03/2022 11:47</p>
-                    </section>
-                    <section>
-                        <h4>Ny bane!</h4>
-                        <p>Se den helt nye baner i fælledparken....</p>
-                        <p>03/03/2022 11:47</p>
-                    </section>
-                    <section>
-                        <h4>Ny bane!</h4>
-                        <p>Se den helt nye baner i fælledparken....</p>
-                        <p>03/03/2022 11:47</p>
-                    </section>
-                    <section>
-                        <h4>Ny bane!</h4>
-                        <p>Se den helt nye baner i fælledparken....</p>
-                        <p>03/03/2022 11:47</p>
-                    </section>
-                    <section>
-                        <h4>Ny bane!</h4>
-                        <p>Se den helt nye baner i fælledparken....</p>
-                        <p>03/03/2022 11:47</p>
-                    </section>
+                    {news.map(news =>
+                        <NewsCard key={news.id} news={news} className='home-news-card'/>
+                    )}
                 </div>
             </div>
             

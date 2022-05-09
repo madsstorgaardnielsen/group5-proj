@@ -67,7 +67,6 @@ function AddTraining () {
     function addToDB(e, date, fieldid, teamid) {
         e.preventDefault();
         date = datePickerToDB(date)
-
         const object = {
             "teamid":teamid,
             "fieldid":fieldid,
@@ -129,7 +128,6 @@ function AddTraining () {
                                         {myTeamList.map((team) =>
                                             <MenuItem value={team.id} > {team.teamName} </MenuItem>
                                         )}
-
                                     </Select>
                                 </FormControl>
 
