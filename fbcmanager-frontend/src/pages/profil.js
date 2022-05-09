@@ -8,13 +8,14 @@ import {Helmet} from 'react-helmet';
 import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
-import {getFullDate} from "../model/DateFormatter";
+import {getFullDate, getFullDateDash} from "../model/DateFormatter";
 
 //const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
 const url = "http://130.225.170.74"
-const currentUserId = "a1b0e52b-aab3-4e20-bbf3-ca57caa74c80"
+var currentUserId = ""; //"a1b0e52b-aab3-4e20-bbf3-ca57caa74c80" //for testing
 var firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
 var token = localStorage.getItem("token");
+let isLoggedIn = true;
 
 const tokenizedAxios = axios.create({
     baseURL: url,
@@ -79,8 +80,8 @@ const handleBirthdayChange = (event) => {
     //birthdate = eventVal
     //console.log("Birthdate_YYYY-MM-DD: " + birthdate)
 
-    // Change date format from YYYY-MM-DD to DD/MM/YYYY
-    birthdate = getFullDate(eventVal)
+    // Change date format from YYYY-MM-DDTHH-MM-SS to YYYY-MM-DD
+    birthdate = getFullDateDash(eventVal)
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
 
@@ -141,7 +142,7 @@ function editUser() {
         ]
     }
     console.log(object)
-    tokenizedAxios.post(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
+    tokenizedAxios.put(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -150,18 +151,33 @@ function editUser() {
     })
 }
 
+function testthis() {
+    if (isLoggedIn) {
+        //alert("this");
+        return;
+    }
+}
 
 export default class Profil extends React.Component {
+    /*if (isLoggedIn) {
+        alert("this");
+        return;
+    }
+
+     */
     state = {
         persons: [],
         name: String
     }
 
     componentDidMount() {
-        tokenizedAxios.get(`/api/User/` + currentUserId)
+        tokenizedAxios.get(`/api/User/`)// + currentUserId)
             .then(res => {
                 const persons = res.data;
                 this.setState({persons});
+
+                currentUserId = persons.id; // update user id
+                console.log("Loaded User ID: " + persons.id)
 
                 document.getElementById("inputFirstName").defaultValue = persons.firstname; //update input field
                 firstName = persons.firstname; // update variable
@@ -177,8 +193,26 @@ export default class Profil extends React.Component {
                 street = persons.street;
                 document.getElementById("inputPhone").defaultValue = persons.phoneNumber;
                 PhoneNumber = persons.phoneNumber;
-                document.getElementById("inputBirthdate").defaultValue = persons.birthdate;
-                birthdate = persons.birthdate;
+
+                /*
+                var date2 = new Date('01-01-1995')
+                var testingtime = '1990-10-10'
+                var third = getFullDateDash(persons.birthdate)
+                console.log("Third date:" + third)
+                document.getElementById("inputBirthdate").defaultValue = third// ='2015-12-22'; THIS WORKS
+
+
+                 */
+                birthdate = getFullDateDash(persons.birthdate);
+                document.getElementById("inputBirthdate").defaultValue = birthdate;
+
+                //var date = getFullDate(persons.birthdate)
+                //var date1 = new Date(date)
+                //document.getElementById("inputBirthdate").defaultValue = date1;
+                //birthdate = date1;
+
+                //document.getElementById("inputBirthdate").defaultValue = persons.birthdate;
+                //birthdate = persons.birthdate;
 
                 this.render()
 
@@ -191,7 +225,11 @@ export default class Profil extends React.Component {
         })
     }
 
+
     render() {
+        if (isLoggedIn){
+            //alert("this");
+        } else {}
         return (
             <div>
                 <Helmet>
@@ -255,7 +293,7 @@ export default class Profil extends React.Component {
                                     <div className="form-group col-md-6">
                                         <label htmlFor="inputAddress">Phone no.</label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             className="form-control"
                                             id="inputPhone"
                                             placeholder=""
@@ -307,13 +345,13 @@ export default class Profil extends React.Component {
                                             className="form-control"
                                             id="inputBirthdate"
                                             onChange={handleBirthdayChange}
+                                            //value='2019-12-22'
+
                                             //placeholder={2000-11-11}
                                             //value={2000/11/11}
                                         />
                                     </div>
-
                                 </div>
-
                             </form>
 
                             <span>
