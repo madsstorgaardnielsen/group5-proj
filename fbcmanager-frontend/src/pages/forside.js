@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -18,15 +18,16 @@ function Forside() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    axios
-      .get("http://130.225.170.74:80/api/User", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      // .then((response) => console.log(response.data))
-      .then((response) => {
-        console.log(response.data)
-        setUser(response.data)});
-  }, [user]);
+      axios
+        .get("http://130.225.170.74:80/api/User", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        // .then((response) => console.log(response.data))
+        .then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+        });
+  }, [setUser]);
 
   const navigate = useNavigate();
 
@@ -61,7 +62,9 @@ function Forside() {
                 Danmarks største fodbold klub gjort nem
               </p>
               {token !== null ? (
-                <button className="headerLogin" onClick={toProfilePage}>Velkommen {user.firstname}!</button>
+                <button className="headerLogin" onClick={toProfilePage}>
+                  Velkommen {user.firstname}!
+                </button>
               ) : (
                 <button className="headerLogin" onClick={toLoginPage}>
                   Login
