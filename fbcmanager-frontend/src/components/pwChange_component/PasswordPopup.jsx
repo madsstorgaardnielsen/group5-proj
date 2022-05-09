@@ -1,6 +1,105 @@
 import React, {useState, useCallback} from "react";
 import {useModal} from "react-hooks-use-modal";
 import "./style.css";
+import axios from 'axios';
+//import editUserPassword from "../../pages/profil"
+
+const url = "http://130.225.170.74"
+var currentUserId, oldPassword, newPassword1, newPassword2 = "";
+var token = localStorage.getItem("token");
+
+const tokenizedAxios = axios.create({
+    baseURL: url,
+    headers: {
+        Authorization: `Bearer ${token}` //JWT token from browser
+    }
+})
+
+
+//Get current user id
+function getUserId() {
+    tokenizedAxios.get(`/api/User/`).then(res => {
+        currentUserId = res.data.id; // update user id
+        //console.log("Loaded User ID from PWD change: " + res.data.id)
+        //console.log(token)
+        //console.log(res.data)
+        console.log(currentUserId)
+
+    }).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
+        if (error.response) { //if error occurs, print error info
+            console.log(error.response.data.title);
+            console.log(error.response.status);
+            console.log(error.response.data);
+        }
+    })
+
+    var object = {
+        "id": currentUserId,
+        "oldpassword": oldPassword,
+        "newpassword": newPassword1
+    }
+    //console.log(object);
+
+}
+
+function changePassword() {
+
+    if (oldPassword == null || newPassword1 == null || newPassword2 == null) {
+        alert("You need to fill all the fields");
+        return;
+    }
+
+    if (newPassword1 != newPassword2) {
+        alert("The new passwords did not match. Password not changed");
+        return;
+    }
+
+    var object = {
+        "id": currentUserId,
+        "oldpassword": oldPassword,
+        "newpassword": newPassword1
+    }
+    console.log(object);
+
+    /*
+axios.put(`http://130.225.170.74:80/api/User/updatepwd`, object , {
+    headers: { Authorization: `Bearer ${token}` },
+}).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
+    if (error.response) { //if error occurs, print error info
+        console.log(error.response.data.title);
+        console.log(error.response.status);
+        console.log(error.response.data);
+    }
+})
+
+ */
+
+
+    alert("STOP BEFORE ROUTING");
+
+}
+
+// Handler for old password change event
+const handleOldPasswordChange = (event) => {
+    const eventVal = event.target.value
+    oldPassword = eventVal
+    console.log("Old Password: " + oldPassword)
+}
+
+// Handler for new password 1/2 change event
+const handleNewPassword1Change = (event) => {
+    const eventVal = event.target.value
+    newPassword1 = eventVal
+    console.log("New Password1: " + newPassword1)
+}
+
+// Handler for new password 2/2 change event
+const handleNewPassword2Change = (event) => {
+    const eventVal = event.target.value
+    newPassword2 = eventVal
+    console.log("New Password2: " + newPassword2)
+}
+
 
 const PasswordPopup = () => {
     const [Modal, open, close, isOpen] = useModal("root", {
@@ -8,6 +107,7 @@ const PasswordPopup = () => {
         closeOnOverlayClick: true,
     });
 
+    getUserId()
     return (
         <div className="tilmeldBtn">
             <button type="submit" className="btn btn-primary" onClick={open}>
@@ -23,6 +123,7 @@ const PasswordPopup = () => {
                                 class="form-control"
                                 id="exampleInputPassword1"
                                 placeholder="Password"
+                                onChange={handleOldPasswordChange}
                             />
                         </div>
                         <div className="form-group">
@@ -32,6 +133,7 @@ const PasswordPopup = () => {
                                 className="form-control"
                                 id="exampleInputPassword1"
                                 placeholder="Password"
+                                onChange={handleNewPassword1Change}
                             />
                         </div>
                         <div className="form-group">
@@ -41,10 +143,12 @@ const PasswordPopup = () => {
                                 className="form-control"
                                 id="exampleInputPassword1"
                                 placeholder="Password"
+                                onChange={handleNewPassword2Change}
+                                onClick={() => changePassword()}
                             />
                         </div>
                         <div className="loginBtnDiv">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" onClick={() => getUserId()}>
                                 Save changes
                             </button>
                         </div>

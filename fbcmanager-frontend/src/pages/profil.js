@@ -78,6 +78,27 @@ const handleBirthdayChange = (event) => {
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
 
+
+//ALSO DELETE - BUT WORKS IN TEST
+function getUserIdsecond() {
+    tokenizedAxios.get(`/api/User/`).then(res => {
+        console.log(res.data)
+
+        //currentUserId = res.data.id; // update user id
+        console.log("Loaded User ID from PWD change: " + res.data.id)
+        console.log(token)
+        console.log(res.data)
+
+    }).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
+        if (error.response) { //if error occurs, print error info
+            console.log(error.response.data.title);
+            console.log(error.response.status);
+            console.log(error.response.data);
+        }
+    })
+}
+
+
 //Create new user to db
 function postUser() {
     var object = {
