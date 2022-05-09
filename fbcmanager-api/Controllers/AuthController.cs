@@ -28,7 +28,6 @@ public class AuthController : ControllerBase {
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDto) {
-        _logger.LogInformation($"Init login attempt: {loginUserDto.Email}");
         if (!ModelState.IsValid) {
             return BadRequest(ModelState);
         }

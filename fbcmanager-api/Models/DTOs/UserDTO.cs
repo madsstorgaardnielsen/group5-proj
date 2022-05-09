@@ -12,6 +12,8 @@ public class UserDTO : IDTO {
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Lastname { get; set; }
+    
+    [DataType(DataType.Date)] public DateTime Birthdate { get; set; }
 
     [Required]
     [DataType(DataType.EmailAddress)]
@@ -51,8 +53,9 @@ public class UpdateUserDTO : IDTO {
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Lastname { get; set; }
+    
+    [DataType(DataType.Date)] public DateTime Birthdate { get; set; }
 
-    [Required] public ICollection<string> Roles { get; set; }
 
 
     [Required]
@@ -91,6 +94,8 @@ public class CreateUserDTO {
     [Required]
     [StringLength(200, MinimumLength = 2)]
     public string Lastname { get; set; }
+    
+    [DataType(DataType.Date)] public DateTime Birthdate { get; set; }
 
     [Required] public ICollection<string> Roles { get; set; }
 

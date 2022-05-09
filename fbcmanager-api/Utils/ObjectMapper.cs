@@ -30,9 +30,11 @@ public class ObjectMapper : Profile {
         CreateMap<Practise, PractiseDTO>().ReverseMap();
         CreateMap<Practise, CreatePractiseDTO>().ReverseMap();
         CreateMap<Practise, UpdatePractiseDTO>().ReverseMap();
+        
 
         CreateMap<Team, TeamDTO>().ReverseMap();
         CreateMap<Team, CreateTeamDTO>().ReverseMap();
         CreateMap<Team, UpdateTeamDTO>().ReverseMap();
+        CreateMap<Team, PractiseTeamDTO>().ReverseMap();
     }
 }

@@ -102,5 +102,11 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<Practise>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Practises);
+        builder.Entity<Practise>()
+            .HasOne(x => x.Team)
+            .WithMany(x=>x.Practises);
+        builder.Entity<Practise>()
+            .HasOne(x => x.Field)
+            .WithMany(x=>x.Practises);
     }
 }
