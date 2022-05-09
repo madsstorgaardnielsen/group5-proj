@@ -138,3 +138,17 @@ public class LoginUserDTO {
     [StringLength(200, MinimumLength = 2)]
     public string Password { get; set; }
 }
+
+public class UpdatePasswordDTO {
+    [Required] public string Id { get; set; }    
+    
+    [Required]
+    [DataType(DataType.Password)]
+    [StringLength(200, MinimumLength = 2)]
+    public string OldPassword { get; set; }
+
+    [Required]
+    [DataType(DataType.Password)]
+    [StringLength(200, MinimumLength = 2)]
+    public string NewPassword { get; set; }
+}
