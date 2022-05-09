@@ -63,9 +63,9 @@ function Row(props) {
           <Button
             value="Tilmeld"
             onClick={() => {
-              btnPress(row, true);
+              btnPress(row, false);
             }}>
-            Tilmeld
+            Afmeld
           </Button>
         </TableCell>
       </TableRow>
@@ -73,12 +73,12 @@ function Row(props) {
   );
 }
 
-export default function CollapsibleTable() {
+export default function CollapsibleTableUser() {
   const [training, setTraining] = React.useState([]);
 
   useEffect(() => {
     axios
-      .get("http://130.225.170.74:80/api/Practise", {
+      .get("http://130.225.170.74:80/api/Practise/joined", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => setTraining(response.data)); //Setter data i training variable
@@ -92,7 +92,7 @@ export default function CollapsibleTable() {
             <TableCell>Date</TableCell>
             <TableCell>Field</TableCell>
             <TableCell>Team</TableCell>
-            <TableCell>Tilmeld</TableCell>
+            <TableCell>Afmeld</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
