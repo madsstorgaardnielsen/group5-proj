@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import {datePickerToDB} from "../../model/DateFormatter";
 
 
 function AdminPanel () {
@@ -18,40 +19,12 @@ function AdminPanel () {
     const navBack = () => {
         navigate('/adminPanel')
     }
-
-    function addToDB(e, header, subheader, description, id) {
-        e.preventDefault();
-        if (id === ""){ // if purpose is to add new
-            const object = {
-                "Date": "2022-05-02T11:00:00",
-                "Header": header,
-                "Subheader": subheader,
-                "Content": description,
-            };
-            axios.post(
-                "http://localhost:7285/api/News",
-                object
-            ).then((response) => console.log(response.data));
-        } else { // if purpose is to edit existing
-            const object = {
-                "id" : id,
-                "Date": "2022-05-02T11:00:00",
-                "Header": header,
-                "Subheader": subheader,
-                "Content": description,
-            };
-            axios.put(
-                "http://localhost:7285/api/News",
-                object
-            ).then((response) => console.log(response.data));
-        }
-    }
-
     let pageHeader = "Opret nyhed";
     let pageButton = "OPRET";
     let helper = "All fields must be filled out";
     let defaultHeader, defaultSubHeader, defaultBody, id;
     defaultHeader = defaultSubHeader = defaultBody = id = "";
+
     const [Header, setHeaderInput] = React.useState('');
     const handleHeaderInputChange = event => {
         setHeaderInput(event.target.value);
@@ -65,6 +38,52 @@ function AdminPanel () {
         setTextInput(event.target.value);
     };
 
+    function addToDB(e, header, subheader, description, id) {
+        e.preventDefault();
+        const today = datePickerToDB(new Date());
+        const token = localStorage.getItem("token");
+        if (id === ""){ // if purpose is to add new
+            const object = {
+                "Date": today,
+                "Header": header,
+                "Subheader": subheader,
+                "Content": description,
+            };
+            axios.post(
+                "http://130.225.170.74:80/api/News", object,
+                {headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((response) => console.log(response.data)).catch(function (error) {
+                if (error.response) {
+                    console.log(error.response.data.title);
+                    console.log(error.response.status);
+                    console.log(error.response.data);
+                }
+            });
+
+        } else { // if purpose is to edit existing
+            const object = {
+                "id" : id,
+                "Date": today,
+                "Header": header,
+                "Subheader": subheader,
+                "Content": description,
+            };
+            console.log(id)
+            axios.put(
+                "http://130.225.170.74:80/api/News", object,
+                {headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((response) => console.log(response.data)).catch(function (error) {
+                if (error.response) {
+                    console.log(error.response.data.title);
+                    console.log(error.response.status);
+                    console.log(error.response.data);
+                }
+            });
+        }
+    }
+
     const location = useLocation();
     try {
         if (location.state.news != null) {
@@ -73,7 +92,7 @@ function AdminPanel () {
             defaultHeader =  news.header;
             defaultSubHeader =  news.subheader;
             defaultBody = news.content;
-            id = news.Id;
+            id = news.id;
             pageHeader = "Rediger din nyhed";
             pageButton = "Opdater";
         }

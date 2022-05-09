@@ -50,7 +50,7 @@ export default function ProfileColumn() {
         <div className="">
             <section className="profile-pic-section" >
                 <a onClick={profileMenu} id="profileArrow"><img src={arrow}/></a>
-                <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
+                <a href="/profile"><img target={"_blank"} src={profile} className="profile-pic"/></a>
             </section>
             <div className="profile-dropdown" id="profile-dropdown">
                 <a onClick={toProfile}>Profil</a>

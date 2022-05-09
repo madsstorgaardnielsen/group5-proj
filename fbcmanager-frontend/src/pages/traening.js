@@ -14,9 +14,8 @@ function Traening () {
       <Navbar />
       <div className="body">
         <h1>Træning</h1>
-          <p>Dine træninger:</p>
+          <p>Alle træninger:</p>
           <CollapsibleTable />
-          <p>Søg efter træninger</p>
       </div>
     </div>
   );

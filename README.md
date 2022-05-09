@@ -5,7 +5,7 @@ This is a joint project made spring 2022 in DTU courses:
 * 62597 - Backend development, operations and distributed Systems
 
 The project is a sports application, in which it is possible to check news, sign up to events etc. 
-The deployed project can be viewed at: http://nemsport.ml or http://130.225.170.74/
+The deployed backend project can be accessed at http://130.225.170.74/
 
 Project is made by Group 05:
 * Mads Storgaard-Nielsen - S180076
@@ -16,24 +16,24 @@ Project is made by Group 05:
 * Frederik Lundsbjerg - S205472
 
 
-Opsætning af C# backend
+# Setup of C# backend
+The backend has been made in C#. The backend is running on the above IP-address. Should you want to run it locally, follow the guide below.
 
-1. Download og installer .net 6
-2. Hent IDE(Jeg bruger selv Rider, så kan ikke hjælpe med Visual Stuido problemer)
-	- Mac/Windows->JetBrains Rider
-	- Windows->Visual Studio (det er ikke det samme som visual studio code)
+1. Download and install .NET v. 6
 
-3. Kør database i docker (FBCManager)
+2. Download an IDE - We are using JetBrains Rider
 
-4. Connect til DB i mysqlworkbench
+3. Run database in Docker container called FBCManager
 
-5. Kør følgende
-	DROP SCHEMA `FBCManager`;
-	CREATE SCHEMA `FBCManager`;
-	use FBCManager;
+4. Connect to the DB in MySQLWorkbench
 
-6. Når backend er åbnet i IDE, kør følgende i terminalen
+5. Run following SQL-commands in order: 
+	1. DROP SCHEMA `FBCManager`;
+	2. CREATE SCHEMA `FBCManager`;
+	3. USE FBCManager;
+
+6. When the backend has been opened in the IDE, in terminal run: 
 	1. dotnet ef migrations add init
 	2. dotnet ef database update
 
-7. Hvis der ikke kommer fejlmeddelelser når ovenstående kommandoer køres, burde man kunne se tables i mysqlworkbench
+7. The backend is up and running 
