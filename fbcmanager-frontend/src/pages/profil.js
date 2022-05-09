@@ -24,50 +24,43 @@ const tokenizedAxios = axios.create({
 
 // Handler for user first name change event
 const handleFirstNameChange = (event) => {
-    const eventVal = event.target.value
-    firstName = eventVal
+    firstName = event.target.value
     console.log("First name: " + firstName)
 }
 
 // Handler for user surname change event
 const handleSurnameChange = (event) => {
-    const eventVal = event.target.value
-    surName = eventVal
+    surName = event.target.value
     console.log("Surname: " + surName)
 }
 
 // Handler for user city change event
 const handleCityChange = (event) => {
-    const eventVal = event.target.value
-    city = eventVal
+    city = event.target.value
     console.log("City: " + city)
 }
 
 // Handler for user zip code name change event
 const handleZipChange = (event) => {
-    const eventVal = event.target.value
-    zip = eventVal
+    zip = event.target.value
     console.log("Zip: " + zip)
 }
 
 // Handler for user address street and no. change event
 const handleStreetChange = (event) => {
-    const eventVal = event.target.value
-    street = eventVal
+    street = event.target.value
     console.log("Street: " + street)
 }
 
 // Handler for user email change event
 const handleEmailChange = (event) => {
-    const eventVal = event.target.value
-    email = eventVal
+    email = event.target.value
     console.log("Email: " + email)
 }
 
 // Handler for user phone number change event
 const handlePhoneNumberChange = (event) => {
-    const eventVal = event.target.value
-    PhoneNumber = eventVal
+    PhoneNumber = event.target.value
     console.log("PhoneNumber: " + PhoneNumber)
 }
 
@@ -346,7 +339,7 @@ export default class Profil extends React.Component {
                                     </div>
 
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="inputBirthdate">Birthday</label>
+                                        <label htmlFor="inputBirthdate">Birthdate</label>
                                         <input
                                             type="date"
                                             className="form-control"
@@ -394,8 +387,6 @@ export default class Profil extends React.Component {
                             <div className="centerStat">
                                 <p id={"numpractices_no"}>18 </p>
                             </div>
-
-                            <span></span>
 
                         </section>
 

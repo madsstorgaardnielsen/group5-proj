@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Can now add team and field through admin panel">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/components/pwChange_component/PasswordPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/components/pwChange_component/PasswordPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/profil.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/profil.js" afterDir="false" />
-    </list>
+    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="change password should work now" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +53,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652109538691</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="change password should work now">
+      <created>1652122053436</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1652122053436</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,6 +80,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Can now add team and field through admin panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Can now add team and field through admin panel" />
+    <MESSAGE value="change password should work now" />
+    <option name="LAST_COMMIT_MESSAGE" value="change password should work now" />
   </component>
 </project>
