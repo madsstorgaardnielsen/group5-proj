@@ -17,7 +17,7 @@ function Traening() {
       <div className="body">
         <h1>Dine tilmeldte træninger</h1>
         <CollapsibleTableUser/>
-        <h1>Træning</h1>
+        <h1>Alle træninginger</h1>
         <CollapsibleTable />
       </div>
     </div>
@@ -26,21 +26,3 @@ function Traening() {
 
 export default Traening;
 
-/* //Table.
-          <table>
-              <tr>
-                  <th>Dato</th>
-                  <th>Klokkeslæt</th>
-                  <th>Træningstype</th>
-                  <th>Træner</th>
-                  <th>Note</th>
-              </tr>
-              <tr>
-                  <td>11-03-2022</td>
-                  <td>08:00</td>
-                  <td>Backend</td>
-                  <td>Daniel</td>
-                  <td>Forelæsnings tid, husk at læse op</td>
-              </tr>
-          </table>
- */

@@ -31,6 +31,7 @@ const btnPress = async (row, bool) => {
       )
       .then((response) => {
         console.log(response.data);
+        //window.location.reload(false);
         alert("Tilmeldt");
       });
   } else {
@@ -44,7 +45,8 @@ const btnPress = async (row, bool) => {
       )
       .then((response) => {
         console.log(response.data);
-        alert("Tilmeldt");
+        //window.location.reload(false);
+        alert("Afmeldt");
       });
   }
 };
@@ -82,7 +84,7 @@ export default function CollapsibleTableUser() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => setTraining(response.data)); //Setter data i training variable
-  }, [setTraining]);
+  }, []);
 
   return (
     <TableContainer component={Paper}>
