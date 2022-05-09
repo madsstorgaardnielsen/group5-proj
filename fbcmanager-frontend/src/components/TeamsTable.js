@@ -2,27 +2,49 @@ import React from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Table from "@mui/material/Table";
-import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 // Table inspired by MUI. https://mui.com/components/tables/
 var token = localStorage.getItem("token");
 
+const btnPress = async (row, bool) => {
+  if (bool) {
+    axios
+      .post(
+        "http://130.225.170.74:80/api/Team/join",
+        { id: row.id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        alert("Tilmeldt");
+      });
+  } else {
+    axios
+      .post(
+        "http://130.225.170.74:80/api/Team/leave",
+        { id: row.id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        alert("Tilmeldt");
+      });
+  }
+};
+
 function Row(props) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -31,20 +53,8 @@ function Row(props) {
           <Button
             value="Tilmeld"
             onClick={() => {
-              axios
-                .post(
-                  "http://130.225.170.74:80/api/Team/join",
-                  { id: row.id },
-                  {
-                    headers: { Authorization: `Bearer ${token}` },
-                  }
-                )
-                .then((response) => console.log(response.data));
-                console.log(row.id);
-              alert("Tilmeldt");
-            }}
-          >
-            {" "}
+              btnPress(row, true);
+            }}>
             Tilmeld
           </Button>
         </TableCell>
@@ -52,27 +62,15 @@ function Row(props) {
           <Button
             value="Afmeld"
             onClick={() => {
-              axios
-                .post(
-                  "http://130.225.170.74:80/api/Team/leave",
-                  { id: row.id },
-                  {
-                    headers: { Authorization: `Bearer ${token}` },
-                  }
-                )
-                .then((response) => console.log(response.data));
-              alert("Ameldt");
-            }}
-          >
-            {" "}
-            Afmeld{" "}
+              btnPress(row, false);
+            }}>
+            Afmeld
           </Button>
         </TableCell>
       </TableRow>
     </React.Fragment>
   );
 }
-
 
 export default function CollapsibleTable() {
   const [teams, setTeams] = React.useState([]);
@@ -83,7 +81,7 @@ export default function CollapsibleTable() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => setTeams(response.data));
-  }, []);
+  }, [setTeams]);
 
   return (
     <TableContainer component={Paper}>

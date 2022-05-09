@@ -2,32 +2,60 @@ import React from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Table from "@mui/material/Table";
-import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 // Table inspired by MUI. https://mui.com/components/tables/
 var token = localStorage.getItem("token");
 
+function ParseDate(date) {
+  var arr = date.split("-");
+  var parsedDate = arr[2] + "/" + arr[1] + "/" + arr[0];
+  return parsedDate;
+}
+
+const btnPress = async (row, bool) => {
+  if (bool) {
+    axios
+      .post(
+        "http://130.225.170.74:80/api/Practise/join",
+        { id: row.id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        alert("Tilmeldt");
+      });
+  } else {
+    axios
+      .post(
+        "http://130.225.170.74:80/api/Practise/leave",
+        { id: row.id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        alert("Tilmeldt");
+      });
+  }
+};
+
 function Row(props) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell component="th" scope="row">
-          {row.date}
+          {ParseDate(row.date.split("T")[0])}
         </TableCell>
         <TableCell>{row.field["fieldName"]}</TableCell>
         <TableCell>{row.team["teamName"]}</TableCell>
@@ -35,18 +63,8 @@ function Row(props) {
           <Button
             value="Tilmeld"
             onClick={() => {
-              axios
-                .post(
-                  "http://130.225.170.74:80/api/Practise/join",
-                  { id: row.id },
-                  {
-                    headers: { Authorization: `Bearer ${token}` },
-                  }
-                )
-                .then((response) => console.log(response.data));
-              alert("Tilmeldt");
+              btnPress(row, true);
             }}>
-            {" "}
             Tilmeld
           </Button>
         </TableCell>
@@ -54,35 +72,15 @@ function Row(props) {
           <Button
             value="Tilmeld"
             onClick={() => {
-              axios
-                .post(
-                  "http://130.225.170.74:80/api/Practise/leave",
-                  { id: row.id },
-                  {
-                    headers: { Authorization: `Bearer ${token}` },
-                  }
-                )
-                .then((response) => console.log(response.data));
-              alert("Ameldt");
+              btnPress(row, false);
             }}>
-            {" "}
-            Afmeld{" "}
+            Afmeld
           </Button>
         </TableCell>
       </TableRow>
     </React.Fragment>
   );
 }
-
-/*
-Row.propTypes = {
-    row: PropTypes.shape({
-        fieldName: PropTypes.string.isRequired,
-        teamName: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-    }).isRequired,
-};
-*/
 
 export default function CollapsibleTable() {
   const [training, setTraining] = React.useState([]);
@@ -93,7 +91,7 @@ export default function CollapsibleTable() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => setTraining(response.data)); //Setter data i training variable
-  }, []);
+  }, [setTraining]);
 
   return (
     <TableContainer component={Paper}>

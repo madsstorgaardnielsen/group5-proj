@@ -9,8 +9,6 @@ import "../scss/style.scss";
 
 import noimg from "../res/img/noimg.png";
 import noimgsmall from "../res/img/noimg-small.png";
-import LoginPopup from "../components/login_component/Login";
-// import RegisterPopup from "../components/register_component/RegisterPopup";
 
 function Forside() {
   var token = localStorage.getItem("token");
@@ -24,7 +22,6 @@ function Forside() {
         })
         // .then((response) => console.log(response.data))
         .then((response) => {
-          console.log(response.data);
           setUser(response.data);
         });
   }, [setUser]);
