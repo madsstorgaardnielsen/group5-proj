@@ -17,9 +17,19 @@ import arrow from "../res/img/profile/down-arrow.svg"
 
 
 
-export default function profileColumn() {
+export default function ProfileColumn() {
     const membership_status = "Aktiv"
     const league = "U18"
+
+    const navigate = useNavigate()
+
+    const toProfile = () => {
+        navigate('/profile')
+    }
+
+    const toAdmin = () => {
+        navigate('/adminPanel')
+    }
 
 
     function profileMenu(){
@@ -40,12 +50,12 @@ export default function profileColumn() {
         <div className="">
             <section className="profile-pic-section" >
                 <a onClick={profileMenu} id="profileArrow"><img src={arrow}/></a>
-                <a href="/profil"><img target={"_blank"} src={profile} className="profile-pic"/></a>
+                <a href="/profile"><img target={"_blank"} src={profile} className="profile-pic"/></a>
             </section>
             <div className="profile-dropdown" id="profile-dropdown">
-                <a>Profil</a>
-                <a>Indstillinger</a>
-                <a>Admin</a>
+                <a onClick={toProfile}>Profil</a>
+                <a onClick={toAdmin}>Admin</a>
+                {/* <a>Indstillinger</a> */}
             </div>
             <div className="profile-column-body" id="profile-column">
                 <div className="profile-column-profile-container">

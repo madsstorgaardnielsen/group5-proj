@@ -1,11 +1,23 @@
 import React, {Component} from 'react';
 import {DayPilot, DayPilotCalendar, DayPilotNavigator} from "@daypilot/daypilot-lite-react";
 import "../scss/calendar.scss";
+import axios from "axios";
+
+
+
+
+
+var token = localStorage.getItem("token");
+
 
 class Calendar extends Component {
 
     constructor(props) {
         super(props);
+
+
+        
+        
         this.state = {
             viewType: "Week",
             durationBarVisible: false,

@@ -9,6 +9,7 @@ public class ObjectMapper : Profile {
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<User, CreateUserDTO>().ReverseMap();
         CreateMap<User, UpdateUserDTO>().ReverseMap();
+        CreateMap<User, ParticipantUserDTO>().ReverseMap();
 
         CreateMap<Event, EventDTO>().ReverseMap();
         CreateMap<Event, CreateEventDTO>().ReverseMap();
@@ -29,9 +30,11 @@ public class ObjectMapper : Profile {
         CreateMap<Practise, PractiseDTO>().ReverseMap();
         CreateMap<Practise, CreatePractiseDTO>().ReverseMap();
         CreateMap<Practise, UpdatePractiseDTO>().ReverseMap();
+        
 
         CreateMap<Team, TeamDTO>().ReverseMap();
         CreateMap<Team, CreateTeamDTO>().ReverseMap();
         CreateMap<Team, UpdateTeamDTO>().ReverseMap();
+        CreateMap<Team, PractiseTeamDTO>().ReverseMap();
     }
 }

@@ -28,7 +28,6 @@ public class AuthController : ControllerBase {
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDto) {
-        _logger.LogInformation($"Init login attempt: {loginUserDto.Email}");
         if (!ModelState.IsValid) {
             return BadRequest(ModelState);
         }
@@ -56,7 +55,8 @@ public class AuthController : ControllerBase {
         var result = await _userManager.CreateAsync(user, userDto.Password);
 
         if (result.Succeeded) {
-            await _userManager.AddToRolesAsync(user, userDto.Roles); //TODO man skal ikke kunne registrer sig som admin
+            var role = new List<string> {"User"};
+            await _userManager.AddToRolesAsync(user, role);
             return Accepted();
         }
 
