@@ -9,13 +9,13 @@ import axios from "axios";
 import {Card, CardContent, Grid} from '@mui/material';
 import Button from "@mui/material/Button";
 import "../../scss/eventPage.scss";
-
+import {getFullDate, getTime} from "../../model/DateFormatter";
 
 export default function EditNewsPage () {
-    const [news, setNews] = React.useState([])
+    const [news, setNews] = React.useState([]);
 
     const navigate = useNavigate()
-    const navToEditEvent = (news) => {
+    const navToEditNews = (news) => {
         navigate('/addNews', {
             state: {
                 news: news,
@@ -23,45 +23,46 @@ export default function EditNewsPage () {
         })
     }
 
-
     React.useEffect(() => {
-        axios.get("https://localhost:7285/api/News").then((response) => {
+        axios.get("http://130.225.170.74:80/api/News").then((response) => {
             setNews(response.data)
-        })})
+        })},[]);
 
 
     function deleteNews(e, id){
         e.preventDefault();
+        const token = localStorage.getItem("token");
         const object = {
             "Id": id
         };
-        axios.delete("https://localhost:7285/api/News", object).then((response) => console.log(response.data))
+        axios.delete("http://130.225.170.74:80/api/News",
+            {data: object, headers: { Authorization: `Bearer ${token}` }}).then((response) => console.log(response.data))
     }
 
     function editNews(e, news){
         e.preventDefault();
-        navToEditEvent(news)
+        navToEditNews(news)
     }
 
 
-    const NewsCard = ({ news }) => {
+    const AdminNewsCard = ({ news }) => {
         return (
             <Grid item sm={12}>
                 <Card className="newscard">
                     <CardContent>
-                        <Button sx={{ p: 0, mr: 1}}
-                                className="addButton" variant="contained" size="large" color="warning"
+                        <Button sx={{mr: 1}}
+                                className="addButton" variant="contained" size="small" color="warning"
                                 onClick={(e) => {editNews(e,news)}}
                         >
                             Edit
                         </Button>
-                        <Button sx={{ p: 0 }}
-                                className="addButton" variant="contained" size="large" color="error"
-                                onClick={(e) => {deleteNews(e,news.Id)}}
+                        <Button
+                            className="addButton" variant="contained" size="small" color="error"
+                            onClick={(e) => {deleteNews(e,news.id)}}
                         >
                             Delete
                         </Button>
-                        {` ${news.header} | ${news.subheader} | ${news.content} | ${news.date}`}
+                        {` ${news.header} | ${news.subheader} | ${getFullDate(news.date)} - ${getTime(news.date)}`}
                     </CardContent>
                 </Card>
             </Grid>
@@ -80,8 +81,7 @@ export default function EditNewsPage () {
                         <h1>Ændre på en nyhed</h1>
                         <Grid container spacing={1}>
                             {news.map(newss =>
-                                <NewsCard key={newss.id} news={newss}
-                                />
+                                <AdminNewsCard key={newss.id} news={newss}/>
                             )}
                         </Grid>
                     </div>
