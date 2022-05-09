@@ -19,7 +19,7 @@ public static class ServiceConfiguration {
         var rules = new List<RateLimitRule> {
             new RateLimitRule {
                 Endpoint = "*",
-                Limit = 1,
+                Limit = 10,
                 Period = "1s"
             }
         };

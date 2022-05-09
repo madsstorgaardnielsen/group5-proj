@@ -8,7 +8,6 @@ import axios from "axios";
 
 
 var token = localStorage.getItem("token");
-
 /*
 export function Practises() {
     const [training, setTraining] = React.useState([]);
@@ -27,16 +26,16 @@ export function Practises() {
         console.log(row.id)
     ))
     //console.log(training[0]['id'])
-
-    return training
+    
+    return [training]
 }
 */
+
 
 class Calendar extends Component {
 
     constructor(props) {
         super(props);
-
 
         
         
@@ -50,6 +49,7 @@ class Calendar extends Component {
             businessBeginsHour: 11, 
         
             // TODO: THESE EVENTS SHOULD BE LOADED AS A LIST OF JSON OBJECT FROM THE DATABASE.
+            // See https://api.daypilot.org/daypilot-calendar-events-load/
             events: [
                 {
                     id: 1,

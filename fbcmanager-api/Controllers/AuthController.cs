@@ -50,7 +50,7 @@ public class AuthController : ControllerBase {
         }
 
         var user = _mapper.Map<User>(userDto);
-        user.UserName = userDto.Email;
+        user.UserName = userDto.Email.Split("@")[0];
 
         var result = await _userManager.CreateAsync(user, userDto.Password);
 
