@@ -2,7 +2,6 @@ import React, {useState, useCallback} from "react";
 import {useModal} from "react-hooks-use-modal";
 import "./style.css";
 import axios from 'axios';
-//import editUserPassword from "../../pages/profil"
 
 const url = "http://130.225.170.74"
 var currentUserId, oldPassword, newPassword1, newPassword2 = "";
@@ -42,14 +41,15 @@ function getUserId() {
 
 }
 
+//Function for api call to change the password in the backend
 function changePassword() {
 
-    if (oldPassword == null || newPassword1 == null || newPassword2 == null) {
-        alert("You need to fill all the fields");
+    if (oldPassword == null || newPassword1 == null || newPassword2 == null) { // any of the fields are null
+        alert("You need to fill all the fields. Password not changed");
         return;
     }
 
-    if (newPassword1 != newPassword2) {
+    if (newPassword1 !== newPassword2) { //new passwords should match
         alert("The new passwords did not match. Password not changed");
         return;
     }
@@ -61,22 +61,14 @@ function changePassword() {
     }
     console.log(object);
 
-    /*
-axios.put(`http://130.225.170.74:80/api/User/updatepwd`, object , {
-    headers: { Authorization: `Bearer ${token}` },
-}).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
-    if (error.response) { //if error occurs, print error info
-        console.log(error.response.data.title);
-        console.log(error.response.status);
-        console.log(error.response.data);
-    }
-})
 
- */
-
-
-    alert("STOP BEFORE ROUTING");
-
+    tokenizedAxios.post(`http://130.225.170.74:80/api/User/updatepwd`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
+        if (error.response) { //if error occurs, print error info
+            console.log(error.response.data.title);
+            console.log(error.response.status);
+            console.log(error.response.data);
+        }
+    })
 }
 
 // Handler for old password change event
@@ -107,7 +99,8 @@ const PasswordPopup = () => {
         closeOnOverlayClick: true,
     });
 
-    getUserId()
+    getUserId() // api call to get the user id for the password change
+
     return (
         <div className="tilmeldBtn">
             <button type="submit" className="btn btn-primary" onClick={open}>
@@ -127,7 +120,7 @@ const PasswordPopup = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">New password</label>
+                            <label htmlFor="exampleInputPassword2">New password</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -137,18 +130,17 @@ const PasswordPopup = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Confirm new password</label>
+                            <label htmlFor="exampleInputPassword3">Confirm new password</label>
                             <input
                                 type="password"
                                 className="form-control"
                                 id="exampleInputPassword1"
                                 placeholder="Password"
                                 onChange={handleNewPassword2Change}
-                                onClick={() => changePassword()}
                             />
                         </div>
                         <div className="loginBtnDiv">
-                            <button type="submit" class="btn btn-primary" onClick={() => getUserId()}>
+                            <button type="submit" class="btn btn-primary" onClick={() => changePassword()}>
                                 Save changes
                             </button>
                         </div>

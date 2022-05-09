@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Can now add team and field through admin panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/components/pwChange_component/PasswordPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/components/pwChange_component/PasswordPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/profil.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/profil.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +74,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Can now add team and field through admin panel" />

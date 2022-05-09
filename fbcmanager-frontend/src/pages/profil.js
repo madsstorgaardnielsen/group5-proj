@@ -9,7 +9,7 @@ import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
 import {getFullDateDash} from "../model/DateFormatter";
-import LoginPopup from "../components/login_component/LoginPopup";
+import LoginPopup from "../components/login_component/Login";
 
 const url = "http://130.225.170.74"
 var currentUserId, firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
@@ -77,27 +77,6 @@ const handleBirthdayChange = (event) => {
     birthdate = getFullDateDash(eventVal) // Change date format from YYYY-MM-DDTHH-MM-SS to YYYY-MM-DD
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
-
-
-//ALSO DELETE - BUT WORKS IN TEST
-function getUserIdsecond() {
-    tokenizedAxios.get(`/api/User/`).then(res => {
-        console.log(res.data)
-
-        //currentUserId = res.data.id; // update user id
-        console.log("Loaded User ID from PWD change: " + res.data.id)
-        console.log(token)
-        console.log(res.data)
-
-    }).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
-        if (error.response) { //if error occurs, print error info
-            console.log(error.response.data.title);
-            console.log(error.response.status);
-            console.log(error.response.data);
-        }
-    })
-}
-
 
 //Create new user to db
 function postUser() {
@@ -209,7 +188,7 @@ export default class Profil extends React.Component {
 
     render() {
 
-        if (token == null){ //user is not logged in
+        if (token == null) {//null){ //user is not logged in
             return (
                 <div>
                     <Helmet>
