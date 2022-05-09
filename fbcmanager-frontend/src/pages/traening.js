@@ -1,26 +1,24 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../scss/style.scss"
-import Table from '@mui/material/Table';
-import CollapsibleTable from "../components/TrainingsTable"
-import { Helmet } from 'react-helmet';
+import "../scss/style.scss";
+import Table from "@mui/material/Table";
+import CollapsibleTable from "../components/TrainingsTable";
+import { Helmet } from "react-helmet";
 
-function Traening () {
+function Traening() {
   return (
     <div>
-        <Helmet>
-            <title>Trainings | NemSport</title>
-        </Helmet>
+      <Helmet>
+        <title>Trainings | NemSport</title>
+      </Helmet>
       <Navbar />
       <div className="body">
         <h1>Træning</h1>
-          <p>Dine træninger:</p>
-          <CollapsibleTable />
-          <p>Søg efter træninger</p>
+        <CollapsibleTable />
       </div>
     </div>
   );
-};
+}
 
 export default Traening;
 

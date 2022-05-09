@@ -1,11 +1,44 @@
 import React, {Component} from 'react';
 import {DayPilot, DayPilotCalendar, DayPilotNavigator} from "@daypilot/daypilot-lite-react";
 import "../scss/calendar.scss";
+import axios from "axios";
+
+
+
+
+
+var token = localStorage.getItem("token");
+/*
+export function Practises() {
+    const [training, setTraining] = React.useState([]);
+
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/Practise",{
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((response)=>setTraining(response.data)) //Setter data i training variable
+      }, [])
+
+    //console.log(training.map((row) => (
+    //    [row.id]
+    //))
+    //)
+    training.map((row) => (
+        console.log(row.id)
+    ))
+    //console.log(training[0]['id'])
+    
+    return [training]
+}
+*/
+
 
 class Calendar extends Component {
 
     constructor(props) {
         super(props);
+
+        
+        
         this.state = {
             viewType: "Week",
             durationBarVisible: false,
@@ -16,6 +49,7 @@ class Calendar extends Component {
             businessBeginsHour: 11, 
         
             // TODO: THESE EVENTS SHOULD BE LOADED AS A LIST OF JSON OBJECT FROM THE DATABASE.
+            // See https://api.daypilot.org/daypilot-calendar-events-load/
             events: [
                 {
                     id: 1,

@@ -16,6 +16,7 @@ public class PractiseController : ControllerBase {
     private readonly ILogger<PractiseController> _logger;
     private readonly IMapper _mapper;
     private readonly PractiseRepository _practiseRepository;
+
     private readonly TokenUtils _tokenUtils;
 
     public PractiseController(IMapper mapper, PractiseRepository practiseRepository, TokenUtils tokenUtils,
@@ -32,11 +33,13 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllJoinedPractises([FromBody] UserDTO userDTO, CancellationToken ct) {
-        var joinedPractises = await _practiseRepository.GetAllJoinedPractises(userDTO.Id, ct);
+    public async Task<IActionResult> GetAllJoinedPractises(CancellationToken ct) {
+        var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
+        var userIdFromToken = _tokenUtils.GetUserIdFromToken(token);
+        var joinedPractises = await _practiseRepository.GetAllJoinedPractises(userIdFromToken, ct);
 
         if (joinedPractises != null) {
-            var mappedPractises = _mapper.Map<PractiseDTO>(joinedPractises);
+            var mappedPractises = _mapper.Map<IList<PractiseDTO>>(joinedPractises);
             return Ok(mappedPractises);
         }
 
@@ -121,7 +124,7 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId, CancellationToken ct) {
-        var practise = await _practiseRepository.GetIncludeParticipants(practiseId, ct);
+        var practise = await _practiseRepository.GetIncludeAllRelations(practiseId, ct);
 
         if (practise != null) {
             var result = _mapper.Map<PractiseDTO>(practise);
@@ -137,7 +140,8 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractises(CancellationToken ct) {
-        var practises = await _practiseRepository.GetAll(ct);
+        var practises = await _practiseRepository.GetAllIncludeAllRelations(ct);
+
         var results = _mapper.Map<IList<PractiseDTO>>(practises).OrderBy(x => x.Date).ToList();
         if (results.Count > 0) {
             return Ok(results);

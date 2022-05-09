@@ -6,6 +6,11 @@ import ProfileColumn from "../components/ProfileColumn";
 import "../scss/style.scss"
 import "../scss/homePage.scss"
 import { Helmet } from 'react-helmet';
+import axios from "axios";
+import {getDate, getTime} from "../model/DateFormatter.js"; 
+import EventCard from "../components/EventCard";
+import Grid from '@mui/material/Grid';
+
 
 //import Calendar from 'react-calendar'
 //import 'react-calendar/dist/Calendar.css'
@@ -29,6 +34,20 @@ function Home() {
     navigate('/events')
   }
 
+  const [events, setEvents] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get("http://130.225.170.74:80/api/Event").then((response) => {
+        setEvents(response.data)
+    })})
+  
+  /*
+  events.map((row) => (
+    console.log(row.id)
+  ));
+  */
+ //console.log(events[0].toString())
+ 
   return (
     <div>
       <Helmet>
@@ -85,45 +104,11 @@ function Home() {
             {/* END Calendar */}
 
             {/* Events */}
-            <div className="home-events">
-              <div>
-                {/* TODO: THESE PREVEIWS OF EVENTS, SHOULD BE FETCHED DYNAMICALLY */}
-                <section>
-                  <h4>Pølsehorn og snacks</h4>
-                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
-                  <span>
-                    <p>29/09/2022 13:00</p>
-                    <p>Klubhuset</p>
-                  </span>
-                </section>
-                <section>
-                  <h4>Pølsehorn og snacks</h4>
-                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
-                  <span>
-                    <p>29/09/2022 13:00</p>
-                    <p>Klubhuset</p>
-                  </span>
-                </section>
-              </div>
-              <div>
-                <section>
-                  <h4>Pølsehorn og snacks</h4>
-                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
-                  <span>
-                    <p>29/09/2022 13:00</p>
-                    <p>Klubhuset</p>
-                  </span>
-                </section>
-                <section>
-                  <h4>Pølsehorn og snacks</h4>
-                  <p>Tag dine forældre med til pølsehorn og snacks ved klubhuset på onsdag!</p>
-                  <span>
-                    <p>29/09/2022 13:00</p>
-                    <p>Klubhuset</p>
-                  </span>
-                </section>
-              </div>
-            </div>
+            <Grid container className='home-events'>
+                {events.map(event =>
+                    <EventCard key={event.id} event={event}/>
+                )}
+            </Grid>
             <div className="all-events-link-container">
               <a onClick={toEvents} className="all-events-link">Se alle begivenheder</a>
             </div>

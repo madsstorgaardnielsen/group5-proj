@@ -69,7 +69,6 @@ function AdminPanel () {
                 "Subheader": subheader,
                 "Content": description,
             };
-            console.log(id)
             axios.put(
                 "http://130.225.170.74:80/api/News", object,
                 {headers: { Authorization: `Bearer ${token}` },

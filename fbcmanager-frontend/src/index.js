@@ -18,6 +18,11 @@ import AddNews from './pages/adminPanel/addNews';
 import AddTraining from './pages/adminPanel/addTraining';
 import AddEvent from './pages/adminPanel/addEvent';
 import EditNewsPage from './pages/adminPanel/editNewsPage';
+import AddField from './pages/adminPanel/addField';
+import AddTeam from './pages/adminPanel/addTeam';
+import Teams from './pages/teams';
+import TeamDetails from './pages/teamdetails';
+import Login from './components/login_component/Login'
 
 
 ReactDOM.render(
@@ -29,12 +34,17 @@ ReactDOM.render(
             <Route path="/nyheder" element={<Nyheder/>}/>
             <Route path="/events" element={<Events/>}/>
             <Route path="/traening" element={<Traening/>}/>
+            <Route path="/teams" element={<Teams/>}/>
+            <Route path="/teams/details" element={<TeamDetails/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/signup" element={<Registration/>}/>
+            <Route path="/signin" element={<Login/>}/>
             <Route path="/adminPanel" element={<AdminPanel/>}/>
             <Route path="/addNews" element={<AddNews/>}/>
             <Route path="/addTraining" element={<AddTraining/>}/>
             <Route path="/addEvent" element={<AddEvent/>}/>
+            <Route path="/addField" element={<AddField/>}/>
+            <Route path="/addTeam" element={<AddTeam/>}/>
             <Route path="/editNews" element={<EditNewsPage/>}/>
         </Routes>
         <TopScroll/>

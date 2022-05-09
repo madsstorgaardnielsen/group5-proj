@@ -1,3 +1,4 @@
+// 15/04/2022
 export function getFullDate(date){
     let year = date.slice(0,4)
     let month = date.slice(5,7)
@@ -5,6 +6,7 @@ export function getFullDate(date){
     return day + '/' + month + '/' + year
 }
 
+// 15/04
 export function getFullDateDash(date){
     let year = date.slice(0,4)
     let month = date.slice(5,7)
@@ -18,14 +20,16 @@ export function getDate(date){
     return day + '/' + month
 }
 
+// 12:40
 export function getTime(time){
     time = time.slice(-8,-3)
     return time
 }
 
+// From datepicker to DB
 export function datePickerToDB(date){
-    let day =date.getDate().toString()
-    let month = date.getMonth().toString()
+    let month =date.getDate().toString()
+    let day = date.getMonth().toString()
     let hours = date.getHours().toString()
     let minutes = date.getMinutes().toString()
     if (day.length < 2){

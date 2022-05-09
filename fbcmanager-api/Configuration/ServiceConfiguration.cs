@@ -19,7 +19,7 @@ public static class ServiceConfiguration {
         var rules = new List<RateLimitRule> {
             new RateLimitRule {
                 Endpoint = "*",
-                Limit = 1,
+                Limit = 10,
                 Period = "1s"
             }
         };
@@ -78,7 +78,7 @@ public static class ServiceConfiguration {
                     Log.Error($"Error in {contextFeature.Error}");
                     await context.Response.WriteAsync(new Error {
                         StatusCode = context.Response.StatusCode,
-                        Message = "Internal server error" 
+                        Message = $"Internal server error {contextFeature.Error}" 
                     }.ToString());
                 }
             });

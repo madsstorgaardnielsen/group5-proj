@@ -3,10 +3,15 @@ using fbcmanager_api.Database.Models;
 
 namespace fbcmanager_api.Models.DTOs;
 
+public class PractiseTeamDTO : IDTO {
+    public string Id { get; set; }
+    public string TeamName { get; set; }
+}
+
 public class TeamDTO : IDTO {
     public string Id { get; set; }
     public string TeamName { get; set; }
-    public List<UserDTO> TeamMembers { get; set; }
+    public List<ParticipantUserDTO> TeamMembers { get; set; }
     public List<Booking> Bookings { get; set; }
 }
 

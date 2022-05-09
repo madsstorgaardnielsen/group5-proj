@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5a97584-73b0-4b64-bb9a-1c2620d59659" name="Default Changelist" comment="password so far" />
+    <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Can now add team and field through admin panel">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -15,183 +28,38 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="28sXwSJUx98OIwUMsHDHVuCSfZO" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28vfC6xYOoLwWN6SjqOItcvUNcl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/fbcmanager-frontend/src/components" />
-    <property name="nodejs_package_manager_path" value="npm" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\frede\Desktop\FE_readInputData_080522\fbcmanager-frontend\src\components" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c5a97584-73b0-4b64-bb9a-1c2620d59659" name="Default Changelist" comment="" />
-      <created>1652006504991</created>
+      <changelist id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="" />
+      <created>1652101849598</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1652006504991</updated>
-      <workItem from="1652006506255" duration="14627000" />
-      <workItem from="1652079825494" duration="28621000" />
+      <updated>1652101849598</updated>
+      <workItem from="1652101850847" duration="92000" />
     </task>
-    <task id="LOCAL-00001" summary="fix hardcoded">
-      <created>1652006741370</created>
+    <task id="LOCAL-00001" summary="Can now add team and field through admin panel">
+      <created>1652109538691</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1652006741370</updated>
+      <updated>1652109538691</updated>
     </task>
-    <task id="LOCAL-00002" summary="you can change values, errorhandling etc.">
-      <created>1652023227469</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1652023227470</updated>
-    </task>
-    <task id="LOCAL-00003" summary="effictivized code, removed unsused and reformatting">
-      <created>1652031757168</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1652031757168</updated>
-    </task>
-    <task id="LOCAL-00004" summary="routing bug fix">
-      <created>1652032149935</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1652032149935</updated>
-    </task>
-    <task id="LOCAL-00005" summary="minor changes">
-      <created>1652032807773</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1652032807773</updated>
-    </task>
-    <task id="LOCAL-00006" summary="axios token no longer hardcoded">
-      <created>1652089928279</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1652089928279</updated>
-    </task>
-    <task id="LOCAL-00007" summary="more efficient axios">
-      <created>1652090426727</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1652090426727</updated>
-    </task>
-    <task id="LOCAL-00008" summary="no more hardcoded ip in API calls">
-      <created>1652091023769</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1652091023769</updated>
-    </task>
-    <task id="LOCAL-00009" summary="shortened code">
-      <created>1652091614724</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1652091614724</updated>
-    </task>
-    <task id="LOCAL-00010" summary="get current user, update date so it can be shown, change user data all works">
-      <created>1652103632333</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1652103632333</updated>
-    </task>
-    <task id="LOCAL-00011" summary="shortened code, show screen if not logged in">
-      <created>1652109856141</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1652109856141</updated>
-    </task>
-    <task id="LOCAL-00012" summary="password so far">
-      <created>1652118889911</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1652118889911</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,21 +75,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix hardcoded" />
-    <MESSAGE value="you can change values, errorhandling etc." />
-    <MESSAGE value="effictivized code, removed unsused and reformatting" />
-    <MESSAGE value="routing bug fix" />
-    <MESSAGE value="minor changes" />
-    <MESSAGE value="axios token no longer hardcoded" />
-    <MESSAGE value="more efficient axios" />
-    <MESSAGE value="no more hardcoded ip in API calls" />
-    <MESSAGE value="shortened code" />
-    <MESSAGE value="get current user, update date so it can be shown, change user data all works" />
-    <MESSAGE value="shortened code, show screen if not logged in" />
-    <MESSAGE value="password so far" />
-    <option name="LAST_COMMIT_MESSAGE" value="password so far" />
+    <MESSAGE value="Can now add team and field through admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Can now add team and field through admin panel" />
   </component>
 </project>

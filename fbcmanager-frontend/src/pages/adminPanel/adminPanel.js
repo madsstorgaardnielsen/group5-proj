@@ -9,19 +9,12 @@ import {useNavigate} from "react-router-dom";
 
 function AdminPanel () {
     const navigate = useNavigate()
-    const toAddEvent = () => {
-        navigate('/addEvent')
-    }
-    const toAddTraining = () => {
-        navigate('/addTraining')
-    }
-    const toAddNews = () => {
-        navigate('/addNews')
-    }
-
-    const toEditNews = () => {
-        navigate('/editNews')
-    }
+    const toAddEvent = () => {navigate('/addEvent')}
+    const toAddTraining = () => {navigate('/addTraining')}
+    const toAddNews = () => {navigate('/addNews')}
+    const toAddField = () => {navigate('/addField')}
+    const toAddTeam = () => {navigate('/addTeam')}
+    const toEditNews = () => {navigate('/editNews')}
 
     return (
         <div>
@@ -51,8 +44,17 @@ function AdminPanel () {
                         <Button className="addButton" variant="contained" size="large" color="warning" onClick={toEditNews}>
                             Edit
                         </Button>
-                    </div>
 
+                        <h5 className="addItem">Opret ny bane</h5>
+                        <Button sx={{ mr: 2 }} variant="contained" size="large" onClick={toAddField}>
+                            Add
+                        </Button>
+
+                        <h5 className="addItem">Opret nyt team</h5>
+                        <Button sx={{ mr: 2 }} variant="contained" size="large" onClick={toAddTeam}>
+                            Add
+                        </Button>
+                    </div>
 
                     <div className="main-grid-item">
                         <ProfileColumn />
