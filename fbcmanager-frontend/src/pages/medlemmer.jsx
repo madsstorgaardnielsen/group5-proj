@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../scss/style.scss";
-import Medlemmerlist from "../components/medlemmerlist";
+import MedlemmerTable from "../components/MedlemmerTable";
 import { Helmet } from 'react-helmet';
 
 class Medlemmer extends React.Component {
@@ -13,7 +13,7 @@ class Medlemmer extends React.Component {
           </Helmet>
         <Navbar />
         <div className="body">
-          <Medlemmerlist/>
+          <MedlemmerTable/>
         </div>
       </div>
     );

@@ -21,7 +21,7 @@ export default function EventPage() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar />  
             <div className="body">
                 <div className="main-grid-container">
                     <div className="main-grid-item">

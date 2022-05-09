@@ -1,28 +1,30 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useModal } from "react-hooks-use-modal";
 import "./style.css";
+import { Helmet } from "react-helmet";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 // import { attemptLogin } from "fbcmanager-frontend/src/services/login_service";
-
+import Navbar from "../Navbar";
 import axios from "axios";
 
-const LoginPopup = () => {
-  const [Modal, open, close, isOpen] = useModal("root", {
-    preventScroll: true,
-    closeOnOverlayClick: true,
-  });
+const Login = () => {
+  const navigate = useNavigate();
+  const toHome = () => {
+    navigate("/");
+  };
+
+
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const attemptLogin = async (e) => {
-    console.log("test");
     var loginObj = { email: username, password: password };
-    console.log(loginObj);
     axios
       .post("http://130.225.170.74:80/api/Auth/login", loginObj)
       .then((res) => {
         localStorage.setItem("token", res.data["token"]);
-        close(true);
+        toHome();
       })
       .catch(function (error) {
         if (error.response) {
@@ -37,11 +39,14 @@ const LoginPopup = () => {
 
   return (
     <div>
-      <button className="headerLogin" onClick={open}>
-        Login
-      </button>
-      <Modal>
-        <div className="modalDiv">
+      <div>
+        <Helmet>
+          <title>Register | NemSport</title>
+        </Helmet>
+        <Navbar />
+        <div className="body">
+          <h1>Login</h1>
+
           <form>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Email address</label>
@@ -75,9 +80,9 @@ const LoginPopup = () => {
             </div>
           </form>
         </div>
-      </Modal>
+      </div>
     </div>
   );
 };
 
-export default LoginPopup;
+export default Login;

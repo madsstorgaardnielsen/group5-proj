@@ -21,7 +21,7 @@ import EditNewsPage from './pages/adminPanel/editNewsPage';
 import AddField from './pages/adminPanel/addField';
 import AddTeam from './pages/adminPanel/addTeam';
 import Teams from './pages/teams';
-
+import Login from './components/login_component/Login'
 
 ReactDOM.render(
     <Router>
@@ -35,6 +35,7 @@ ReactDOM.render(
             <Route path="/teams" element={<Teams/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/signup" element={<Registration/>}/>
+            <Route path="/signin" element={<Login/>}/>
             <Route path="/adminPanel" element={<AdminPanel/>}/>
             <Route path="/addNews" element={<AddNews/>}/>
             <Route path="/addTraining" element={<AddTraining/>}/>

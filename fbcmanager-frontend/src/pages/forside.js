@@ -1,31 +1,51 @@
-import React from "react";
+import {React, useEffect, useState} from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 import "../scss/forside.scss";
 import "../scss/style.scss";
 
-
 import noimg from "../res/img/noimg.png";
 import noimgsmall from "../res/img/noimg-small.png";
-import LoginPopup from "../components/login_component/LoginPopup";
+import LoginPopup from "../components/login_component/Login";
 // import RegisterPopup from "../components/register_component/RegisterPopup";
 
-
-
 function Forside() {
+  var token = localStorage.getItem("token");
 
-  const navigate = useNavigate()
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://130.225.170.74:80/api/User", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      // .then((response) => console.log(response.data))
+      .then((response) => {
+        console.log(response.data)
+        setUser(response.data)});
+  }, [user]);
+
+  const navigate = useNavigate();
 
   const toHome = () => {
-    navigate('/home')
-  }
+    navigate("/home");
+  };
 
   const toRegistrationPage = () => {
-    navigate('/signup')
-  }
-  
+    navigate("/signup");
+  };
+
+  const toLoginPage = () => {
+    navigate("/signin");
+  };
+
+  const toProfilePage = () => {
+    navigate("/profile");
+  };
+
   return (
     <div>
       <Helmet>
@@ -37,12 +57,21 @@ function Forside() {
           <div className="headerWrapper">
             <section>
               <h1 className="mainHeader">Velkommen til NemSport</h1>
-              <p className="mainDescription">Danmarks største fodbold klub gjort nem</p>
-              {/*<NavLink className="headerLogin">Login</NavLink>*/}
-              <LoginPopup/>
-              {/* <RegisterPopup/> */}
-              {/* <button className="headerLogin" onClick={toHome}>Login</button> */}
-              <button className="headerTilmeld" onClick={toRegistrationPage}>Tilmeld</button>
+              <p className="mainDescription">
+                Danmarks største fodbold klub gjort nem
+              </p>
+              {token !== null ? (
+                <button className="headerLogin" onClick={toProfilePage}>Velkommen {user.firstname}!</button>
+              ) : (
+                <button className="headerLogin" onClick={toLoginPage}>
+                  Login
+                </button>
+              )}
+              {token !== null ? null : (
+                <button className="headerTilmeld" onClick={toRegistrationPage}>
+                  Tilmeld
+                </button>
+              )}
             </section>
           </div>
         </header>
@@ -76,6 +105,6 @@ function Forside() {
       </div>
     </div>
   );
-};
+}
 
 export default Forside;
