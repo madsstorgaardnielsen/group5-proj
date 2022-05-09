@@ -9,9 +9,9 @@ import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
 
-const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
+//const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
 const url = "http://130.225.170.74"
-const currentUserId = "37d1c224-ac62-400f-b692-0808fb212022"
+const currentUserId = "a1b0e52b-aab3-4e20-bbf3-ca57caa74c80"
 var firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
 var token = localStorage.getItem("token");
 
@@ -103,7 +103,7 @@ function postUser() {
             "Admin"
         ]
     }
-    tokenizedAxios.post("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request
+    tokenizedAxios.post(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request - "http://130.225.170.74/api/User/"
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -143,7 +143,7 @@ function editUser() {
         ]
     }
     console.log(object)
-    tokenizedAxios.post("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request
+    tokenizedAxios.post(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
