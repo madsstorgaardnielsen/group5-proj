@@ -9,7 +9,7 @@ import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
 import {getFullDateDash} from "../model/DateFormatter";
-import LoginPopup from "../components/login_component/Login";
+import LoginPopup from "../components/login_component/LoginPopup";
 
 const url = "http://130.225.170.74"
 var currentUserId, firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
