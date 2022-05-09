@@ -35,7 +35,7 @@ ReactDOM.render(
             <Route path="/events" element={<Events/>}/>
             <Route path="/traening" element={<Traening/>}/>
             <Route path="/teams" element={<Teams/>}/>
-            <Route path="/teams/details" element={<TeamDetails/>}/>
+            <Route path="/team/details" element={<TeamDetails/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/signup" element={<Registration/>}/>
             <Route path="/signin" element={<Login/>}/>
