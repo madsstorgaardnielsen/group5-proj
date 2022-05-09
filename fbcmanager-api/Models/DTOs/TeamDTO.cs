@@ -11,7 +11,7 @@ public class PractiseTeamDTO : IDTO {
 public class TeamDTO : IDTO {
     public string Id { get; set; }
     public string TeamName { get; set; }
-    public List<UserDTO> TeamMembers { get; set; }
+    public List<ParticipantUserDTO> TeamMembers { get; set; }
     public List<Booking> Bookings { get; set; }
 }
 

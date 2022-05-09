@@ -8,6 +8,7 @@ public class PractiseDTO : IDTO {
     [DataType(DataType.Date)] public DateTime Date { get; set; }
     public PractiseTeamDTO Team { get; set; }
     public FieldDTO Field { get; set; }
+    public List<ParticipantUserDTO> Participants { get; set; }
 }
 
 public class CreatePractiseDTO {
