@@ -8,6 +8,7 @@ import {Helmet} from 'react-helmet';
 import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
+import {getFullDate} from "../model/DateFormatter";
 
 //const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
 const url = "http://130.225.170.74"
@@ -18,8 +19,7 @@ var token = localStorage.getItem("token");
 const tokenizedAxios = axios.create({
     baseURL: url,
     headers: {
-        //Authorization: 'Bearer  + ${token}'//token from browser
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}` //token from browser
         //Authorization: 'Bearer ' + current_jwt_token //variable token
     }
 })
@@ -78,11 +78,9 @@ const handleBirthdayChange = (event) => {
     const eventVal = event.target.value
     //birthdate = eventVal
     //console.log("Birthdate_YYYY-MM-DD: " + birthdate)
+
     // Change date format from YYYY-MM-DD to DD/MM/YYYY
-    let year = eventVal.slice(0, 4)
-    let month = eventVal.slice(5, 7)
-    let day = eventVal.slice(8, 10)
-    birthdate = day + '/' + month + '/' + year
+    birthdate = getFullDate(eventVal)
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
 
