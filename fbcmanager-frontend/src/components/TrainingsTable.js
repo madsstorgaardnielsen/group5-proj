@@ -4,6 +4,7 @@ import axios from "axios";
 import Table from '@mui/material/Table';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import TableBody from '@mui/material/TableBody';
@@ -46,6 +47,11 @@ function Row(props) {
                 <TableCell component="th" scope="row">{row.date}</TableCell>
                 <TableCell >{row.fieldid}</TableCell>
                 <TableCell >{row.teamid}</TableCell>
+                <TableCell ><Button value="Tilmeld" onClick={() => { 
+                    axios.put("http://130.225.170.74:80/api/Practise/join", "27d6e230-023b-490a-a9d5-0383946d94d9").then((response)=>console.log(response.data)) ; //Todo change to add to users list
+                    alert('Tilmeldt');
+
+                }}> Tilmeld/Afmeld </Button></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -95,7 +101,7 @@ export default function CollapsibleTable() {
             "timeStart": "22:00:00",
             "timeEnd": "00:00:00"
             }
-      axios.post("http://130.225.170.74:80/api/Practise", object).then((response)=>console.log(response.data)) //respone contains the data from post
+      //axios.post("http://130.225.170.74:80/api/Practise", object).then((response)=>console.log(response.data)) //respone contains the data from post
       //axios.post("http://130.225.170.74:80/api/training", object2).then((response)=>console.log(response.data)) //respone contains the data from post
       //axios.post("http://localhost:8080/training", object3).then((response)=>console.log(response.data)) //respone contains the data from post
       axios.get("http://130.225.170.74:80/api/Practise").then((response)=>setTraining(response.data)) //Setter data i training variable
@@ -111,6 +117,7 @@ export default function CollapsibleTable() {
                         <TableCell>Date</TableCell>
                         <TableCell >Field</TableCell>
                         <TableCell >Team</TableCell>
+                        <TableCell>Tilmeld</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
