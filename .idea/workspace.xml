@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f18cc3af-dc32-451a-b9cb-d458687bfe6b" name="Changes" comment="Can now add team and field through admin panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/model/DateFormatter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/components/RightColumn.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addEvent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addNews.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/addTraining.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/editNewsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/fbcmanager-frontend/src/pages/adminPanel/editNewsPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +28,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

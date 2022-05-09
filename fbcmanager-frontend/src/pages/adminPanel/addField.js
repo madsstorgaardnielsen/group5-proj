@@ -6,12 +6,11 @@ import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../scss/adminPanel.scss";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
-
 
 function AddField () {
     const navigate = useNavigate()
@@ -47,7 +46,6 @@ function AddField () {
             }
         });
     }
-
 
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -126,6 +124,5 @@ function AddField () {
             </div>
         </div>
     );
-};
-
+}
 export default AddField;

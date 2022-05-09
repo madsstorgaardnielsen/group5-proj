@@ -6,12 +6,11 @@ import ProfileColumn from "../../components/ProfileColumn";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../scss/adminPanel.scss";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
-
 
 function AddTeam () {
     const navigate = useNavigate()
@@ -42,7 +41,6 @@ function AddTeam () {
             }
         });
     }
-
 
     function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -108,6 +106,5 @@ function AddTeam () {
             </div>
         </div>
     );
-};
-
+}
 export default AddTeam;
