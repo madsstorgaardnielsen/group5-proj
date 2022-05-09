@@ -8,7 +8,7 @@ public class User : IdentityUser, IEntity {
     public string City { get; set; }
     public string Zip { get; set; }
     public string Street { get; set; }
-    public DateOnly Birthdate { get; set; }
+    public DateTime Birthdate { get; set; }
     public string TeamId { get; set; }
     public Team Team { get; set; }
     public List<Practise> Practises { get; set; } = new();

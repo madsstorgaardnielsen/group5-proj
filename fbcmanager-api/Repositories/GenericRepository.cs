@@ -34,7 +34,7 @@ public abstract class GenericRepository<TEntity, TContext> : IGenericRepository<
     }
 
     public async Task<List<TEntity>> GetAll(CancellationToken ct) {
-        return await _context.Set<TEntity>().ToListAsync(ct);
+        return await _context.Set<TEntity>().AsNoTracking().ToListAsync(ct);
     }
 
     public async Task<TEntity> Update(TEntity entity, CancellationToken ct) {

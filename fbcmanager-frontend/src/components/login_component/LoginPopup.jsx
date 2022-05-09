@@ -21,7 +21,6 @@ const LoginPopup = () => {
     axios
       .post("http://130.225.170.74:80/api/Auth/login", loginObj)
       .then((res) => {
-        // console.log(res.status);
         localStorage.setItem("token", res.data["token"]);
         close(true);
       })

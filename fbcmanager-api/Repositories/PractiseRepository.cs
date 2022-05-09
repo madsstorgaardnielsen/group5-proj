@@ -58,14 +58,27 @@ public class PractiseRepository : GenericRepository<Practise, DatabaseContext> {
         return null;
     }
 
-    public async Task<Practise> GetIncludeParticipants(string practiseId, CancellationToken ct) {
-        var team = await _dbContext
+    public async Task<List<Practise>> GetAllIncludeAllRelations(CancellationToken ct) {
+        var practises = await _dbContext
+            .Practises
+            .Include(x => x.Team)
+            .Include(x => x.Field)
+            .ToListAsync(ct);
+
+
+        return practises;
+    }
+
+    public async Task<Practise> GetIncludeAllRelations(string practiseId, CancellationToken ct) {
+        var practises = await _dbContext
             .Practises
             .Where(x => x.Id == practiseId)
             .Include(x => x.Participants)
+            .Include(x => x.Team)
+            .Include(x => x.Field)
             .SingleOrDefaultAsync(ct);
 
 
-        return team;
+        return practises;
     }
 }

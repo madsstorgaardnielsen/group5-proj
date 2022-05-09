@@ -16,6 +16,7 @@ public class PractiseController : ControllerBase {
     private readonly ILogger<PractiseController> _logger;
     private readonly IMapper _mapper;
     private readonly PractiseRepository _practiseRepository;
+
     private readonly TokenUtils _tokenUtils;
 
     public PractiseController(IMapper mapper, PractiseRepository practiseRepository, TokenUtils tokenUtils,
@@ -121,7 +122,7 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractise(string practiseId, CancellationToken ct) {
-        var practise = await _practiseRepository.GetIncludeParticipants(practiseId, ct);
+        var practise = await _practiseRepository.GetIncludeAllRelations(practiseId, ct);
 
         if (practise != null) {
             var result = _mapper.Map<PractiseDTO>(practise);
@@ -137,7 +138,8 @@ public class PractiseController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPractises(CancellationToken ct) {
-        var practises = await _practiseRepository.GetAll(ct);
+        var practises = await _practiseRepository.GetAllIncludeAllRelations(ct);
+
         var results = _mapper.Map<IList<PractiseDTO>>(practises).OrderBy(x => x.Date).ToList();
         if (results.Count > 0) {
             return Ok(results);
