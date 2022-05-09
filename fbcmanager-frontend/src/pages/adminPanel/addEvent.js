@@ -28,11 +28,13 @@ npm install @mui/x-date-pickers
 npm i date-fns
 */}
 
-function AdminPanel () {
+function AddEvent () {
     const navigate = useNavigate()
     const navBack = () => {
         navigate('/adminPanel')
     }
+
+    const [FieldList, setFieldList] = React.useState('');
 
     const [Header, setHeaderInput] = React.useState('');
     const handleHeaderInputChange = event => {
@@ -59,11 +61,18 @@ function AdminPanel () {
         setPrice({ ...Price, [prop]: event.target.value });
     };
 
+    const token = localStorage.getItem("token");
+
+    React.useEffect(() => {
+        axios.get("http://130.225.170.74:80/api/Field", {headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+            setFieldList(response.data)
+        })},[]);
+
     function addToDB(e, startDate, endDate, location, header, description, price) {
         e.preventDefault();
         let startTime = startDate.getHours() + ':' + startDate.getMinutes() + ':' + "00";
         let endTime = endDate.getHours() + ':' + endDate.getMinutes() + ':' + "00";
-        const token = localStorage.getItem("token");
 
         const object = {
             "header": header,
@@ -93,6 +102,8 @@ function AdminPanel () {
 
     const [submitPressed,setSubmitPressed]=React.useState(false)
     const [waiting,setWaiting]=React.useState(false)
+
+    let myFieldList = Array.from(FieldList)
 
     return (
         <div>
@@ -144,10 +155,9 @@ function AdminPanel () {
                                         onChange={handleChangeField}
                                         style={{backgroundColor: "white"}}
                                     >
-                                        <MenuItem value={1}>A</MenuItem>
-                                        <MenuItem value={2}>B</MenuItem>
-                                        <MenuItem value={3}>C2</MenuItem>
-                                        <MenuItem value={4}>Klubhuset</MenuItem>
+                                        {myFieldList.map((field) =>
+                                            <MenuItem value={field.id} > {field.fieldName} </MenuItem>
+                                        )}
                                     </Select>
                                 </FormControl>
 
@@ -225,4 +235,4 @@ function AdminPanel () {
     );
 };
 
-export default AdminPanel;
+export default AddEvent;
