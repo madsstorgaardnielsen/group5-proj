@@ -43,7 +43,7 @@ export default function TeamDetailsTable() {
 
   return (
     <div>
-      <div><h1>{teamname}</h1></div>
+      <div><h1>{teamname} medlemmer</h1></div>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -54,7 +54,7 @@ export default function TeamDetailsTable() {
           </TableHead>
           <TableBody>
             {teammembers.map((members) => (
-              <Row key={members.id} row={members} />
+              <Row key={members.firstname+members.lastname} row={members} />
             ))}
           </TableBody>
         </Table>

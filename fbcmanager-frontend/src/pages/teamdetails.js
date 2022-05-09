@@ -14,7 +14,6 @@ export default function TeamDetails(){
         </Helmet>
         <Navbar />
         <div className="body">
-          <h1>Team information</h1>
           <TeamDetailsTable />
         </div>
       </div>
