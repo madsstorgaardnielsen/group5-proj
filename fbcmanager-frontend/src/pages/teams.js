@@ -13,7 +13,7 @@ export default function Teams() {
       </Helmet>
       <Navbar />
       <div className="body">
-        <h1>Teams</h1>
+        <h1>Alle Teams</h1>
         <CollapsibleTable />
       </div>
     </div>
