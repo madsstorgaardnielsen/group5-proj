@@ -6,9 +6,9 @@ import axios from "axios";
 
 
 
-/*
-var token = localStorage.getItem("token");
 
+var token = localStorage.getItem("token");
+/*
 export function Practises() {
     const [training, setTraining] = React.useState([]);
 
@@ -30,6 +30,7 @@ export function Practises() {
     return [training]
 }
 */
+
 
 class Calendar extends Component {
 
