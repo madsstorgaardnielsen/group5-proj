@@ -8,20 +8,17 @@ import {Helmet} from 'react-helmet';
 import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
-import {getFullDate, getFullDateDash} from "../model/DateFormatter";
+import {getFullDateDash} from "../model/DateFormatter";
+import LoginPopup from "../components/login_component/LoginPopup";
 
-//const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
 const url = "http://130.225.170.74"
-var currentUserId = ""; //"a1b0e52b-aab3-4e20-bbf3-ca57caa74c80" //for testing
-var firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
+var currentUserId, firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
 var token = localStorage.getItem("token");
-let isLoggedIn = true;
 
 const tokenizedAxios = axios.create({
     baseURL: url,
     headers: {
-        Authorization: `Bearer ${token}` //token from browser
-        //Authorization: 'Bearer ' + current_jwt_token //variable token
+        Authorization: `Bearer ${token}` //JWT token from browser
     }
 })
 
@@ -77,27 +74,23 @@ const handlePhoneNumberChange = (event) => {
 // Handler for user birthdate change event
 const handleBirthdayChange = (event) => {
     const eventVal = event.target.value
-    //birthdate = eventVal
-    //console.log("Birthdate_YYYY-MM-DD: " + birthdate)
-
-    // Change date format from YYYY-MM-DDTHH-MM-SS to YYYY-MM-DD
-    birthdate = getFullDateDash(eventVal)
+    birthdate = getFullDateDash(eventVal) // Change date format from YYYY-MM-DDTHH-MM-SS to YYYY-MM-DD
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
 
 //Create new user to db
 function postUser() {
     var object = {
-        "firstname": "Endeligst",
-        "lastname": "Virkerst",
-        "city": "DetNust",
-        "zip": "Taas",
-        "street": "Skæbnest",
-        "birthdate": "1/3/1999",
+        "firstname": "Name",
+        "lastname": "Surname",
+        "city": "Cityname",
+        "zip": "1234",
+        "street": "Roadname 25",
+        "birthdate": "1995-12-21",
         "teamid": "",
-        "email": "1342",
-        "PhoneNumber": "15312312",
-        "Password": "strint125123",
+        "email": "danny",
+        "PhoneNumber": "1324132413",
+        "Password": "string125123",
         "roles": [
             "Admin"
         ]
@@ -114,16 +107,11 @@ function postUser() {
 // Edit user information
 function editUser() {
 
-    if (birthdate === null) { // Currently there is an issue with birthdate not being loaded from api. This fixes a potential missing date
-        birthdate = "01/01/2022";
-    }
-
     //Detect if fields have been filled correctly before attempting api call
     if (firstName === null || firstName === "" || surName === null || surName === "" || city === null || city === "" || email === null || email === "" || street === null || street === "" || zip === null || zip === "" || PhoneNumber === null || PhoneNumber === "") {
         alert("Every field needs to be filled out");
         return;
     }
-
 
     var object = {
         "id": currentUserId,
@@ -151,20 +139,9 @@ function editUser() {
     })
 }
 
-function testthis() {
-    if (isLoggedIn) {
-        //alert("this");
-        return;
-    }
-}
 
 export default class Profil extends React.Component {
-    /*if (isLoggedIn) {
-        alert("this");
-        return;
-    }
 
-     */
     state = {
         persons: [],
         name: String
@@ -194,25 +171,8 @@ export default class Profil extends React.Component {
                 document.getElementById("inputPhone").defaultValue = persons.phoneNumber;
                 PhoneNumber = persons.phoneNumber;
 
-                /*
-                var date2 = new Date('01-01-1995')
-                var testingtime = '1990-10-10'
-                var third = getFullDateDash(persons.birthdate)
-                console.log("Third date:" + third)
-                document.getElementById("inputBirthdate").defaultValue = third// ='2015-12-22'; THIS WORKS
-
-
-                 */
                 birthdate = getFullDateDash(persons.birthdate);
                 document.getElementById("inputBirthdate").defaultValue = birthdate;
-
-                //var date = getFullDate(persons.birthdate)
-                //var date1 = new Date(date)
-                //document.getElementById("inputBirthdate").defaultValue = date1;
-                //birthdate = date1;
-
-                //document.getElementById("inputBirthdate").defaultValue = persons.birthdate;
-                //birthdate = persons.birthdate;
 
                 this.render()
 
@@ -227,9 +187,56 @@ export default class Profil extends React.Component {
 
 
     render() {
-        if (isLoggedIn){
-            //alert("this");
-        } else {}
+
+        if (token == null){ //user is not logged in
+            return (
+                <div>
+                    <Helmet>
+                        <title>Profile | NemSport</title>
+                    </Helmet>
+
+                    <Navbar/>
+
+                    <div className="profile-info">
+
+                        <div>
+                            {}
+                            <section>
+
+                                <form>
+                                    <div className="centerStat">
+                                        <h4>You need to login to access this page<br/>
+                                            Please login or create a new user</h4>
+                                    </div>
+                                </form>
+
+                                <span>
+
+                            <div className="tilmeldBtn">
+                                <button type="submit" className="btn btn-primary-lg">
+                                   <LoginPopup/>
+                                </button>
+
+                                &nbsp;
+
+                                <a href="/signup"><button type="submit" className="btn btn-primary-lg">
+                                    <button className="headerTilmeld">Sign up</button>
+                                </button></a>
+                            </div>
+
+                            <span>{""}</span>
+
+                        </span>
+
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // User is logged in
         return (
             <div>
                 <Helmet>
