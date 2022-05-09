@@ -3,8 +3,10 @@ import React from "react";
 import axios from "axios";
 
 export const getAll = async () => {
-  return await axios.get("http://localhost:8080/all");
-  //axios.get("http://localhost:8080/all").then((r) => console.log(r.data));
+  var token = localStorage.getItem("token");
+  return await axios.get("http://130.225.170.74:80/api/User/", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 export const updateUser = async (userObj) => {
