@@ -63,6 +63,9 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
         builder.Entity<Team>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
+        builder.Entity<Team>()
             .HasMany(x => x.TeamMembers)
             .WithOne(x => x.Team)
             .OnDelete(DeleteBehavior.SetNull);
@@ -74,10 +77,21 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<News>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
-
+        builder.Entity<News>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
+        
+        
         builder.Entity<Booking>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
+
+
+        builder.Entity<Booking>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
+            
+        
         builder.Entity<Booking>()
             .HasOne(x => x.Team)
             .WithMany(x => x.Bookings)
@@ -87,6 +101,11 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
         builder.Entity<Event>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
+        
+        builder.Entity<Event>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
+        
         builder.Entity<Event>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Events);
@@ -94,11 +113,18 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole, string> {
 
         builder.Entity<Field>().Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Entity<Field>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
+        
+        builder.Entity<Field>()
             .HasMany(x => x.Bookings)
             .WithOne(x => x.Field)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.Entity<Practise>().Property(e => e.Id).ValueGeneratedOnAdd();
+        builder.Entity<Practise>()
+            .Property(e => e.Timestamp)
+            .IsRowVersion();
         builder.Entity<Practise>()
             .HasMany(x => x.Participants)
             .WithMany(x => x.Practises);

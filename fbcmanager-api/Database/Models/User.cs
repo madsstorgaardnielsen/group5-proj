@@ -13,4 +13,5 @@ public class User : IdentityUser, IEntity {
     public Team Team { get; set; }
     public List<Practise> Practises { get; set; } = new();
     public List<Event> Events { get; set; } = new();
+    public byte[] Timestamp { get; set; }
 }

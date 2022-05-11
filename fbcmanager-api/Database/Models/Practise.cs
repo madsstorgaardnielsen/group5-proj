@@ -8,4 +8,5 @@ public class Practise : IEntity {
     public Field Field { get; set; }
     public DateTime Date { get; set; }
     public List<User> Participants { get; set; } = new();
+    public byte[] Timestamp { get; set; }
 }

@@ -12,4 +12,5 @@ public class Event : IEntity {
     public DateTime To { get; set; }
     public double Price { get; set; }
     public List<User> Participants { get; set; } = new();
+    public byte[] Timestamp { get; set; }
 }

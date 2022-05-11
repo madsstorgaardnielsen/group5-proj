@@ -10,4 +10,5 @@ public class Booking : IEntity {
     public string TeamId { get; set; }
     public DateTime BookedFrom { get; set; }
     public DateTime BookedTo { get; set; }
+    public byte[] Timestamp { get; set; }
 }

@@ -6,4 +6,5 @@ public class News : IEntity {
     public string Header { get; set; }
     public string Subheader { get; set; }
     public string Content { get; set; }
+    public byte[] Timestamp { get; set; }
 }

@@ -6,4 +6,5 @@ public class Team : IEntity {
     public List<Practise> Practises { get; set; } = new();
     public List<User> TeamMembers { get; set; } = new();
     public List<Booking> Bookings { get; set; } = new();
+    public byte[] Timestamp { get; set; }
 }

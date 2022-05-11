@@ -6,4 +6,5 @@ public class Field : IEntity {
     public string Location { get; set; }
     public List<Practise> Practises { get; set; }
     public List<Booking> Bookings { get; set; }
+    public byte[] Timestamp { get; set; }
 }
