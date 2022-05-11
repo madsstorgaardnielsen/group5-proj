@@ -35,6 +35,7 @@ public class BookingController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteBooking([FromBody] BookingDTO bookingDTO, CancellationToken ct) {
+        _logger.LogInformation($"Init delete booking attempt");
         var token = await HttpContext.GetTokenAsync("Bearer", "access_token");
         var idFromToken = _tokenUtils.GetUserIdFromToken(token);
 
