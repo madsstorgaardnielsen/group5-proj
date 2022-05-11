@@ -1,6 +1,5 @@
 using fbcmanager_api.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using X.PagedList;
 
 namespace fbcmanager_api.Repositories;
 
