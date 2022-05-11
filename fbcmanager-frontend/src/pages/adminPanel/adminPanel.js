@@ -64,6 +64,5 @@ function AdminPanel () {
             </div>
         </div>
     );
-};
-
+}
 export default AdminPanel;

@@ -7,6 +7,8 @@ This is a joint project made spring 2022 in DTU courses:
 The project is a sports application, in which it is possible to check news, sign up to events etc. 
 The deployed backend project can be accessed at http://130.225.170.74/
 
+In directory "fbcmanager-api" is the backend project, and in "fbcmanager-frontend", the frontend project.
+
 Project is made by Group 05:
 * Mads Storgaard-Nielsen - S180076
 * Marie Seindal - S185363

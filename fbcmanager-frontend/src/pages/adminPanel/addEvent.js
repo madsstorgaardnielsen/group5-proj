@@ -155,7 +155,6 @@ function AddEvent () {
                                         )}
                                     </Select>
                                 </FormControl>
-
                                 {/* Time */}
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DesktopDatePicker
@@ -181,7 +180,6 @@ function AddEvent () {
                                                                             style={{backgroundColor: "white"}}/>}
                                     />
                                 </LocalizationProvider>
-
                                 {/* Price */}
                                 <FormControl fullWidth sx={{ m: 1 }} variant="filled">
                                     <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
@@ -193,7 +191,6 @@ function AddEvent () {
                                         style={{backgroundColor: "white"}}
                                     />
                                 </FormControl>
-
                             </Stack>
                         </Box>
 
@@ -219,15 +216,12 @@ function AddEvent () {
                             Opret
                         </Button>
                     </div>
-
                     <div className="main-grid-item">
                         <ProfileColumn />
                     </div>
-
                 </div>
             </div>
         </div>
     );
-};
-
+}
 export default AddEvent;

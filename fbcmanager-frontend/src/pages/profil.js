@@ -8,101 +8,87 @@ import {Helmet} from 'react-helmet';
 import ImagePopup from "../components/imageChange_component/ImagePopup";
 import PasswordPopup from "../components/pwChange_component/PasswordPopup";
 import axios from 'axios';
+import {getFullDateDash} from "../model/DateFormatter";
+import LoginPopup from "../components/login_component/LoginPopup";
 
-const current_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQURNSU4iLCJpZCI6Ii0xIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE2NTI1NDEwMzMsImlzcyI6ImVtcy1hcGkifQ.JXNqeSD58tjdb6QpF7HGiZmm08P8Tm5rcu2zP9DRPH0"
 const url = "http://130.225.170.74"
-const currentUserId = "37d1c224-ac62-400f-b692-0808fb212022"
-var firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
+var currentUserId, firstName, surName, city, zip, street, birthdate, email, PhoneNumber = "";
 var token = localStorage.getItem("token");
 
 const tokenizedAxios = axios.create({
     baseURL: url,
     headers: {
-        //Authorization: 'Bearer  + ${token}'//token from browser
-        Authorization: 'Bearer ' + current_jwt_token //variable token
+        Authorization: `Bearer ${token}` //JWT token from browser
     }
 })
 
 // Handler for user first name change event
 const handleFirstNameChange = (event) => {
-    const eventVal = event.target.value
-    firstName = eventVal
+    firstName = event.target.value
     console.log("First name: " + firstName)
 }
 
 // Handler for user surname change event
 const handleSurnameChange = (event) => {
-    const eventVal = event.target.value
-    surName = eventVal
+    surName = event.target.value
     console.log("Surname: " + surName)
 }
 
 // Handler for user city change event
 const handleCityChange = (event) => {
-    const eventVal = event.target.value
-    city = eventVal
+    city = event.target.value
     console.log("City: " + city)
 }
 
 // Handler for user zip code name change event
 const handleZipChange = (event) => {
-    const eventVal = event.target.value
-    zip = eventVal
+    zip = event.target.value
     console.log("Zip: " + zip)
 }
 
 // Handler for user address street and no. change event
 const handleStreetChange = (event) => {
-    const eventVal = event.target.value
-    street = eventVal
+    street = event.target.value
     console.log("Street: " + street)
 }
 
 // Handler for user email change event
 const handleEmailChange = (event) => {
-    const eventVal = event.target.value
-    email = eventVal
+    email = event.target.value
     console.log("Email: " + email)
 }
 
 // Handler for user phone number change event
 const handlePhoneNumberChange = (event) => {
-    const eventVal = event.target.value
-    PhoneNumber = eventVal
+    PhoneNumber = event.target.value
     console.log("PhoneNumber: " + PhoneNumber)
 }
 
 // Handler for user birthdate change event
 const handleBirthdayChange = (event) => {
     const eventVal = event.target.value
-    //birthdate = eventVal
-    //console.log("Birthdate_YYYY-MM-DD: " + birthdate)
-    // Change date format from YYYY-MM-DD to DD/MM/YYYY
-    let year = eventVal.slice(0, 4)
-    let month = eventVal.slice(5, 7)
-    let day = eventVal.slice(8, 10)
-    birthdate = day + '/' + month + '/' + year
+    birthdate = getFullDateDash(eventVal) // Change date format from YYYY-MM-DDTHH-MM-SS to YYYY-MM-DD
     console.log("Birthdate_DD/MM/YYYY: " + birthdate)
 }
 
 //Create new user to db
 function postUser() {
     var object = {
-        "firstname": "Endeligst",
-        "lastname": "Virkerst",
-        "city": "DetNust",
-        "zip": "Taas",
-        "street": "Skæbnest",
-        "birthdate": "1/3/1999",
+        "firstname": "Name",
+        "lastname": "Surname",
+        "city": "Cityname",
+        "zip": "1234",
+        "street": "Roadname 25",
+        "birthdate": "1995-12-21",
         "teamid": "",
-        "email": "1342",
-        "PhoneNumber": "15312312",
-        "Password": "strint125123",
+        "email": "danny",
+        "PhoneNumber": "1324132413",
+        "Password": "string125123",
         "roles": [
             "Admin"
         ]
     }
-    tokenizedAxios.post("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request
+    tokenizedAxios.post(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from post request - "http://130.225.170.74/api/User/"
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -114,16 +100,11 @@ function postUser() {
 // Edit user information
 function editUser() {
 
-    if (birthdate === null) { // Currently there is an issue with birthdate not being loaded from api. This fixes a potential missing date
-        birthdate = "01/01/2022";
-    }
-
     //Detect if fields have been filled correctly before attempting api call
     if (firstName === null || firstName === "" || surName === null || surName === "" || city === null || city === "" || email === null || email === "" || street === null || street === "" || zip === null || zip === "" || PhoneNumber === null || PhoneNumber === "") {
         alert("Every field needs to be filled out");
         return;
     }
-
 
     var object = {
         "id": currentUserId,
@@ -142,7 +123,7 @@ function editUser() {
         ]
     }
     console.log(object)
-    tokenizedAxios.put("http://130.225.170.74/api/User/", object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request
+    tokenizedAxios.put(`/api/User/`, object).then((response) => console.log(response.data)).catch(function (error) { //respone contains the data from put request - "http://130.225.170.74/api/User/"
         if (error.response) { //if error occurs, print error info
             console.log(error.response.data.title);
             console.log(error.response.status);
@@ -153,16 +134,20 @@ function editUser() {
 
 
 export default class Profil extends React.Component {
+
     state = {
         persons: [],
         name: String
     }
 
     componentDidMount() {
-        tokenizedAxios.get(`/api/User/` + currentUserId)
+        tokenizedAxios.get(`/api/User/`)// + currentUserId)
             .then(res => {
                 const persons = res.data;
                 this.setState({persons});
+
+                currentUserId = persons.id; // update user id
+                console.log("Loaded User ID: " + persons.id)
 
                 document.getElementById("inputFirstName").defaultValue = persons.firstname; //update input field
                 firstName = persons.firstname; // update variable
@@ -178,8 +163,9 @@ export default class Profil extends React.Component {
                 street = persons.street;
                 document.getElementById("inputPhone").defaultValue = persons.phoneNumber;
                 PhoneNumber = persons.phoneNumber;
-                document.getElementById("inputBirthdate").defaultValue = persons.birthdate;
-                birthdate = persons.birthdate;
+
+                birthdate = getFullDateDash(persons.birthdate);
+                document.getElementById("inputBirthdate").defaultValue = birthdate;
 
                 this.render()
 
@@ -192,7 +178,58 @@ export default class Profil extends React.Component {
         })
     }
 
+
     render() {
+
+        if (token == null) {//null){ //user is not logged in
+            return (
+                <div>
+                    <Helmet>
+                        <title>Profile | NemSport</title>
+                    </Helmet>
+
+                    <Navbar/>
+
+                    <div className="profile-info">
+
+                        <div>
+                            {}
+                            <section>
+
+                                <form>
+                                    <div className="centerStat">
+                                        <h4>You need to login to access this page<br/>
+                                            Please login or create a new user</h4>
+                                    </div>
+                                </form>
+
+                                <span>
+
+                            <div className="tilmeldBtn">
+                                <button type="submit" className="btn btn-primary-lg">
+                                   <LoginPopup/>
+                                </button>
+
+                                &nbsp;
+
+                                <a href="/signup"><button type="submit" className="btn btn-primary-lg">
+                                    <button className="headerTilmeld">Sign up</button>
+                                </button></a>
+                            </div>
+
+                            <span>{""}</span>
+
+                        </span>
+
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // User is logged in
         return (
             <div>
                 <Helmet>
@@ -256,7 +293,7 @@ export default class Profil extends React.Component {
                                     <div className="form-group col-md-6">
                                         <label htmlFor="inputAddress">Phone no.</label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             className="form-control"
                                             id="inputPhone"
                                             placeholder=""
@@ -302,19 +339,19 @@ export default class Profil extends React.Component {
                                     </div>
 
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="inputBirthdate">Birthday</label>
+                                        <label htmlFor="inputBirthdate">Birthdate</label>
                                         <input
                                             type="date"
                                             className="form-control"
                                             id="inputBirthdate"
                                             onChange={handleBirthdayChange}
+                                            //value='2019-12-22'
+
                                             //placeholder={2000-11-11}
                                             //value={2000/11/11}
                                         />
                                     </div>
-
                                 </div>
-
                             </form>
 
                             <span>
@@ -350,8 +387,6 @@ export default class Profil extends React.Component {
                             <div className="centerStat">
                                 <p id={"numpractices_no"}>18 </p>
                             </div>
-
-                            <span></span>
 
                         </section>
 

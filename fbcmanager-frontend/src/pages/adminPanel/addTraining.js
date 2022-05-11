@@ -113,7 +113,7 @@ function AddTraining () {
                             <Stack spacing={3}>
                                 <h6>Udfyld følgende</h6>
 
-                                {/* Hold */}
+                                {/* Team */}
                                 <FormControl className="itemSelect" variant="filled" sx={{m: 1, width: 150}}>
                                     <InputLabel>Hold</InputLabel>
                                     <Select
@@ -131,7 +131,7 @@ function AddTraining () {
                                     </Select>
                                 </FormControl>
 
-                                {/* Bane */}
+                                {/* Field */}
                                 <FormControl className="itemSelect" variant="filled" sx={{m: 1, width: 150}}>
                                     <InputLabel>Bane</InputLabel>
                                     <Select
@@ -149,7 +149,7 @@ function AddTraining () {
                                     </Select>
                                 </FormControl>
 
-                                {/* Tid */}
+                                {/* Time/date */}
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DesktopDatePicker
                                         label="Dato"
@@ -207,15 +207,12 @@ function AddTraining () {
                         </Button>
 
                     </div>
-
                     <div className="main-grid-item">
                         <ProfileColumn/>
                     </div>
-
                 </div>
             </div>
         </div>
     );
-};
-
+}
 export default AddTraining;
